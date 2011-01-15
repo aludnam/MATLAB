@@ -1,0 +1,46 @@
+function plotHopComp(dataName, pth, app)
+if nargin <3
+    app = [];
+end
+load ([pth '/' dataName '/' dataName '.mat']);
+cd ([pth '/' dataName '/'])
+
+Bins = [0:0.01:1];
+% colorData = get(gca,'ColorOrder');
+colorData = 'brgkm';
+selected = [1 2 3];
+m=10;
+Na = size(HopD,1);
+close all
+
+for ll=1:Na
+    kk = selected(ll);
+    hold on
+    kks = num2str(kk);
+    if ll<Na
+        [p1, xH, gd(ll,:), residD(ll,:)] = plotHopkins(HopD(kk,:) ,Bins, m, colorData(ll), ['ROI' kks] ,0);
+    else
+        [p1, xH, gd(ll,:), residD(ll,:)] = plotHopkins(HopD(kk,:) ,Bins, m, colorData(ll), ['ROI' kks] ,1);
+    end
+end
+hold off
+alpha(.3)
+SaveImageFULL(['Hop' app],'fp');
+
+% plot residuals
+figure
+for ll=1:Na
+    kk = selected(ll);
+    hold on
+    kks = num2str(kk);
+    if ll<Na
+        plotResidHopkins(xH ,residD (ll, :), ['x' colorData(ll)], ['ROI' kks] ,0);
+    else
+        plotResidHopkins(xH ,residD (ll, :), ['x' colorData(ll)], ['ROI' kks] ,1);
+    end
+end
+
+hold off
+SaveImageFULL(['HopRes' a],'fp');
+cd(pth);
+clear

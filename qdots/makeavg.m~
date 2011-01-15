@@ -1,0 +1,10 @@
+function dpixc = makeavg(dpixc_ind, blinkmat, offset, avg)
+% dpixc = makeavg(dpixc_ind, blinkmat, offset, avg)      
+dpixc_nonoise = array2im(dpixc_ind'*blinkmat + offset);
+dpixc_dip = newim(dpix_nonoise);
+for ii=1:avg
+    dpixc_dip = dpixc_dip + noise(dpixc_nonoise,'poisson');    
+end
+navg=max(1,avg)
+dpixc = double(dpixc_dip/avg);
+

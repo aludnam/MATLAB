@@ -1,0 +1,20 @@
+function halfMax = plotThreshData (a0_phot)
+nx = 100;
+
+maxa = max(a0_phot);
+mina = min(a0_phot);
+halfMax(2) = (maxa - mina)/2;
+
+thrstep = (maxa - mina)/nx;
+
+for ii = 1 : nx+1
+    x(ii) = (ii-1)*thrstep; 
+    npoints(ii) = size(find(a0_phot > x(ii)), 2);
+end
+
+plot (x, npoints)
+set(gca,'FontSize',16)
+xlabel('threshold [photons]','FontSize',16);
+ylabel('number of points','FontSize',16);
+grid on
+title('Number of points above the intensity threshod', 'FontSize',16);

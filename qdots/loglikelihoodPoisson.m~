@@ -1,0 +1,13 @@
+function d = loglikelihoodPoisson(A,B)
+% d = ddivergence(A,B);
+    dm = A .* log (B) - B - log() + B;
+    d = sum(dm(:));
+% d = sum(sum(A .* log (A./B))); %KLdiv
+end
+
+L(WHjV ) =
+XM
+i=1
+XT
+j=1
+[Vij log(WH)ij ? (WH)ij ? log(Vij !)]

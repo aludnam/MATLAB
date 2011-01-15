@@ -1,0 +1,14 @@
+function copyscript(source, source_app, destination, destination_app)
+% copyscript(source, source_app, destination, destination_app)
+
+dest_dir = ['../' destination];
+mkdir(dest_dir);
+fprintf('Making directory: %s',dest_dir
+
+copyfile ([source source_app], [dest_dir '/' destination destination_app])
+fprintf('Copying file %s to %s\n' , [source source_app], [dest_dir '/' destination destination_app]);
+if exist('params.m', 'file')
+    copyfile ('params.m', [dest_dir '/params.m'])
+    fprintf('Copying parameters\n');
+end
+

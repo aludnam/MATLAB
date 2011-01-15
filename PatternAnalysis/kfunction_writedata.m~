@@ -1,0 +1,45 @@
+function kfunction_writedata (xK, K, KNMax, KNMin, p,  filename) 
+%  
+
+fid = fopen([filename '.txt'],'wt');
+fprintf(fid,'Computation: %s \n\n', datestr(now));
+
+fprintf(fid,'Parameters:\n');
+
+
+fn =fieldnames(p);
+for ii = 1: length(fn)
+    name = fn{ii};
+    value = getfield(p,fn{ii});
+    if ischar (value)
+        fprintf (fid, [name ' = ' value '\n']);
+    else
+        fprintf (fid, [name ' = %g \n'], value);
+    end   
+end
+fprintf (fid,'\nK function: \n');
+fprintf (fid,'xK \t\t\t K \n');
+fprintf (fid,'------------------\n');
+
+for ii=1:length(K)
+    fprintf (fid,'%-8.3f \t %-8.3f \n', xK(ii), K(ii));
+end
+
+fclose(fid);
+
+if ~empty(KNMin)
+    fid = fopen([filename '_envelope_Min.txt'],'wt');
+    fprintf(fid,'Computation: %s \n\n', datestr(now));
+    fprintf(fid,'Minimum of %g simulations of Poisson process\n\n', p.Nsimul);
+    fprintf (fid,'xK \t\t\t min K \n');
+    fprintf (fid,'------------------\n');    
+    for ii=1:length(K)
+        fprintf (fid,'%-8.3f \t %-8.3f \n', xK(ii), KNmax(ii));
+    end
+end
+
+fclose(fid);
+
+    
+
+    

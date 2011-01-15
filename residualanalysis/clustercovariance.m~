@@ -1,0 +1,4 @@
+ccd = (corrcoef(dveccr'));  
+ccds=squareform(1-ccd);
+Z = linkage(ccds,'average');
+[H,T,perm] = dendrogram(Z,0, 'colorthreshold',0.3);

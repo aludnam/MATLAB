@@ -1,0 +1,51 @@
+function plotHopCompDiff(HopD,serName, pthRes, app)
+% plotHopComp(HopD,namesData, nameRes, pthRes, app)
+% plots comparison of Hopkins statistics - stored in matrix HopD prepared
+% by function makeHopCompDiff.m
+% HopD - N x M matrix N - numeber of data sets, M - numebr of points in
+% Hopkins stat
+% serName - cell with name of data
+% path to folder where figures will be stored.
+% app - appedndix to default names of figures
+
+if nargin < 4
+    app = [];
+end
+
+cd (pthRes)
+
+Bins = [0:0.01:1];
+
+colorData = 'brgkmy';
+m=10;
+Na = size(HopD,1);
+close all
+
+for ll=1:Na
+    indexStyle = ceil(ll/6); %there is 6 colors...
+    indexColor = 
+    hold on
+    if ll<Na
+        [p1, xH, gd(ll,:), residD(ll,:)] = plotHopkinsLine(HopD(ll,:) ,Bins, m, [styleData colorData(ll)], serName{ll} ,0);
+    else
+        [p1, xH, gd(ll,:), residD(ll,:)] = plotHopkinsLine(HopD(ll,:) ,Bins, m, colorData(ll), serName{ll} ,1);
+    end
+end
+hold off
+alpha(.3)
+SaveImageFULL(['Hop' app],'fp');
+
+% plot residuals
+figure
+for ll=1:Na
+    hold on
+    if ll<Na
+        plotResidHopkins(xH ,residD (ll, :), ['x' colorData(ll)], serName{ll} ,0);
+    else
+        plotResidHopkins(xH ,residD (ll, :), ['x' colorData(ll)], serName{ll} ,1);
+    end
+end
+
+hold off
+SaveImageFULL(['HopRes' app],'fp');
+clear

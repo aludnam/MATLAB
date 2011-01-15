@@ -1,0 +1,7 @@
+function ploterrpersep(sep, offset,errNMF,varNMF,savethis)
+q=repmat(sep', 1,length(offset));
+errorbar(repmat(sep', 1,length(offset)), errNMF', varNMF','o-')
+makelegend(offset, 'NMF offset', 'separation [pixels]', 'loc err [pixels]')
+if exist('savethis','var')
+        SaveImageFULL('NMF_err_per_sep',savethis)
+end

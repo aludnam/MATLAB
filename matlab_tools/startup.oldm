@@ -1,0 +1,7 @@
+diproot = '/usr/local/dip/toolbox';
+
+addpath([diproot,'/dipimage'],[diproot,'/diplib'],[diproot,'/dipimage/demos'],[diproot,'/dipimage/aliases'],[diproot,'/khoros'],'/usr/local/matlab_tools','-begin')
+
+dip_initialise;
+
+dipsetpref('imagefilepath','/usr/local/dip/images');

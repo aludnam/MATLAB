@@ -1,0 +1,30 @@
+function plotHopIndiv(dataName, pth)
+% pth = '/mnt/windows/Documents and Settings/Administrator/Dokumenty/MATLAB/Projekt/images/img_090626/';
+load ([pth '/' dataName '/' dataName '.mat']);
+cd ([pth '/' dataName '/'])
+
+Bins = [0:0.01:1];
+% colorData = get(gca,'ColorOrder');
+colorData = 'brgkm';
+m=10;
+Na = size(HopD,1);
+close all
+
+for kk=1:Na
+    figure
+    kks = num2str(kk);
+    [p1, xH, gd(kk,:), residD(kk,:)] = plotHopkins(HopD(kk,:) ,Bins, m, 'b', ['ROI' kks] ,1);   
+    alpha(.3)
+    SaveImageFULL(['HopIndivROI' kks],'fp');
+end
+
+% plot residuals
+figure
+for kk=1:Na
+    figure
+    kks = num2str(kk);
+    plotResidHopkins(xH ,residD (kk, :), ['xb'], ['ROI' kks] ,1);
+    SaveImageFULL(['HopResIndivROI'],'fp');
+end
+cd (pth)
+clear

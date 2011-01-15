@@ -1,0 +1,135 @@
+function plotKderivative (xK, K, plotWhat, nf, dataCol, dataName, plotT)
+% plotKderivative (xK, K, plotWhat, nf, dataCol, dataName)
+% plotWhat - string
+% k - K function
+% l - L-function
+% d - derivatives
+% c - comparisons 
+% s - simple version
+% o - in 's' compare with differece K - T and in 'p' with theory
+% p - pair correlation function
+% nf - binary - create a new figure
+% plotT = plot theory
+
+if nargin < 3 plotWhat = 'kdcsop'; end %plot all by default
+if nargin < 4 nf = 1; end 
+if nargin < 5 dataCol = []; end
+if nargin < 6 dataName = []; end
+if nargin < 7 plotT = 0; end
+if length(plotWhat) > 1 nf = 1; end % nf = 0 only when one thing is plotted 
+
+
+mK = length(K)-3;
+% mKN = length(KN)-1;
+
+% diffKN = diff(KN(1:mKN-1))./diff(xKN(1:mKN-1));
+diffK = diff(K(1:mK-1))./diff(xK(1:mK-1));
+diffT = 2*pi*xK(1:mK-2);
+T = xK.^2;
+%% K fuction compariosn with theory
+if sum(plotWhat == 'k')>0
+    plotKRes(   xK(1:mK-1), K(1:mK-1)/pi, 'K_D', 'b', ...
+        xK(1:mK-1), T(1:mK-1), 'K_T', '-.k', ...
+        [],[],[], [],...
+        'Ripley''s K', 'Ripley''s K function', 'SouthEast', ...
+        0, 0, [],[],nf);
+end
+%% L fuction compariosn with theory
+if sum(plotWhat == 'l')>0
+%     if nf==0 figure(gcf); hold on; end;
+    T = zeros(size(xK));
+    plotKRes(   xK(1:mK-1), sqrt(K(1:mK-1)/pi)-xK(1:mK-1), dataName, dataCol, ...
+        [],[],[],[],...
+        [],[],[],[],...
+        'L-function', 'L-function', 'SouthEast', ...
+        0, 0, [],[],nf);
+    grid on
+    if plotT 
+        hold on
+        plot(xK(1:mK-1), T(1:mK-1),'-.k')
+    end
+        
+end
+%% derivarives:
+if sum(plotWhat == 'd')>0
+    plotKRes(   xK(1:mK-2), diffK, 'Data dK/dx', 'r', ...
+        xK(1:mK-2), diffT, 'Theory dK/dx', '-.k', ...
+        [],[],[], [],...
+        'dK/dx', 'Derivative of K', 'SouthEast', ...
+        0, 0, [],[],nf);
+end
+
+%% K fuction compariosn with theory +derivatives
+if sum(plotWhat == 'c')>0
+    if nf figure; end
+    [AX,H1,H2] = plotyy(xK(1:mK-1),K(1:mK-1)/pi-T(1:mK-1),xK(1:mK-2),(diffK - diffT),'plot');
+    set(gca,'XTick',[1:round(xK(mK))])
+    set(get(AX(1),'Ylabel'),'String','K_{data} - K_{theory}','FontSize',16)
+    set(get(AX(2),'Ylabel'),'String','d/dx(K_{data} - K_{theory})','Color', 'r','FontSize',16)
+    % set(AX(2),'Color', 'r') ;
+    xlabel('distance', 'FontSize',16)
+    title('K function and derivative difference', 'FontSize',16)
+    
+    set(H1,'LineStyle','-', 'Color', 'b','DisplayName','K_d-K_t')
+    set(H2,'LineStyle','-', 'Color', 'r','DisplayName','derivative')
+    set(AX(1),'YColor','b','YMinorTick','on','YMinorGrid','on')
+    set(AX(2),'YColor','r','YMinorTick','on')
+    legend(gca, 'show');
+    hold on
+    plot([0:mK-2], zeros(1,mK-1),'k');
+    grid on
+    hold off
+end
+
+%% simplier version:
+if sum(plotWhat == 's')>0
+    if nf figure; end
+    if isempty(dataName) dataName = 'derivative'; end
+    if isempty(dataCol) dataCol = 'r'; end
+    hold on
+    if sum(plotWhat == 'o')>0
+        plot1 = plot(xK(1:mK-1),K(1:mK-1)/pi-T(1:mK-1),'b');
+        set(plot1,'DisplayName','K_D-K_T');
+    end
+    plot2 = plot(xK(1:mK-2),(diffK - diffT),dataCol);
+    set(plot2,'DisplayName',dataName);
+    legend(gca, 'show');
+    set(legend,'FontSize',14,'Location','SouthEast');
+    if sum(plotWhat == 'o')>0
+        plot([0:xK(mK)+1], zeros(size([0:xK(mK)+1])),'k');
+    end
+    set(gca,'XTick',[1:round(xK(mK))])
+    hold off
+    
+    set(gca,'FontSize',16)
+    xlabel('distance','FontSize',16);
+    ylabel('difference','FontSize',16);
+    grid on
+    title('Difference of derivative of K_{D} and K_{T}', 'FontSize',16);
+end
+
+%% pair correlation function
+if sum(plotWhat == 'p')>0
+    if nf figure; end
+    if isempty(dataName) dataName = 'correl'; end
+    if isempty(dataCol) dataCol = 'b'; end
+    hold on
+    % plot1 = plot(xK(1:mK-1),K(1:mK-1)/pi-T(1:mK-1),'b');
+    plot1 = plot(xK(2:mK-2), diffK(2:end) ./ (2*pi*xK(2:mK-2)),dataCol); %to avoid division by 0
+    set(plot1,'DisplayName', dataName);
+    if sum(plotWhat == 'o')>0 
+        plot2 = plot(xK(1:mK-2), ones([1,mK-2]) ,'-.k');
+        set(plot2,'DisplayName', 'Theory');
+    end
+    legend(gca, 'show');
+    set(legend,'FontSize',14,'Location','NorthEast');
+    % plot([0:xK(mK)+1], zeros(size([0:xK(mK)+1])),'k');
+    set(gca,'XTick',[1:round(xK(mK))])
+    hold off
+    
+    set(gca,'FontSize',16)
+    xlabel('distance','FontSize',16);
+    ylabel('difference','FontSize',16);
+    grid on
+    title('Pair correlation function ', 'FontSize',16);
+end

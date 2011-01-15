@@ -1,0 +1,62 @@
+function plotKRes(   plotWhat1_x, plotWhat1_y, plotWhat1_name, plotWhat1_style, ...
+                    plotWhat2_x, plotWhat2_y, plotWhat2_name, plotWhat2_style, ...
+                    plotWhat3_x, plotWhat3_y, plotWhat3_name, plotWhat3_style, ...
+                    plotWhat_ylabel, plotWhat_title, plotWhat_loc, ... 
+                    confidence, confFill, plotWhat_max,plotWhat_min, nf)%confidence intervals
+
+% plotKRes( plotWhat1_x, plotWhat1_y, plotWhat1_name, plotWhat1_style, ...
+%           plotWhat2_x, plotWhat2_y, plotWhat2_name, plotWhat2_style, ...
+%           plotWhat3_x, plotWhat3_y, plotWhat3_name, plotWhat3_style, ...
+%           plotWhat_ylabel, plotWhat_title, plotWhat_loc, ... 
+%           confidence, confFill, plotWhat_max,plotWhat_min) %confidence intervals
+% plots results of K statistics
+
+if ~exist ('nf', 'var')
+figure
+
+hold on
+rip1 = plot(plotWhat1_x, plotWhat1_y, plotWhat1_style);
+if ~isempty(plotWhat1_name)
+    set(rip1,'DisplayName',plotWhat1_name);
+    legend(gca, 'show');
+end
+
+if confidence == 0
+    if ~isempty(plotWhat2_x)
+        rip2 = plot(plotWhat2_x, plotWhat2_y,plotWhat2_style);
+        if ~isempty(plotWhat2_name)
+            set(rip2,'DisplayName',plotWhat2_name);
+            legend(gca,'off');
+            legend(gca, 'show');
+        end
+    end
+end
+
+if ~isempty(plotWhat3_x)
+    rip3 = plot(plotWhat3_x, plotWhat3_y,plotWhat3_style);
+    if ~isempty(plotWhat3_name)
+        set(rip3,'DisplayName',plotWhat3_name);
+        legend(gca,'off');
+        legend(gca, 'show');
+    end
+end
+
+set(legend,'FontSize',14,'Location',plotWhat_loc);
+
+
+if confidence 
+    if confFill
+        ciplot(plotWhat_max,plotWhat_min,plotWhat1_x,'r');
+        alpha(0.3);
+    else
+        plot(plotWhat1_x, plotWhat_max,'--r');
+        plot(plotWhat1_x, plotWhat_min,'--r');
+    end
+end
+hold off
+
+set(gca,'FontSize',16)
+xlabel('distance','FontSize',16);
+ylabel(plotWhat_ylabel,'FontSize',16);
+title(plotWhat_title);  
+hold off

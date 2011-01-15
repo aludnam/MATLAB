@@ -1,0 +1,151 @@
+function [xNN, NN, residD, avgH] = plotHopCompDiffspec2(NN,serName, serNameAvg, pthRes, app, avgVec)
+% plotHopComp(NN,namesData, nameRes, pthRes, app)
+% plots comparison of NearestNeighbors - stored in cell NN prepared
+% by function makeNNCompDiff.m
+% NN - N x 1 cell N - numeber of data sets,
+% serName - cell with name of data
+% path to folder where figures will be stored.
+% app - appedndix to default names of figures
+
+cd (pthRes)
+
+Bins = [0:0.1:5];
+Na = size(NN,1);
+
+for ll = 1:Na
+    [hNN(ll,:), xNN(ll,:)] = hist(NN{ll},Bins); %makes histograms
+    hNNnorm(ll,:) = hNN(ll,:)/trapz(xNN(ll,:),hNN(ll,:)); %normalization
+
+end
+
+colorData = 'bbbrrrrggggg';
+nc = length(colorData);
+styleData = '---';
+close all
+
+for ll=1:Na
+    indexStyle = ceil(ll/nc); %there is nc colors...
+    indexColor = mod(ll,nc);
+    if indexColor == 0 indexColor = nc; end
+    hold on
+    if ll<Na
+        [p1, xH(ll,:), H(ll,:), gd(ll,:), residD(ll,:)] = plotHopkinsLine2(NN(ll,:) ,Bins, m, [styleData(indexStyle) colorData(indexColor)], serName{ll} ,0);
+    else
+        [p1, xH(ll,:), H(ll,:), gd(ll,:), residD(ll,:)] = plotHopkinsLine2(NN(ll,:) ,Bins, m, [styleData(indexStyle) colorData(indexColor)], serName{ll} ,1);
+    end
+end
+hold off
+alpha(.3)
+SaveImageFULL(['Hop' app],'fp');
+
+% plot residuals
+figure
+for ll=1:Na
+    indexColor = mod(ll,nc);
+    if indexColor == 0 indexColor = nc; end
+    hold on
+    if ll<Na
+        plotResidHopkins(xH(ll,:) ,residD (ll, :), ['x' colorData(indexColor)], serName{ll} ,0);
+    else
+        plotResidHopkins(xH(ll,:) ,residD (ll, :), ['x' colorData(indexColor)], serName{ll} ,1);
+    end
+end
+
+hold off
+SaveImageFULL(['HopRes' app],'fp');
+
+% plot averages
+
+figure
+Navg = length(avgVec); %number of averages
+colorData = 'brg';
+nc = length(colorData);
+
+for ll=1:Navg
+    indexStyle = ceil(ll/nc); %there is nc colors...
+    indexColor = mod(ll,nc);
+    if indexColor == 0 indexColor = nc; end
+    hold on
+    n = length(avgVec{ll}); %number of data being averaged in oneaverage go
+    avgH{ll} = zeros(size(H(avgVec{ll}(1),:)));
+    avgR{ll} = zeros(size(residD(avgVec{ll}(1),:)));
+    for kk=1:n
+        avgH{ll} = avgH{ll} + H(avgVec{ll}(kk),:); %averaging the selected lines
+        avgR{ll} = avgR{ll} + residD(avgVec{ll}(kk),:); %averaging the selected residues
+    end
+    avgH{ll} = avgH{ll}/n; %averaging the selected lines
+    avgR{ll} = avgR{ll}/n; %averaging the selected residues
+    if ll<Navg
+        plotHopkinsLine2(avgH{ll} ,Bins, m, [styleData(indexStyle) colorData(indexColor)], serNameAvg{ll} ,0);
+    else
+        plotHopkinsLine2(avgH{ll} ,Bins, m, [styleData(indexStyle) colorData(indexColor)], serNameAvg{ll} ,1);
+    end
+    %fitting:
+    [pbest(ll,:), perror(ll,:), nchi(ll)] = nonlinft('betaDistrib' ,xH(ll,:),avgH{ll},1./avgH{ll},[m m-1],[1 1]);
+    
+end
+hold off
+ SaveImageFULL(['HopAvg' app],'fp');
+ 
+ % plot residuals
+figure
+for ll=1:Navg
+    indexColor = mod(ll,nc);
+    if indexColor == 0 indexColor = nc; end
+    hold on
+    if ll<Navg
+        plotResidHopkins(xH(avgVec{ll}(1),:) ,avgR{ll}, ['x' colorData(indexColor)], serNameAvg{ll} ,0);
+    else
+        plotResidHopkins(xH(avgVec{ll}(1),:) ,avgR{ll}, ['x' colorData(indexColor)], serNameAvg{ll} ,1);
+    end
+end
+hold off
+SaveImageFULL(['HopResAvg' app],'fp');
+
+%plot with fit
+figure
+styleData = 'ooo';
+for ll=1:Navg
+    indexStyle = ceil(ll/nc); %there is nc colors...
+    indexColor = mod(ll,nc);
+    if indexColor == 0 indexColor = nc; end
+    hold on
+    if ll<Navg
+        plotHopkinsLine2(avgH{ll} ,Bins, m, [styleData(indexStyle) colorData(indexColor)], serNameAvg{ll} ,0);
+    else
+        plotHopkinsLine2(avgH{ll} ,Bins, m, [styleData(indexStyle) colorData(indexColor)], serNameAvg{ll} ,1);
+    end
+end
+
+for ll=1:Navg
+    indexColor = mod(ll,nc);
+    if indexColor == 0 indexColor = nc; end
+    hold on
+    plot(xH(ll,:), betaDistrib(xH(ll,:), pbest(ll,:)), ['--' colorData(indexColor)]);
+end
+
+hold off
+SaveImageFULL(['HopAvgFit' app],'fp');
+
+p.fitpar = pbest;
+p.fiterr = perror;
+p.chi = nchi;
+writeLogData2(p, 'Fitted parameters', pthRes, 'FitParam') 
+
+%plot fit residuals
+figure
+for ll=1:Navg
+    indexColor = mod(ll,nc);
+    if indexColor == 0 indexColor = nc; end
+    hold on
+    if ll<Navg
+        plotResidHopkins(xH(avgVec{ll}(1),:) ,avgH{ll} - betaDistrib(xH(ll,:), pbest(ll,:)), ['x' colorData(indexColor)], serNameAvg{ll} ,0);
+    else
+        plotResidHopkins(xH(avgVec{ll}(1),:) ,avgH{ll} - betaDistrib(xH(ll,:), pbest(ll,:)), ['x' colorData(indexColor)], serNameAvg{ll} ,0);
+    end
+end
+hold off
+SaveImageFULL(['HopAvgFitRes' app],'fp');
+
+
+% clear

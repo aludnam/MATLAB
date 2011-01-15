@@ -1,0 +1,11 @@
+function f = gaussfunction(x,p)
+% f = gaussfunction(x,p)
+% mean = p(1)
+% std deviation (sqrt(var)) = p(2)
+normconst = 1/(sqrt(2*pi*p(2)^2))
+f = p(2)*;
+%  f = p(1).^x*exp(-p(1))./gamma(x+1);
+%  f=f/sum(f);
+
+
+

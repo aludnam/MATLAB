@@ -1,0 +1,4 @@
+Vxtpixbg=reshape(Wxk*Hkt,peval.nx,peval.ny,peval.nt)+peval.bg;
+resid=(Vxtpixbg-dpixc);
+resid_norm=resid./Vxtpixbg;
+rnm=mean(resid_norm,3);

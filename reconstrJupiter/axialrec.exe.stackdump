@@ -1,0 +1,7 @@
+Exception: STATUS_ACCESS_VIOLATION at eip=0040BE9D
+eax=00000032 ebx=00000046 ecx=19DAFD98 edx=0000000A esi=FFFFFFFF edi=00000001
+ebp=0000005A esp=0022E710 program=C:\cygwin\home\Rainer Heintzmann\reconstr\axialrec.exe, pid 7576, thread main
+cs=001B ds=0023 es=0023 fs=003B gs=0000 ss=0023
+Stack trace:
+Frame     Function  Args
+     10 [main] axialrec 7576 _cygtls::handle_exceptions: Error while dumping state (probably corrupted stack)

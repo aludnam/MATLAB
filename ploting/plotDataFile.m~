@@ -1,0 +1,41 @@
+function plotData (fileName,sizeVec,nClust,meanClust,covClust,color)
+if isempty(fileName) == 0 %there are data
+    fid = fopen(fileName,'r');
+    hold on
+    while ~feof(fid)
+        a = fscanf(fid, '%g %g', [2 1]);    % reads actual line
+        
+        
+        fclose (fid);
+    end
+%     scatter(simData(:,1), simData(:,2),1);
+end
+if nargin<6
+    color = 'r'; 
+end
+xlim([0 sizeVec(1)]); ylim([0 sizeVec(2)]);
+set(gca,'XTick',[0:100:sizeVec(1)],'XGrid','on',...
+    'YTick',[0:100:sizeVec(2)],...
+    'yGrid','on',...
+    'DataAspectRatio',[1 1 1]);
+if nargin>3 %shows means of clusters...
+    hold on
+    scatter(meanClust(:,1), meanClust(:,2),10,['+' color])
+    hold off
+end
+if nargin>4 %shown 1 standard deviation ellipses
+    tt= 0:0.1:2*pi;
+    hold on
+    for ii=1:nClust
+        [evec, e] = eig(covClust(:,:,ii));
+        %elipse in eigenbases:
+        xx=sqrt(e(1,1))*cos(tt);
+        yy=sqrt(e(2,2))*sin(tt);
+        %now rotation:
+
+        xxr = meanClust(ii,1) + evec(1,1)*xx + evec(1,2)*yy;
+        yyr = meanClust(ii,2) + evec(2,1)*xx + evec(2,2)*yy;
+        plot(xxr,yyr,color);
+    end
+    hold off
+end

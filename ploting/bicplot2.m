@@ -1,0 +1,16 @@
+function bicplot2(ncomp_vec,bicp,loglik,penalty,logliktrue)
+% function bicplot(ncomp_vec,bicp,loglik,penalty)
+figure
+[AX,H1,H2] = plotyy(repmat(ncomp_vec',1,2),[bicp',loglik'], ncomp_vec, penalty);
+set(get(AX(1),'Ylabel'),'String','BIC / log(likelihood)')
+set(get(AX(2),'Ylabel'),'String','penalty')
+hold on
+l={'BIC','log(likel)','penalty'};
+if nargin > 4
+    plot ([1,ncomp_vec(end)],repmat(-logliktrue,1,2),'--k')
+    l={'BIC','log(likel)','''true'' log(likel)','penalty'};
+end
+grid on
+xlabel('number of components')
+
+legend(l, 'Location','southeast')

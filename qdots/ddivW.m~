@@ -1,0 +1,14 @@
+function f = ddivW(Wxk_r, varargin)
+Vxt = varargin{1};  %data
+Hkt = varargin{2};  %H matrix
+Wxk=reshape()
+
+% if nc<sH   %one component wac background....
+%     bg = Hkt(sH,1)/(nx*ny);
+%     Hkt = Hkt(1:sH-1,:); %only components, no background...
+% else
+%     bg = 0;
+% end
+
+fxt = Vxt.*log(Vxt./(Wxk*Hkt))-Vxt+Wxk*Hkt; %d-divergence 
+f = sum(fxt(:));

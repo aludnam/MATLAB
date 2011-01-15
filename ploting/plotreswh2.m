@@ -1,0 +1,170 @@
+function [ihs, x_mu, y_mu, sig] = plotreswh2(res, peval, dpixc, p, savethis, tilesonly, showbg, showpoints, shownumbers, showimage)
+% function [ihs, x_mu, y_mu, sig] = plotreswh(res, peval, dpixc, p, savethis, tilesonly, showbg, showpoints, shownumbers)
+% This is just modified version of plotreswh for more recent simulations
+% (different in the way the scatter plot is made... +-1)
+% showbg = 0;
+% showpoints = 1;
+% savethis = 0;
+% tilesonly = 1;
+if ~(showbg == 1)
+    res.w = res.w(:,1:end-1);
+    res.h = res.h(1:end-1,:);
+end
+
+if ~exist('shownumbers','var')
+    shownumbers = 0;
+end
+if ~exist('showimage', 'var')
+    showimage =1; %plot the figures
+end
+
+x_mu = [];
+y_mu = [];
+sig = [];
+
+% mh = mean (res.h,2);
+% [mhs,ihs] = sort(mh,'descend');
+% sm = sum(res.w.^2,1);
+% [mhs, ihs] = sort(sm, 'descend');
+[mhs, ihs] = sortcomponents(res.w);
+% [mhs, ihs] = sortcomponents(res.h);
+% ts = testimportance(reshape(dpixc, peval.nx*peval.ny, peval.nt), res.w, res.h);
+% [mhs, ihs] = sort(ts, 'descend');
+
+hsort=res.h(ihs,:);
+wsort = res.w(:,ihs);
+if showbg > 1
+    hsort = hsort(1:showbg,:);
+    wsort = wsort(:,1:showbg);
+end
+
+
+wr = reshape(wsort,peval.nx,peval.ny,size(wsort,2));
+
+
+
+
+sw = size(wr,3);
+a = ceil(sqrt(sw));
+b = ceil(sw/a);
+maxd = max(dpixc,[],3);
+maxd = maxd/max(maxd(:));
+mwr = mean(squeeze(max(max(wr,[],1),[],2)));
+for ii=1:sw
+    [x_mu(ii), y_mu(ii), sig(ii), differ(ii)] = fitgauss2d(wr(:,:,ii));
+end
+
+if showimage
+    ca
+    if ~tilesonly
+        if savethis
+            mkdir ('w')
+        end
+        for ii=1:sw
+            %     dipshow(ii,wr(:,:,ii))
+            %     colormap('jet')
+            dipshow(wr(:,:,ii));
+            switch showpoints
+                case 0
+                    if savethis; SaveImageFULL(['w/w_' num2str(ii)]); end
+                case 1
+                    hold on
+                    scatter(p.x_vec, p.y_vec,'r')
+                    hold off
+                    if savethis; SaveImageFULL(['w/w2_' num2str(ii)]); end
+                case 2
+                    %                 mwr = max(max(wr(:,:,ii)));
+                    hold on
+                    contour(mwr*maxd)
+                    hold off
+                    if savethis; SaveImageFULL(['w/w2_' num2str(ii)]); end
+                case 3
+                    %                 mwr = max(max(wr(:,:,ii)));
+                    %                 [x_mu(ii), y_mu(ii), sig(ii), differ(ii)] = fitgauss2d(wr(:,:,ii));
+                    hold on
+                    if ~isempty(p)
+                        %                     scatter(p.x_vec+.5, p.y_vec+.5,'r')
+                        scatter(p.x_vec, p.y_vec,'r')
+                    end
+                    scatter(x_mu(ii), y_mu(ii),sig(ii)*100, 'g')
+                    hold off
+                    if savethis; SaveImageFULL(['w/w2_' num2str(ii)]); end
+            end
+            %     figure(sw+1)
+            %     subplot(a,b,ii)
+            %     imagesc(wr(:,:,ihs(ii)))
+            %     set(gca,'dataaspectratio',[1 1 1])
+            %     set(gca,'xtick',[])
+            %     set(gca,'ytick',[])
+            %     xlabel(num2str(ii))
+        end
+    end
+    
+    figure ('name','w tiled');
+    imstiled(wr,[],'gray',1)
+    suptitle('w - ordered')
+    if savethis; SaveImageFULL('w_tiled'); end
+    % if showpoints
+    %     for ii=1:size(res.w,2)-1
+    %         dipshow(ii,wr(:,:,ihs(ii+1)))
+    %         hold on
+    %         scatter(p.x_vec-.5, p.y_vec-.5,'r')
+    %         hold off
+    %         SaveImageFULL(['w/w2_' num2str(ii)])
+    %     end
+    % end
+    
+    
+    figure ('name','H');
+    imagesc(hsort)
+    if ~showbg; ylim([0.5 peval.ncomp+0.5]); end
+    xlabel('slice # (time)')
+    ylabel('component')
+    title('H')
+    if savethis; SaveImageFULL(['Himage']); end
+    
+    if tilesonly > 1
+        cc = corrcoef(hsort');
+        figure ('name','corrcoef(H'')');
+        ims(cc)
+        colorbar
+        title('corrcoef(H'')')
+        if savethis; SaveImageFULL('Hcorrel'); end
+        
+        figure ('name','abs(corrcoef(H''))');
+        imagesc(abs(cc))
+        set(gca, 'DataAspectRatio',[1 1 1])
+        colorbar
+        title('abs(corrcoef(H''))')
+        if savethis; SaveImageFULL('Hcorrelabs'); end
+        
+        figure ('name','mean(H,2)');
+        meanh = mean(hsort,2);
+        bar(meanh)
+        xlabel('component')
+        ylabel('mean (H,2)')
+        grid on
+        title('sum(H,2)')
+        % if ~showbg; xlim([1.5 peval.ncomp+1.5]); end
+        if savethis; SaveImageFULL('Hmean_bar'); end
+        
+        figure ('name','corrcoef(W)');
+        ims(corrcoef(wsort))
+        colorbar
+        title('corrcoef(W)')
+        if savethis; SaveImageFULL('Wcorrel'); end
+    end
+    figure ('name','sum');
+    dipshow(sum(dpixc,3),'gray')
+    hold on
+    if ~isempty(p)
+        %     scatter(p.x_vec, p.y_vec,'r')
+        scatter(p.x_vec, p.y_vec,'b')
+    end
+    scatter(x_mu-1, y_mu-1,sig.^2*100, 'gx')
+    if shownumbers
+        text(x_mu-1+.2, y_mu-1, num2cell([1:sw]) )
+    end
+    % scatter(x_mu, y_mu,sig.^2*100, [1:sw])
+    if savethis; SaveImageFULL('Sum'); end
+end

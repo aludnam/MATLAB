@@ -1,0 +1,120 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE KDevPrjSession>
+<KDevPrjSession>
+ <LastCompileConfig>(Default)</LastCompileConfig>
+ <Mainframe MaximizeMode="1" />
+ <DocsAndViews NumberOfDocuments="31" >
+  <Doc0 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/blobit.cc" >
+   <View0 Encoding="" Type="Source" />
+  </Doc0>
+  <Doc1 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/axialrec.cc" >
+   <View0 Encoding="" Type="Source" />
+  </Doc1>
+  <Doc2 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/rotate.cc" >
+   <View0 Encoding="" Type="Source" />
+  </Doc2>
+  <Doc3 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/MAPPR.cc" >
+   <View0 Encoding="" Type="Source" />
+  </Doc3>
+  <Doc4 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/MAPPR.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/fftarray.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc5>
+  <Doc6 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/rawarray.h" >
+   <View0 Encoding="" line="2235" Type="Source" />
+  </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/multicolorrec.cc" >
+   <View0 Encoding="" Type="Source" />
+  </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/genrecmat.cc" >
+   <View0 Encoding="" Type="Source" />
+  </Doc8>
+  <Doc9 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/mulwave.cc" >
+   <View0 Encoding="" Type="Source" />
+  </Doc9>
+  <Doc10 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/window.h" >
+   <View0 Encoding="" line="0" Type="Source" />
+  </Doc10>
+  <Doc11 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/tarrayclipf.h" >
+   <View0 Encoding="" line="0" Type="Source" />
+  </Doc11>
+  <Doc12 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/lsm.h" >
+   <View0 Encoding="" line="634" Type="Source" />
+  </Doc12>
+  <Doc13 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/applyfkt.cc" >
+   <View0 Encoding="" Type="Source" />
+  </Doc13>
+  <Doc14 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/Makefile" >
+   <View0 Encoding="" Type="Source" />
+  </Doc14>
+  <Doc15 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/projectorpos.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc15>
+  <Doc16 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/projection.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc16>
+  <Doc17 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/vecprojection.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc17>
+  <Doc18 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/projectorlp.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc18>
+  <Doc19 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/comperator.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc19>
+  <Doc20 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/khoros.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc20>
+  <Doc21 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/normalize.cc" >
+   <View0 Encoding="" Type="Source" />
+  </Doc21>
+  <Doc22 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/SimPSF.cc" >
+   <View0 Encoding="" Type="Source" />
+  </Doc22>
+  <Doc23 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/ir_psf.c" >
+   <View0 Encoding="" Type="Source" />
+  </Doc23>
+  <Doc24 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/ir.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc24>
+  <Doc25 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/loadlsm.cc" >
+   <View0 Encoding="" line="112" Type="Source" />
+  </Doc25>
+  <Doc26 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/floatfft.cc" >
+   <View0 Encoding="" Type="Source" />
+  </Doc26>
+  <Doc27 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/floatconv.cc" >
+   <View0 Encoding="" Type="Source" />
+  </Doc27>
+  <Doc28 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/basearrays.h" >
+   <View0 Encoding="" line="0" Type="Source" />
+  </Doc28>
+  <Doc29 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/ringtrans.cc" >
+   <View0 Encoding="UTF-8" Type="Source" />
+  </Doc29>
+  <Doc30 NumberOfViews="1" URL="file:///home/rheintz/Prog/Reconstr/reconstr/parseargs.h" >
+   <View0 Encoding="" line="79" Type="Source" />
+  </Doc30>
+ </DocsAndViews>
+ <pluginList>
+  <kdevdebugger>
+   <breakpointList/>
+   <showInternalCommands value="0" />
+  </kdevdebugger>
+  <kdevastyle>
+   <Extensions ext="*.cpp *.h *.hpp,*.c *.h,*.cxx *.hxx,*.c++ *.h++,*.cc *.hh,*.C *.H,*.diff ,*.inl,*.java,*.moc,*.patch,*.tlh,*.xpm" />
+   <AStyle IndentPreprocessors="0" FillCount="4" PadParenthesesOut="1" IndentNamespaces="1" IndentLabels="1" Fill="Tabs" MaxStatement="40" Brackets="Break" MinConditional="-1" IndentBrackets="0" PadParenthesesUn="1" BlockBreak="0" KeepStatements="1" KeepBlocks="1" BlockIfElse="0" IndentSwitches="1" PadOperators="0" FStyle="UserDefined" IndentCases="0" FillEmptyLines="0" BracketsCloseHeaders="0" BlockBreakAll="0" PadParenthesesIn="1" IndentClasses="1" IndentBlocks="0" FillForce="0" />
+  </kdevastyle>
+  <kdevbookmarks>
+   <bookmarks/>
+  </kdevbookmarks>
+  <kdevvalgrind>
+   <executable path="" params="" />
+   <valgrind path="" params="" />
+   <calltree path="" params="" />
+   <kcachegrind path="" />
+  </kdevvalgrind>
+ </pluginList>
+</KDevPrjSession>

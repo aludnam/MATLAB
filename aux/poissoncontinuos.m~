@@ -1,0 +1,5 @@
+function f = poissoncontinuos(x,lambda, N)
+% function f = poissoncontunuos(x,lambda)
+f = N*lambda.^x*exp(-lambda)./gamma(x+1);
+
+

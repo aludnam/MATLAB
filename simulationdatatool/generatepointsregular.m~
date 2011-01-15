@@ -1,0 +1,10 @@
+function [xvec, yvec]=generatepointsregular(npoints,diamcirc,origin)
+% [xvec, yvec]=generatepointsregular(npoints,diamcirc,origin)
+% generates points qually distributed around the circle with 2r=diamcirc
+% with center at origin
+
+angstep=2*pi/npoints;
+angvectmp=0:angstep:2*pi;
+angvec=angvectmp
+xvec=(origin(1)+0.5*diamcirc*cos(angvec))';
+yvec=(origin(2)+0.5*diamcirc*sin(angvec))';

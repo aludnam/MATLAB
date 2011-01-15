@@ -1,0 +1,58 @@
+function [p, xH, hDN gd, resid] = plotHopkinsLine2(Hop,Bins, m, dataColor, dataName, plotTeo)
+% [p, res] = plotHopkins(hop,Bins, dataColor, dataName, plotTeo,m)
+% p - handle to the graph, res - residuals from the fit
+if nargin < 6
+    plotTeo = 0;
+end
+
+if not(length(Hop) == legth(Bins))
+    [hD,xD] =hist(Hop,Bins);
+    hDN = hD/trapz(xD,hD); %normalization
+end
+
+p = plot (xD, hDN, dataColor);
+xlim([0,1]);
+set(p, 'DisplayName',dataName);
+legend off;
+legend(gca, 'show');
+set(legend,'FontSize',14, 'Location', 'NorthWest');
+set(gca,'XTick',[0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1],'FontSize',16)
+xlabel('H','FontSize',16);
+ylabel('counts','FontSize',16);
+grid on
+title('Hopkins statistics', 'FontSize',16);
+xH = xD;
+nf = (gamma(m))^2/gamma(2*m);
+gd = 1/nf * xH.^(m-1).*(1-xH).^(m-1); %gamma distrib...
+resid = hDN - gd;
+
+if plotTeo
+hold on
+p2=plot (xH,gd,['--r'],'LineWidth', 2);
+% p2=plot (xH,gd,['--' dataColor],'LineWidth', 2);
+set(p2, 'DisplayName','T');
+legend off;
+legend(gca, 'show');
+set(legend,'Location', 'NorthWest');
+hold off
+end
+
+
+% 
+% hDN = hD/trapz(xD,hD); %normalization
+% hNN = hN/trapz(xN,hN);
+% 
+% p = bar (xD, hDN, 1);
+% set(p1, 'DisplayName',dataName);
+% hold on
+% p2 = bar (xN, hNN, 1, 'r');
+% set(p2, 'DisplayName','Noise');
+% hold off
+% alpha(.3);
+% legend(gca, 'show');
+% set(legend,'FontSize',14);
+% set(gca,'FontSize',16)
+% xlabel('H','FontSize',16);
+% ylabel('counts','FontSize',16);
+% grid on
+% title('Hopkins statistics', 'FontSize',16);

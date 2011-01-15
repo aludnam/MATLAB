@@ -1,0 +1,8 @@
+function out=subsampleconvolve(in, factor)
+
+din =dip_image(in);
+sizevec=size(in);
+sizevecnew=round(sizevec/factor);
+filter=ones(factor)/factor^2;
+innew=convolve(in, filter);
+out=resample(innew,1/factor);

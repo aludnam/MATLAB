@@ -1,0 +1,194 @@
+
+----------------------------------------------------------------------------
+README file for nmfpack
+----------------------------------------------------------------------------
+
+Patrik Hoyer 
+August 03, 2006
+Version 1.1
+
+This Matlab package implements and tests various versions of non-negative
+matrix factorization (NMF). This package is associated with the article:
+
+Patrik O Hoyer.
+'Non-negative matrix factorization with sparseness constraints'
+Journal of Machine Learning Research  5:1457-1469, 2004.
+
+IF YOU USE THIS PACKAGE IN PUBLISHED RESEARCH, PLEASE CITE THE ABOVE
+PAPER. THANKS!
+
+----------------------------------------------------------------------------
+Version history
+----------------------------------------------------------------------------
+
+1.0	Aug 25, 2004	Original version. 
+
+1.1	Aug 03, 2006	Modifications/improvements:
+			- Included the ORL face dataset, with permission
+			- Now automatically rescales the data so as to 
+			  avoid overflow/underflow numerical problems
+			- Included an alternative to using 'imread' to
+			  read the pgm image files.
+			- Improved the documentation somewhat
+	
+----------------------------------------------------------------------------
+Acknowledgements
+----------------------------------------------------------------------------
+
+I would like to thank Fabian Theis for contributing the pgma_read function,
+and Daniel Felps for pointing out that the face databases are no longer 
+available on the net. I also thank Alastair Beresford who, on behalf of
+AT&T Cambridge Laboratories, granted me permission to include the ORL 
+face image database in the package.
+
+Several people reported some problems with 'projfunc' producing imaginary
+values. This problem arises when the scale of the entries in the data matrix
+is too large. Thus, as of v1.1, I now renormalize the input matrix before
+starting computation. Thanks for reporting the problems.
+
+----------------------------------------------------------------------------
+List of contents of package
+----------------------------------------------------------------------------
+
+code/
+  main.m         - main file for all NMF experiments
+  nmfdiv.m       - performs standard NMF with divergence objective
+  nmfmse.m       - performs standard NMF with euclidean objective
+  nmfsc.m        - performs NMF with sparseness constraints
+  lnmf.m         - performs Local NMF
+  snmf.m         - performs Sparse NMF
+  projfunc.m     - implements the L1/L2-norm projection
+  projtest.m     - tests the efficiency of the projection operator
+  visual.m       - displays an array of images
+  cbcldata.m     - reads the CBCL data (assuming it has been downloaded)
+  orldata.m      - reads the ORL data (assuming it has been downloaded)
+  natdata.m      - reads natural image data preprocessed into ON/OFF channels
+  sampleimages.m - takes random patches from the natural image set
+  pgma_read.m	 - reads PGM image files (alternative to 'imread')
+
+results/         - directory for storing results of various algorithms
+
+data/
+  cbcl-face-database/     - [put the cbcl data here after downloading]
+  orl-faces/              - ORL face image database
+  IMAGES.mat              - natural images, high-pass filtered, provided 
+			    by Bruno Olshausen as part of his 'sparsenet'
+			    matlab package
+
+
+----------------------------------------------------------------------------
+Using the package
+----------------------------------------------------------------------------
+
+
+DOWNLOADING THE CBCL FACE IMAGE DATABASE
+
+If you wish to perform the CBCL data experiments, start by downloading 
+the images. The database can be found at:
+
+http://cbcl.mit.edu/cbcl/software-datasets/FaceData2.html
+
+These database should be uncompressed and put into its corresponding 
+data directory. The directory structure should look like this:
+
+data/
+  cbcl-face-database/
+    README
+    face/
+      face00001.pgm
+      [...]
+      face02429.pgm
+    non-face/
+      [...]
+  orl-faces/
+    README
+    s1/
+    [...]
+    s40/
+
+Once you have the data installed, you are ready to start running 
+experiments. 
+
+
+
+RUNNING THE NMF EXPERIMENTS
+
+All experiments using the various versions of NMF are run by calling
+
+>> main('learn', expnum);
+
+where expnum is the number of the experiment. This number determines the 
+dataset to be used, the algorithm to be applied, and the settings of
+all parameters. The expnum is decoded in the beginning of main.m, where
+you can inspect which experiments have which number and you can add your
+own.
+
+Please note that the learning phase never terminates! You have to 
+terminate it yourself. I usually keep a second Matlab session open
+from which I can inspect the progress of the algorithm while it's
+running. From this second Matlab session, calling
+
+>> main('show', expnum);
+
+shows the evolution of the objective function, the current basis images,
+and some statistics of the representation (from top to bottom: 
+utilization of the components, sparseness of basis images, and sparseness
+of the coefficients).
+
+The following settings duplicate the results of the paper 'Non-negative
+Matrix Factorization with sparseness constraints':
+
+Figure	   Corresponding
+in paper:  expnum:
+---------------------
+1a	     1
+1b	   101
+1c	   201
+3a	    11
+3b	    12
+3c	    13
+4a	   133
+4b	   134
+4c	   131
+5	   231
+
+
+USING THE NMF FUNCTIONS DIRECTLY
+
+Of course, your data might not be image data, and you might not want
+to use the interface provided by main.m. In this case, call the various
+NMF routines directly. Again, note that there are no convergence
+criteria built in, but you can monitor the representation during 
+learning because the routines save the results to disk periodically.
+
+
+USING/TESTING THE PROJECTION OPERATOR
+
+To reproduce Figure 6 in the paper, run projtest.m. It requires no 
+parameters. 
+
+To use the projection function, just call projfunc directly. Have a 
+look at the file, the syntax should be self-explanatory.
+
+
+----------------------------------------------------------------------------
+Problems?
+----------------------------------------------------------------------------
+
+In case of questions or problems, do not hesitate to contact me,
+preferrably by email at patrik.hoyer@helsinki.fi. However, I would
+appreciate it if you would take the time to examine the code a little
+and try to figure out the problem yourself. If you cannot figure it
+out, at least try to provide as much info as possible on the nature of
+the problem (including your exact commands and the error messages), so
+that I can have a chance to help you.
+
+
+----------------------------------------------------------------------------
+Disclaimer
+----------------------------------------------------------------------------
+
+This software and data is provided as-is, and there are no guarantees
+that it fits your purposes or that it is bug-free. Use it at your own 
+risk! 
+

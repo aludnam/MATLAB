@@ -1,0 +1,10 @@
+function [H,T,perm] = dendrogramfromtimecorrelation(data, method, savethis)
+
+dveccr= reshape(data,size(data,1)*size(data,2),size(data,3));
+ccd = (corrcoef(dveccr'));
+ccds=squareform(1-ccd);
+Z = linkage(ccds,method);
+[H,T,perm] = dendrogram(Z,0);
+ylim([0 max(Z(:,3))])
+set(H,'color','k')
+grid on

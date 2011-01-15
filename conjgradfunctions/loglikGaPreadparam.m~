@@ -1,0 +1,27 @@
+function [Hkt, cx, cy, Wxk] = loglikGaPreadparam(x,qqq)
+% [Hkt, cx, cy, Wxk] = loglikGaPreadparam(varargin);
+
+sigpsf = cell2mat(qqq{1}(1));  %std deviation of the PSF gaussian approx
+peval =  cell2mat(qqq{1}(2));; %parameters
+% Hkt_linear=x(1:end-peval.ncomp*2); % intensities
+% cx=x(end-peval.ncomp*2+1:end-peval.ncomp); %x-coordinates of the centers
+% cy=x(end-peval.ncomp+1:end); % y-coordinates of the centers
+% Hkt_linear=varargin{6}; % intensities
+Hkt_linear=x; % intensities
+cx= cell2mat(qqq{1}(3));;
+cy= cell2mat(qqq{1}(4));;
+
+
+sigpsf_vec=repmat(sigpsf,peval.ncomp,1); %all psfs same sigma
+cxy_vec=[cx'+1, cy'+1]; %different notation of the dip_image
+a_vec=1./(sigpsf_vec.^2*2*pi); % all normalised to 1
+
+Hkt=reshape(Hkt_linear, peval.ncomp, peval.nt);
+[ix,val]=find(Hkt(:)<=0);
+if ~isempty(ix)
+    Hkt(ix)=1e-10; % to avoid log(0) and division by 0
+end
+% generate PSFs from given parameters:
+Wxkpix=gauss2dmultislice([peval.nx, peval.ny, peval.ncomp], cxy_vec, sigpsf_vec, a_vec);
+Wxkpix=normalizePSF(Wxkpix); %normalize PSFs to 1
+Wxk=reshape(Wxkpix,peval.nx*peval.ny, peval.ncomp);

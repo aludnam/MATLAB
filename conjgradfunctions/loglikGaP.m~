@@ -1,0 +1,37 @@
+function f=loglikGaP(x, varargin)
+% f=loglikGaP(x, varargin)
+% complete log likellihood of the GaP model 
+% Vxt = varargin{1};      %data
+% sigpsf = varargin{2};  %std deviation of the PSF gaussian approx
+% alpha = varargin{3}; %parameters of the Gamma prior on the blinking
+% beta = varargin{4}; %parameters of the Gamma prior on the blinking
+% peval = varargin{5}; %parameters
+% x(1:end-2*peval.ncomp) is Hkt
+
+
+Vxt = varargin{1};      %data
+sigpsf = varargin{2};  %std deviation of the PSF gaussian approx
+alpha = varargin{3}; %parameters of the Gamma prior on the blinking
+beta = varargin{4}; %parameters of the Gamma prior on the blinking
+peval = varargin{5}; %parameters
+
+[Hkt, cx, cy, Wxk] = loglikGaPreadparam(x,sigpsf,peval,);
+
+[Wxkbg,Hktbg]=addbg(Wxk, Hkt, peval.bg);
+P=Wxkbg*Hktbg; %current approximation
+
+%Poisson contribution
+t1=Vxt.*log(P) - P;
+%Gamma contribution
+t2=(alpha-1)*log(Hkt)-1/beta*Hkt-alpha*log(beta)-log(gamma(alpha));
+
+f=sum(t1(:));%+sum(t2(:));
+end
+
+function Wnorm=normalizePSF(W)
+sw=size(W);
+Wr=reshape(W, sw(1)*sw(2),sw(3));
+q=squeeze(sum(Wr,1));
+Wrnorm=Wr./repmat(q,sw(1)*sw(2),1);
+Wnorm=reshape(Wrnorm,sw(1), sw(2), sw(3));
+end

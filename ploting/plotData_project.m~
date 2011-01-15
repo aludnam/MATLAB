@@ -1,0 +1,8 @@
+scatter (data(:,1), data(:,2))
+set (gca, 'DataAspectRatio',[1 1 1]);
+xlabel ('x', 'FontSize',16)
+ylabel ('y', 'FontSize',16)
+set(gca,'FontSize',16)
+set(gca, 'XTick', []);
+set(gca, 'YTick', []);
+box('on');

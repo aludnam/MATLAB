@@ -1,0 +1,334 @@
+#  Copyrighs (c) 1997 Rainer Heintzmann
+#  Dieses Makefile generiert 
+
+#	UNIX-makefile
+
+S     = .
+VPATH   = $(S)
+L	= -lm -Llib -ltiff
+LFFTT	= -lsrfftw_threads -lsfftw_threads -lsrfftw -lsfftw -lm -lpthread
+LFFT    = -lsfftw -lsrfftw 
+O	= # fftn.o 
+H	= $(S)/basearrays.h  $(S)/tarrayclipf.h $(S)/khoros.h  $(S)/vec.h $(S)/khoros.h $(S)/clipperator.h $(S)/rawarray.h
+FFT = $(S)/fftprojection.h
+
+T	= impraw vecintolblimg quantile dtrans applyfkt msd SimPSF PCAsegment accumulate loadlsm upload FLS classify delvecs varanalysis waveletspots maxprojdist imprawser orthoproj ltraces weightedavg andreasio mulwave genrecmat fwhm tstbinfun simPAMpsf cylinder2cart volprepare volrender normalize asi2kdf pam2kdf seedseg median3d wrapexpand ringtrans mappr multicolorrec axialrec rotate subbackgr gplot genlines scanline convolve floatfft forall fliptoreal correlator cmpvecs genbeads shear rescale ctreal ctreal confrec confospot confospotsim blobit label tcs2raw confospotsim stereo poissit window genwinnie genplanewave 
+# fixed reconstr epiflrec epispot epispotsim confocrec projtst epiflft interptst ctrec ctreal table ctmktst fastctreal  fastconfrec swf veccalc sortit
+
+SRCS =	$(S)/blobit.cc $(S)/confocal.cc $(S)/confospot.cc $(S)/confospotsim.cc \
+	$(S)/ctreal.cc $(S)/axialrec.cc $(S)/MAPPR.cc \
+	$(S)/epispot.cc $(S)/epispotsim.cc $(S)/label.cc \
+	$(S)/parsetst.cc  $(S)/rescale.cc \
+	$(S)/tcs2raw.cc $(S)/tst.cc $(S)/tst2.cc $(S)/veccalc.cc $(S)/window.cc $(S)/poissit.cc $(S)/igel.cc $(S)/rotate.cc
+
+CPPFLAGS = -DFFT_FLOAT # -DOWNCPX  
+CFLAGS	= -g -pedantic -Wall -ansi -Ifftw/include # -DOWNCPX  -pedantic
+OPTI    = -O6 -ffast-math  -funroll-loops -march=athlon64 -Ifftw/include # -mno-strict-align  -m486 -DTHREADS -m686
+# -DDEBUG_SAVE 
+# -DDEBUG_PRINT
+
+# -g : Gnu-Debugger  -O3 : optimize -m486 
+
+C	= gcc 
+CC	= g++ 
+LN	= g++
+# C	= /home/rheintz/nobackup/gcc/Inst/bin/g++ 
+# CC	= /home/rheintz/nobackup/gcc/Inst/bin/g++ 
+# LN	= /home/rheintz/nobackup/gcc/Inst/bin/g++
+# C	= /home/rheintz/nobackup/egcs/toplvl/bin/g++ 
+# CC	= /home/rheintz/nobackup/egcs/toplvl/bin/g++ 
+# LN	= /home/rheintz/nobackup/egcs/toplvl/bin/g++
+# -pg 
+MV	= cp
+RM	= rm -f 
+
+# inference rules (not quite the correct names here ... whatever)
+.c.o:
+	$(C) -c $(CPPFLAGS) $(CFLAGS) $<  
+# if gcc is used objects are not linkable with c++ programs !!
+
+.cc.o:
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $<
+
+#------------------------------------------------------------------
+
+default: all
+
+all	: $(T)
+
+clean:
+	 mv rfftw.o rfftw.s;mv rfftwnd.o rfftwnd.s;$(RM) $(T) *.o;mv rfftw.s rfftw.o;mv rfftwnd.s rfftwnd.o
+
+realclean:	clean	
+	$(RM) $(T)
+
+# $(T) : $(O) 
+# 	$(LN) -o reconstr $(O) $(L)
+
+doc : $(H)
+	doc++ -p -H -A -k -f -d DOC $(S)/doc.h
+	etags -C $(S)/*.h
+
+upload : upload.cc mime.h
+	$(CC) $(OPTI) -static -o $@ $(S)/upload.cc $(L)
+
+vecintolblimg : vecintolblimg.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/vecintolblimg.cc $(L)
+
+msd : msd.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/msd.cc $(L)
+
+# THER ARE PROBLEMS WITH CONFOCAL PSFs, if OPTIONS ARE $(OPTI) !!??
+SimPSF : SimPSF.cc $(H)
+	$(C) -DFFT_FLOAT $(CFLAGS) -c $(S)/ir_psf.c $(S)/ir_support.c $(S)/ir_arithmetic.c $(S)/ir_statistics.c $(S)/ir_rft.c 
+	$(CC) -DFFT_FLOAT $(CFLAGS) -c $(S)/SimPSF.cc 
+	$(CC) -DFFT_FLOAT $(CFLAGS) -o $@ $(S)/SimPSF.cc $(S)/ir_psf.o $(S)/ir_support.o $(S)/ir_arithmetic.o $(S)/ir_statistics.o $(S)/ir_rft.o  $(L) -lrfftw -lfftw
+	# $(CC) -DFFT_FLOAT $(OPTI) -o $@ $(S)/SimPSF.cc -L$(S)/ -lir $(L) -lrfftw -lfftw 
+
+quantile : quantile.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/quantile.cc $(L)
+
+dtrans : dtrans.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/dtrans.cc $(L)
+
+PCAsegment : PCAsegment.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/PCAsegment.cc $(L)
+
+accumulate : accumulate.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/accumulate.cc $(L)
+
+FLS : FLS.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/FLS.cc $(L)
+
+classify : classify.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/classify.cc $(L)
+
+delvecs : delvecs.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/delvecs.cc $(L)
+
+sortit : sortit.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/sortit.cc $(L)
+
+varanalysis : varanalysis.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/varanalysis.cc $(L)
+
+waveletspots : waveletspots.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/waveletspots.cc $(L)
+
+applyfkt : applyfkt.cc $(H)
+	$(CC) $(CFLAGS) -o $@ $(S)/applyfkt.cc $(L)
+
+applyfkt.o : applyfkt.cc $(H)
+	$(CC) $(CFLAGS) -DRUN -c $(S)/applyfkt.cc $(L)
+
+maxprojdist : maxprojdist.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/maxprojdist.cc $(L)
+
+impraw : impraw.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/impraw.cc $(L)
+
+imprawser : imprawser.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/imprawser.cc $(L)
+
+ltraces : labeledtraces.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/labeledtraces.cc $(L)
+
+orthoproj : orthoproj.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/orthoproj.cc $(L)
+
+ringtrans : ringtrans.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/ringtrans.cc $(L)
+
+fliptoreal : fliptoreal.cc $(H)
+	$(CC) $(OPTI) -DCPX -o $@ $(S)/fliptoreal.cc $(L) $(LFFT)
+
+genlines : genlines.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/genlines.cc $(L)
+
+scanline : scanline.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/scanline.cc $(L)
+
+gplot : gplot.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/gplot.cc $(L) $(LFFT)
+
+seedseg : seedseg.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/seedseg.cc $(L) 
+
+median3d : median3d.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/median3d.cc $(L) 
+
+subbackgr : subbackgr.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/subbackgr.cc $(L) 
+
+floatfft : floatfft.cc rawarray.h fftarray.h $(H)
+	$(CC) $(OPTI) -o $@ $(S)/floatfft.cc $(L) $(LFFTT) # -DTHREADS
+
+floatconv : floatconv.cc rawarray.h fftarray.h $(H)
+	$(CC) $(OPTI) -DTHREADS -o $@ $(S)/floatconv.cc  $(L) $(LFFTT)
+
+correlator : correlator.cc  rawarray.h fftarray.h  $(H)
+	$(CC) $(OPTI) -o $@ $(S)/correlator.cc  $(L) $(LFFT)
+
+veccalc : veccalc.o
+	$(LN) -o $@ $(S)/$@.cc $(L)
+
+tstbinfun : tstbinfun.cc binfun.h
+	$(CC) $(CFLAGS) -o $@ $(S)/$@.cc $(L) 
+
+mulwave : mulwave.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L) $(LFFT) 
+
+andreasio : andreasio.cc $(H)
+	$(CC) $(CFLAGS) -o $@ $(S)/$@.cc $(L) 
+
+wrapexpand : wrapexpand.cc $(H)
+	$(CC) $(CFLAGS) -o $@ $(S)/$@.cc $(L) $(LFFT)
+
+genrecmat : genrecmat.cc $(H)
+	$(CC) $(CFLAGS) -o $@ $(S)/$@.cc $(L) 
+
+fwhm : fwhm.cc $(H)
+	$(CC) $(CFLAGS) -o $@ $(S)/$@.cc $(L) 
+
+cylinder2cart : cylinder2cart.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L) 
+
+volprepare : volprepare.cc $(H) volume.h
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L) $(LFFT) -lvolpack
+
+volrender : volrender.cc $(H) volume.h
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L) $(LFFT) -lvolpack
+
+normalize : normalize.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L) $(LFFT)
+
+weightedavg : weightedAvg.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/weightedAvg.cc $(L) $(LFFT)
+
+pamgenpattern : pamgenpattern.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L) 
+
+simPAMpsf : simPAMpsf.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L) $(LFFT)
+
+loadlsm : loadlsm.cc $(H) lsm.h
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L) 
+
+asi2kdf : asi2kdf.cc $(H) asi.h
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L) 
+
+pam2kdf : pam2kdf.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L) 
+
+tcs2raw : tcs2raw.cc 
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L)
+
+stereo : stereo.cc 
+	$(CC) $(OPTI) -o $@ $(S)/stereo.cc $(L)
+
+poissit : poissit.cc poidev.h
+	$(CC) $(CFLAGS) -o $@ $(S)/poissit.cc $(S)/poidev.c $(L)
+
+window : window.cc window.h $(H)
+	$(CC) $(OPTI) -o $@ $(S)/window.cc  $(L) $(LFFT)
+
+genbeads : genbeads.cc 
+	$(CC) -DNOCPX $(OPTI) -o $@ $(S)/genbeads.cc  $(L) $(S)/poidev.c
+
+genplanewave : genplanewave.cc 
+	$(CC) $(OPTI) -DCPX -o $@ $(S)/genplanewave.cc  $(L) $(LFFT)
+
+genwave : genwave.cc 
+	$(CC) $(OPTI) -DCPX -o $@ $(S)/genwave.cc  $(L) $(LFFT)
+
+genwinnie : igel.cc 
+	$(CC) $(OPTI) -o $@ $(S)/igel.cc  $(L)
+
+blobit : blobit.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L)
+
+shear : shear.cc $(H)
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc  $(L)
+
+rescale : rescale.cc $(H)
+	$(CC) -DCPX -DFFT_FLOAT $(OPTI) -o $@ $(S)/$@.cc $(L) $(LFFT)
+
+label : label.cc label.h $(H)
+	$(CC) $(OPTI) -o $@ $(S)/$@.cc $(L)
+
+interptst : interptst.o $(O) 
+	$(LN) -o $@ $@.o $(O) $(L)
+
+projtst : projtst.o $(O) 
+	$(LN) -o $@ $@.o $(O) $(L)
+
+epiflrec : epifluor.o $(O)
+	$(LN) -o $@ epifluor.o $(O) $(L)
+
+epispot : epispot.o $(O)
+	$(LN) -o $@ $@.o $(O) $(L)
+
+confospot : confospot.cc confospot.h $(H)
+	$(CC) -DFFT_FLOAT $(OPTI) -o $@ $(S)/confospot.cc $(L)
+
+confospotsim : confospotsim.cc $(H)  projectorpos.h vecprojection.h poidev.h confospot.h 
+	$(CC) -DFFT_FLOAT $(OPTI) -o confospotsim $(S)/confospotsim.cc $(S)/poidev.c $(L)
+
+ctreal : ctreal.o $(O)   
+	$(LN) -o $@ $@.o $(O) $(L)
+
+fastctreal : ctreal.cc ctreal.h tarray.h clipperator2d.h gentable.h projectorbeamtable.h
+	$(CC) $(OPTI) -DBIGSUBUNITS -DNDEBUG -o $@ $(S)/ctreal.cc $(L) 
+
+epiflft : epiflft.o  $(O)
+	$(LN) -o $@ $@.o $(O) $(L)
+
+confocrec : confocal.o $(O) 
+	$(LN) -o $@ confocal.o $(O) $(L) $(LFFT) -DCPX
+
+confocal.o : confocal.cc
+	$(CC) -c $(CFLAGS) -DCPX $(S)/confocal.cc
+
+swf : swf.o $(O) 
+	$(LN) -o $@ $@.o $(O) $(L)
+
+rotate: rotate.cc veccalc.h matrix.h  
+	$(CC) $(OPTI) -o rotate $(S)/rotate.cc $(L) $(LFFT) 
+#	$(CC) -DCPX -DFFT_FLOAT $(OPTI) -o rotate $(S)/rotate.cc $(L) $(LFFT)
+
+mappr: MAPPR.cc MAPPR.h rawarray.h fftarray.h $(H) 
+	$(CC) $(OPTI) -o mappr $(S)/MAPPR.cc $(L) $(LFFT) 
+
+multicolorrec: multicolorrec.cc rawarray.h fftarray.h $(H) 
+	$(CC) $(OPTI) -static -o multicolorrec $(S)/multicolorrec.cc $(L) $(LFFTT) -DTHREADS
+
+axialrec: axialrec.cc rawarray.h fftarray.h $(H) 
+	$(CC) $(OPTI) -static -o axialrec $(S)/axialrec.cc $(L) $(LFFTT) -DTHREADS
+
+# -DFFT_MEASURE -DTHREADS
+# -DFFT_MEASURE or -DTHREADS seems to introduce problems !
+
+# fastconfrec: confocal.cc veccalc.h matrix.h $(H) $(FFT)
+#	$(CC) -DCPX -DFFT_FLOAT $(OPTI) -o fastconfrec $(S)/confocal.cc $(L) $(LFFT)
+
+reconstr :  main.o $(O) 
+	$(LN) -o $@ main.o $(O) $(L)
+
+rmall:
+	$(RM) $(O) 
+	$(RM) $(T)
+
+# Semi-automatic generation of dependencies:
+# Use gcc -MM because X11 `makedepend' doesn't work on all systems
+# and it also includes system headers.
+# `semi'-automatic since dependencies are generated at distribution time.
+
+depend:
+	mv Makefile Makefile~
+	sed "/^# DO NOT DELETE:/,$$ d" Makefile~ > Makefile
+	echo "# DO NOT DELETE: ugly dependency list follows" >> Makefile
+	gcc -MM $(CPPFLAGS) $(SRCS) >> Makefile
+#	gcc -MM $(CPPFLAGS) $(XINC) -I$(basedir) $(SRCS) >> Makefile
+
+# -----------------------------------------------------------------------
+# DO NOT DELETE: ugly dependency list follows

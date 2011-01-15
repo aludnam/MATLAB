@@ -1,0 +1,26 @@
+function plotFit(xf,yf,funct,p,colorData, colorFit)
+
+maxx = max(xf);
+minx = min(xf);
+
+subplot(2,1,1)
+bar (xf, yf,0.8,colorData)
+hold on
+eval (['plot(xf,' funct '(xf, p),''--'',''LineWidth'', 2)']);
+set(gca,'FontSize',16)
+ylabel('histogram','FontSize',16);
+title('Nearest Nesighbor Fit', 'FontSize',16);
+xlim([minx, maxx])
+
+subplot(2,1,2)
+eval (['plot(xf, yf -' funct '(xf, p),[''+ '' colorData])' ]);
+hold on
+plot ([minx,maxx],[0 0 ],'-.k');
+xlim([minx, maxx])
+set(gca,'FontSize',16)
+xlabel('distance','FontSize',16);
+ylabel('residuals','FontSize',16);
+hold off
+
+    
+    

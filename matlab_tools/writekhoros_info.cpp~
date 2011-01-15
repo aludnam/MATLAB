@@ -1,0 +1,68 @@
+/* get the size for Khoros files 
+   Bernd Rieger & Keith Lidke
+   June 2004
+*/
+
+#include "mex.h"
+#include <stdio.h>
+#include <string.h>
+#include "khoros.h"
+
+
+void mexFunction( int nlhs, mxArray *plhs[],
+                  int nrhs, const mxArray *prhs[] )
+{
+/* format:
+   writekhoros_info('blabla',dims,type)*/
+
+/* nlhs # number left handed parameters
+   plhs # left handed parameter array
+   nrhs # number right handed parameters
+   prhs # right handed parameter array*/
+    ofstream from;
+    char *TypeString; // will be filled in
+    int ValueDim[4];
+    int begindata;
+    double *dp;
+    char Var[2];
+    char* matlabtype;
+    char *input_buf;
+    int   buflen,buflen2,status;
+  
+    if (nrhs != 3) 
+         mexErrMsgTxt("3 inputs required.");
+    if (mxIsChar(prhs[0]) != 1)
+         mexErrMsgTxt("Input must be a string.");
+    if (mxGetM(prhs[0]) != 1)
+      mexErrMsgTxt("Input must be a row vector.");
+    /* Get the length of the input string. */
+    buflen = (mxGetM(prhs[0]) * mxGetN(prhs[0])) + 1;
+    buflen2 = (mxGetM(prhs[2]) * mxGetN(prhs[2])) + 1;
+    
+    /* Allocate memory for input and output strings. */
+    input_buf = (char*) mxCalloc(buflen, sizeof(char));
+    matlabtype = (char*) mxCalloc(buflen2, sizeof(char));
+    
+    /* Copy the string data from prhs[0] into a C string */
+    mxGetString(prhs[0], input_buf, buflen);
+    mxGetString(prhs[2], matlabtype, buflen2);
+    
+    if (mxGetN(prhs[1])!=4)
+      mexWarnMsgTxt("dims must be 4d vector");
+    dp = mxGetPr(prhs[1]);
+    
+    if (strcmp(matlabtype,"uint8")==0) TypeString="Unsigned Byte";
+    if (strcmp(matlabtype,"sint32")==0) TypeString="Integer";
+    if (strcmp(matlabtype,"sfloat")==0) TypeString="Float";
+    if (strcmp(matlabtype,"dfloat")==0) TypeString="Double";
+    if (strcmp(matlabtype,"scomplex")==0) TypeString="Complex";
+    if (strcmp(matlabtype,"uint16")==0) TypeString="Unsigned Short";
+    if (strcmp(matlabtype,"dcomplex")==0) TypeString="Double Complex";   
+    if (strcmp(matlabtype,"bin")==0) TypeString="Unsigned Byte";   
+    cout << "Datatype : " << matlabtype << "  converted to " << TypeString << "\n";
+    from.open(input_buf);
+    WriteKhorosHeader(&from,"Matlab2Khoros",TypeString, (int) dp[0], 
+         (int) dp[1],(int)dp[2], (int) dp[3]);
+    from.close();
+    return;
+}

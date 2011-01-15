@@ -1,0 +1,1627 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 10 (filtered)">
+<title>xxx</title>
+
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:Batang;
+	panose-1:2 3 6 0 0 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@Batang";
+	panose-1:2 3 6 0 0 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+h1
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:24.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h2
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:18.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h3
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:13.5pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h5
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h6
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:7.5pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:blue;
+	text-decoration:underline;}
+p
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+code
+	{font-family:"Courier New";}
+tt
+	{font-family:"Courier New";}
+p.style1, li.style1, div.style1
+	{margin-right:0cm;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+span.Heading6Char
+	{font-family:SimSun;
+	font-weight:bold;}
+@page Section1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 36.0pt 72.0pt 36.0pt;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=blue>
+
+<div class=Section1>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%"
+ style='width:100.0%'>
+ <tr>
+  <td style='padding:0cm 0cm 0cm 0cm'>
+  <h1 align=center style='text-align:center'><span style='font-size:36.0pt;
+  color:black'>NMFLAB for Signal Processing</span></h1>
+  </td>
+  <td valign=top style='padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+  </td>
+ </tr>
+</table>
+
+<h2 align=center style='text-align:center'>Toolbox for <br>
+NMF (Non-negative Matrix Factorization) <br>
+and <br>
+BSS (Blind Source Separation)</h2>
+
+<h2 align=center style='text-align:center'>Andrzej CICHOCKI and&nbsp;Rafal<span
+style='font-weight:normal'> </span>ZDUNEK</h2>
+
+<h2 align=center style='text-align:center'>May 25, 2006</h2>
+
+<h2 style='text-align:justify'>&nbsp;</h2>
+
+<p class=MsoNormal style='text-align:justify'><b>The NMFLAB Package for Signal
+Processing</b> has been&nbsp;developed, designed, and implemented in MATLAB by Andrzej
+<b>CICHOCKI</b> and&nbsp;Rafal<b> ZDUNEK</b>.</p>
+
+<p class=MsoNormal style='text-align:justify'>&nbsp;</p>
+
+<p class=MsoNormal style='text-align:justify'>The toolbox consists of
+various&nbsp;NMF&nbsp;algorithms and some generalizations written in MATLAB<sup>®</sup>.
+They have been extensively tested by Rafal <b>Zdunek</b> and Andrzej <b>Cichocki
+</b>in collaboration  with&nbsp;<b> </b>Shun-ichi <b>Amari</b>,<b>&nbsp; </b>Raul
+<b>Kompass</b>,  Seungjin <b>Choi&nbsp;</b>,  Sergio <b>Cruces-Alavarez</b>, <b> </b>Scott
+<b>Rickard,  </b>Ruairi<b> de Frein,</b>  Zhaoshui <b>He, </b> Zhe <b>Chen</b>,&nbsp;
+Gen <b>Hori,  </b>Yoshikazu <b>Washizawa,  </b>Arao <b>Funase,</b>  and other
+members of  the <a href="http://www.bsp.brain.riken.go.jp">Laboratory for Advanced
+Brain Signal Processing</a>. </p>
+
+<p class=MsoNormal style='text-align:justify'>&nbsp;</p>
+
+<p class=MsoNormal style='text-align:justify'>The graphic design, data
+visualization and user interface,&nbsp;is&nbsp;partially adopted from the
+ICALAB ver. 1.5&nbsp;developed by Andrzej<b> Cichocki</b>, Shun-ichi<b> Amari</b>,
+Krzysztof<b> Siwek,</b> Toshihisa<b> Tanaka</b>, Sergio<b> Cruces-Alvarez</b>,
+et al. </p>
+
+<p class=MsoNormal style='text-align:justify'>&nbsp;</p>
+
+<p class=MsoNormal style='text-align:justify'>The current&nbsp;version 1 of the
+NMFLAB&nbsp;is&nbsp;as of May 25, 2006. </p>
+
+<p style='text-align:justify'>A similar NMFLAB package has been developed for <b><a
+href="http://www.bsp.brain.riken.go.jp/ICALAB/">Image Processing</a>,</b> which
+will be released soon.</p>
+
+<p class=MsoNormal style='margin-bottom:12.0pt;text-align:justify'>The&nbsp;references
+for&nbsp;both of these Toolboxes are given below: </p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify'>[1] A.
+Cichocki and R. Zdunek,&nbsp;NMFLAB – MATLAB Toolbox for Non-Negative Matrix
+Factorization, </p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify'><span lang=PL>[2]
+A. Cichocki, R. Zdunek,&nbsp; and&nbsp; S.&nbsp; </span>Amari, &quot;Csiszar's
+Divergences&nbsp;for Non-Negative Matrix Factorization: Family of
+New&nbsp;Algorithms&quot;,&nbsp;6<sup>th</sup> International Conference on
+Independent Component Analysis and Blind Signal Separation, Charleston SC, USA,
+March 5-8, 2006 Springer LNCS 3889,&nbsp; pp. 32-39. [<a
+href="http://www.bsp.brain.riken.jp/publications/2006/ICA-Ci-Zd-Amari8-12.pdf">.pdf</a>]</p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify'>[3] A.
+Cichocki,&nbsp;S. Amari, R. Zdunek, R. Kompass , G. Hori and Z. He:
+&quot;Extended SMART Algorithms for Non-Negative Matrix
+Factorization&quot;,&nbsp;8<sup>th</sup> International Conference on Artificial
+Intelligence and Soft Computing, ICAISC, Zakopane, Poland, 25-29 June, 2006. [<a
+href="http://www.bsp.brain.riken.jp/publications/2006/ICAISC-06.pdf">.pdf</a>]</p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify'>[4] R.
+Zdunek,&nbsp;and&nbsp;A. Cichocki, &quot;Non-Negative Matrix Factorization with
+Quasi-Newton Optimization&quot;, 8<sup>th</sup> International Conference on
+Artificial Intelligence and Soft Computing, ICAISC, Zakopane, Poland, 25-29
+June, 2006. [<a
+href="http://www.bsp.brain.riken.jp/publications/2006/ICAISCP_Newton.pdf">.pdf</a>]</p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify'>[5] A.
+Cichocki, R. Zdunek, and S. Amari, &quot;New Algorithms for Non-Negative Matrix
+Factorization in   Applications to Blind Source Separation&quot;, 2006 IEEE
+International Conference on Acoustics, Speech, and Signal Processing,
+ICASSP2006, May 14-19, 2006, Toulouse, France. [<a
+href="http://www.bsp.brain.riken.jp/publications/2006/Cichocki-ICASSP-rev.pdf">.pdf</a>]</p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify'>[6] R. Zdunek
+and A. Cichocki,&nbsp;“Conjugate Gradient (GPCG)&nbsp;and Quasi Newton Hybrid
+Methods for NMF (submitted for publication). </p>
+
+<p class=MsoNormal style='text-autospace:none'>      [7] A. Cichocki and R.
+Zdunek, “Multilayer Nonnegative Matrix Factorization Using Projected Gradient  </p>
+
+<p class=MsoNormal style='text-autospace:none'>       Approaches”,
+(ICONIP-2006).</p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify'>[8] A. Cichocki,
+R. Zdunek, S. Amari, G. Hori and K. Umeno, “Blind Signal Separation Method and
+System Using Modular and Hierarchical-Multilayer Processing for Blind
+Multidimensional Decomposition, Identification, Separation or Extraction”,
+Patent pending, Riken, Japan,  March 2006.</p>
+
+<p style='text-align:justify'>Please cite the relevant contribution above if
+you make use NMFLAB in your research.</p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'><b><span
+style='font-family:"Courier New"'>This software is for non-commercial use only
+and it is copyrighted.</span></b></p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'><b><span
+style='font-family:"Courier New"'>Moreover, some original algorithms and
+procedures are protected by Riken patents, </span></b><b><span
+  style='font-family:"Courier New"'>JAPAN</span></b><b><span style='font-family:
+"Courier New"'>.</span></b></p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'><b><span
+style='font-family:"Courier New"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'><b><span
+style='font-family:"Courier New"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'><b><span
+style='font-family:"Courier New"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'><b><span
+style='font-family:"Courier New"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'><b><span
+style='font-family:"Courier New"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'><b><span
+style='font-family:"Courier New"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'><b><span
+style='font-family:"Courier New"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'><b><span
+style='font-family:"Courier New"'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'><b><span
+style='font-family:"Courier New"'>&nbsp;</span></b></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<p style='text-align:justify'><strong>DISCLAIMER </strong></p>
+
+<p class=style1 style='text-align:justify'><span style='font-size:10.0pt'>NEITHER
+THE AUTHORS NOR THEIR EMPLOYERS ACCEPT ANY RESPONSIBILITY OR LIABILITY FOR LOSS
+OR DAMAGE OCCASIONED TO ANY PERSON OR PROPERTY THROUGH USING SOFTWARE,
+MATERIALS, INSTRUCTIONS, METHODS OR IDEAS CONTAINED HEREIN, OR ACTING OR
+REFRAINING FROM ACTING AS A RESULT OF SUCH USE. THE AUTHORS EXPRESSLY DISCLAIM
+ALL IMPLIED WARRANTIES, INCLUDING MERCHANT ABILITY OR FITNESS FOR ANY PARTICULAR
+PURPOSE. THERE WILL BE NO DUTY ON THE AUTHORS TO CORRECT ANY ERRORS OR DEFECTS
+IN THE SOFTWARE. THIS SOFTWARE AND THE DOCUMENTATION ARE THE PROPERTY OF THE
+AUTHORS AND SHOULD BE ONLY USED FOR SCIENTIFIC AND EDUCATIONAL PURPOSES. ALL
+SOFTWARE IS PROVIDED FREE AND IT IS NOT SUPPORTED. THE AUTHORS ARE, HOWEVER,
+HAPPY TO RECEIVE COMMENTS, CRITICISM AND SUGGESTIONS ADDRESSED TO <a
+href="mailto:icalab@bsp.brain.riken.go.jp">icalab@bsp.brain.riken.go.jp </a></span></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal style='text-align:justify'><code><span style='font-size:
+10.0pt'>MATLAB<sup>®</sup> is a registered trademark of The MathWorks, Inc.</span></code></p>
+
+<b><span style='font-size:18.0pt;font-family:"Times New Roman"'><br clear=all
+style='page-break-before:always'>
+</span></b>
+
+<h2>The general concept of NMFLAB</h2>
+
+<p style='text-align:justify'>The important and unique features of our NMFLAB
+toolbox are&nbsp;as follows:</p>
+
+<p style='text-align:justify'>1. Implementation of a variety of&nbsp;NMF
+algorithms: Multiplicative Algorithms (MA), Exponentiated Gradient (EG),
+Projected Gradient (PG), Conjugate Gradient (CG), and Quasi-Newton (QN), some
+of which are new. The user can easily compare various algorithms and also
+different combination of these algorithms.</p>
+
+<p style='text-align:justify'>2.&nbsp;Possibility of imposing some additional
+constraints such as sparseness and/or smoothness.</p>
+
+<p style='text-align:justify'>3. Possibility of comparing the performance of
+various NMF and ICA/BSS algorithms for difficult benchmarks including
+benchmarks based on Monte Carlo Analysis.</p>
+
+<p style='text-align:justify'>4. Introduction of the new concept of multilayer
+or cascade NMF that may considerably improve reliability and performance of
+some NMF algorithms especially for ill-conditioned problems.</p>
+
+<p>5. Preprocessing and post-processing of data. (Currently the optional <b>PREPROCESSING</b>
+tools are not&nbsp;implemented in the version 1,&nbsp;except for&nbsp;Principal
+Component Analysi<b>s </b>(<b>PCA</b>)&nbsp;preprocessing that estimates the
+number of hidden components. <b>POSTPROCESSING</b> tools currently include:
+Deflation and Reconstruction (&quot;cleaning&quot;) of the data by removing
+undesirable components, noise or artifacts.)</p>
+
+<p style='text-align:justify'>6. The NMFLAB Toolbox has a flexible and
+extendable structure which can be used to add user defined NMF algorithms and
+compare them with the developed and implemented algorithms. </p>
+
+<h2>A Brief Introduction to NMF</h2>
+
+<p style='text-align:justify'>Basic&nbsp;NMF algorithms perform&nbsp;matrix
+factorization of the form:</p>
+
+<p style='text-align:justify'><b>                                    </b><b><span
+style='font-size:14.0pt'>Y=A X+V</span></b><span style='font-size:14.0pt'>
+subject to non-negativity constraints for <b>A </b>and <b>X,</b></span></p>
+
+<p style='text-align:justify'>where <b>A</b> is an <i>m</i>-by-<i>r</i> non-negative
+mixing matrix or a matrix of basis vectors,&nbsp; <strong>Y</strong> is an <i>m</i>-by-<i>T
+</i>matrix of the observed data, <b>X</b>=<strong>S</strong> is an <i>r</i>-by-<i>T</i>
+matrix of original&nbsp;non-negative sources, and <strong>V </strong> is an<i>
+m</i>-by-<i>T </i>and represents the matrix of additive noise. </p>
+
+<p class=MsoNormal style='text-align:justify'>Successful and efficient use of
+NMFLAB depends on an <i>a priori</i> knowledge, common sense and appropriate
+use of the advanced parameters (see the list of the publications for details)
+used in the various algorithms implemented in the toolbox.</p>
+
+<p class=MsoNormal style='text-align:justify'>&nbsp;</p>
+
+<p class=MsoNormal style='text-align:justify'>&nbsp;</p>
+
+<p class=MsoNormal style='text-align:justify'>&nbsp;</p>
+
+<p class=MsoNormal style='text-align:justify'>&nbsp;</p>
+
+<p class=MsoNormal style='text-align:justify'>&nbsp;</p>
+
+<p class=MsoNormal style='text-align:justify'>&nbsp;</p>
+
+<p class=MsoNormal style='text-align:justify'>&nbsp;</p>
+
+<h2>Possible Applications of NMFLAB</h2>
+
+<p style='text-align:justify'><b>NMFLAB</b> could be useful in the following
+tasks:</p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='text-align:justify'>Decomposition of multi-variable
+     signals or patterns&nbsp;into non-negative (and usually sparse
+     components), </li>
+ <li class=MsoNormal style='text-align:justify'>Dimensionality reduction, </li>
+ <li class=MsoNormal style='text-align:justify'>Extraction of features and
+     patterns, </li>
+ <li class=MsoNormal style='text-align:justify'>Extraction and removal of
+     undesirable artifacts and interference by applying deflation, </li>
+ <li class=MsoNormal style='text-align:justify'>Removal of noise or
+     &quot;cleaning&quot; the raw observed (sensor) data, </li>
+ <li class=MsoNormal style='text-align:justify'>Comparison of the performance
+     for various NMF algorithms and Blind Source Separation (BSS),</li>
+ <li class=MsoNormal style='text-align:justify'>Data analysis and data mining,</li>
+ <li class=MsoNormal style='text-align:justify'>NMF analysis of acoustic signals
+     and text data, and</li>
+ <li class=MsoNormal style='text-align:justify'>Classification, clustering and
+     segmentation of patterns, e.g., face/image recognition, language modeling,
+     speech processing and gene analysis.</li>
+</ol>
+
+<p style='text-align:justify'>Several benchmarks signals are included which
+enable the user to compare and illustrate the performance of the various algorithms
+on synthetic and real-world signals (see <a
+href="http://www.bsp.brain.riken.go.jp/ICALAB/ICALABSignalProc/benchmarks/">Benchmarks</a>).
+</p>
+
+<h2>Limitations of the version 1: </h2>
+
+<p style='text-align:justify'>The version&nbsp;of the NMFLAB is limited to <strong>200</strong>
+channels and some combinations of algorithms may not work properly (this is an
+implementation constraint not a mathematical one). A higher number of channels
+may be useful for high-density array processing in biomedical signal processing
+and in multivariate time series analysis and is available on request. </p>
+
+<p style='text-align:justify'><b>Note: this package runs on MATLAB 7.0 or
+higher</b>. <b>NMFLAB for Signal Processing</b> was developed and tested under
+MATLAB version 7.1. <b>Previous versions (i.e., 6.5) may not work properly due
+to some unsupported graphics functions.</b></p>
+
+<span style='font-size:12.0pt;font-family:"Times New Roman"'><br clear=all
+style='page-break-before:always'>
+</span>
+
+<h1 align=center style='text-align:center'><a name="Getting_started"></a>PART 1</h1>
+
+<h1 align=center style='text-align:center'>NMFLAB User Guide</h1>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<b><span style='font-size:24.0pt;font-family:"Times New Roman"'><br clear=all
+style='page-break-before:always'>
+</span></b>
+
+<h1>Starting NMFLAB</h1>
+
+<p style='text-align:justify'>To start <b>NMFLAB for Signal Processing</b>
+type: </p>
+
+<p style='text-align:justify'><tt><span style='font-size:10.0pt'>                                      
+</span></tt><tt><span style='font-size:16.0pt'>nmflab</span></tt><span
+style='font-size:16.0pt'> </span></p>
+
+<p style='text-align:justify'>in the <b>MATLAB</b> Command Window. </p>
+
+<h2 style='text-align:justify'>Loading the data</h2>
+
+<p style='text-align:justify'>To load new signals or data for further processing:
+</p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='text-align:justify'>Click on <tt><span
+     style='font-size:10.0pt'>File</span></tt> in the menu bar and then select
+     the first option on the drop-down menu <tt><span style='font-size:10.0pt'>Open</span></tt>.
+     Both the <tt><span style='font-size:10.0pt'>HELP</span></tt> and <tt><span
+     style='font-size:10.0pt'>EXIT</span></tt> buttons in the main window will
+     become active after loading the data file. The user can load real data
+     (the matrix of observed data – matrix <b>Y</b>) or synthetic data
+     (representing original sources - matrix <b>X</b>) to test and compare
+     various NMF algorithms.</li>
+</ol>
+
+<p class=MsoNormal align=center style='margin-left:36.0pt;text-align:center'><img
+border=0 width=425 height=444 src="Help_NMFLAB_files/image001.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+1: The initial window that appears after running “nmflab”. Click </span><tt><span
+style='font-size:10.0pt'>File </span></tt><span style='font-size:10.0pt'>and</span><tt><span
+style='font-size:10.0pt'> Open</span></tt><span style='font-size:10.0pt'> to
+load your data. The data should be in MATLAB format (*.mat), ASCI format (*.txt
+and *.dat) or Excel formats (*.xls and *.csv).</span></h6>
+
+<ol start=2 type=1>
+ <li class=MsoNormal style='text-align:justify'>The loaded data (both the
+     supplied benchmarks and the user’s test data) should be stored in the MATLAB
+     (*.mat files), ASCII (*.txt and *.dat files) or Excel (*.xls, *.csv)
+     format.</li>
+</ol>
+
+<p style='margin-left:36.0pt;text-align:justify'>The data must be stored in a
+2-dimensional matrix: the number of rows corresponds to the number of sensors
+(the number of observations) and the number of columns corresponds to the
+length of the signals, i.e., the number of samples.</p>
+
+<p style='margin-left:36.0pt;text-align:justify'>The loaded Matlab files can contain
+one or more data matrices. The user can then choose an appropriate data matrix.
+The data loaded in ASCII or Excel format should contain only one data file.
+There is no limit to the length of the signals (number of samples), but in the
+version 1 available on the web, only a maximum of <strong>200 signals</strong>
+(time series) can be loaded and processed.</p>
+
+<p style='margin-left:36.0pt;text-align:justify'>Usually, the convergence speed
+of the algorithms in this package is heavily dependent on the dimension of
+signals (i.e., the number of observations and the number of samples) and the
+computer resources, e.g., the processor speed and the available memory. To
+process large files, it is recommended that the swap space on a hard disk is
+increased and/or the data is split into smaller dimension – sub-windows.</p>
+
+<p class=MsoNormal align=center style='margin-left:36.0pt;text-align:center'><img
+border=0 width=408 height=223 src="Help_NMFLAB_files/image002.jpg"></p>
+
+<h6 align=center style='margin-left:36.0pt;text-align:center'><span
+style='font-size:10.0pt'>Fig. 2: This window illustrates how to load the
+benchmark or the user’s data. Click the </span><tt><span style='font-size:10.0pt'>Open</span></tt><span
+style='font-size:10.0pt'> button when the desired data file has been selected.</span></h6>
+
+<h6 align=center style='margin-left:36.0pt;text-align:center'><img border=0
+width=438 height=458 src="Help_NMFLAB_files/image003.jpg"></h6>
+
+<h6 style='margin-left:36.0pt;text-align:justify'><span style='font-size:10.0pt'>Fig.
+3: An example of the main window after the data has been loaded. If the user’s
+MATLAB data consist of several matrices, click the </span><tt><span
+style='font-size:10.0pt'>Select variable</span></tt><span style='font-size:
+10.0pt'> popup menu to choose the desired data. The user can also click </span><tt><span
+style='font-size:10.0pt'>SELECT CHANNELS</span></tt><span style='font-size:
+10.0pt'> in order to choose the time window (the number of samples) and the
+desired signals or </span><tt><span style='font-size:10.0pt'>Algorithm</span></tt><span
+style='font-size:10.0pt'> to select one of the algorithms (The basic Regularized
+</span><code><span style='font-size:10.0pt'>Lee-Seung</span></code><span
+style='font-size:10.0pt'> algorithm (EMML) is the default algorithm). </span></h6>
+
+<ol start=3 type=1>
+ <li class=MsoNormal style='text-align:justify'>The user can discard some
+     signals and select an arbitrary (time) sub-window by clicking the <i>Select
+     channels</i> button. <a name="select_channels"></a>The <i>Select channels</i>
+     window allows the user to mark the signals (or data) desired for further
+     processing. The user can also choose a specific time window for the input
+     signals (number of samples) by entering the first and last sample numbers
+     into the fields marked as <tt><span style='font-size:10.0pt'>start</span></tt>
+     and <tt><span style='font-size:10.0pt'>end</span></tt> at the bottom of
+     the window. The numbers in the respective fields specify the current
+     starting and ending positions for the processing. Pressing the <tt><span
+     style='font-size:10.0pt'>OK</span></tt> button (In the window below, this
+     appears in the highlighted area) loads the selected signals. Unselected
+     channels (in our example, channels No. 2 and 4) are ignored (and removed
+     from original data). Pressing <tt><span style='font-size:10.0pt'>SAVE </span></tt>stores
+     the selected signals as a *.mat file. </li>
+</ol>
+
+<p class=MsoNormal align=center style='margin-left:36.0pt;text-align:center'><img
+border=0 width=594 height=502 src="Help_NMFLAB_files/image004.jpg"></p>
+
+<h6 align=center style='margin-left:36.0pt;text-align:center'><span
+style='font-size:10.0pt'>Fig. 4: This window illustrates the selection of
+channels and the time window. In this case channels s2 and s4 are deleted.</span></h6>
+
+<h2>Mixing the signals</h2>
+
+<p style='text-align:justify'>The signals can be mixed synthetically (using the
+mixing model: <b>Y</b>=<b>AX</b>+<b>V</b>) if they are not already in mixed inputted
+file.</p>
+
+<p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=458 height=480 src="Help_NMFLAB_files/image005.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+5: This window illustrates how to choose mixing matrix A. If the data is real
+(i.e. user inputted source signals and not benchmark data), choose the </span><tt><span
+style='font-size:10.0pt'>real data </span></tt><span style='font-size:10.0pt'>option</span><span
+style='font-size:10.0pt'>. </span></h6>
+
+<p style='text-align:justify'>The mixing matrix <b>A</b> can be square or
+rectangular with the number of columns and rows specified by the user. Several&nbsp;alternative
+ways to generate such mixing matrices are available: </p>
+
+<ul type=disc>
+ <li class=MsoNormal style='text-align:justify'>Randomly generated&nbsp;full
+     rank sparse matrix with the sparseness level adjusted by the user, </li>
+ <li class=MsoNormal style='text-align:justify'>Randomly generated&nbsp;full
+     rank uniform distributed matrix: <b>A</b>=rand(m,n), </li>
+ <li class=MsoNormal style='text-align:justify'>Randomly generated full rank
+     exponentially distributed matrix: <b>A</b>=abs(randn(m,n)), </li>
+ <li class=MsoNormal style='text-align:justify'>Randomly
+     generated&nbsp;symmetric nonsingular square  matrix,</li>
+ <li class=MsoNormal style='text-align:justify'>Randomly
+     generated&nbsp;ill-conditioned uniform distributed  matrix,</li>
+ <li class=MsoNormal style='text-align:justify'>Hilbert matrix (very ill
+     conditioned), </li>
+ <li class=MsoNormal style='text-align:justify'>Toeplitz matrix, </li>
+ <li class=MsoNormal style='text-align:justify'>Hankel matrix, </li>
+ <li class=MsoNormal style='text-align:justify'>Paatero example,</li>
+ <li class=MsoNormal style='text-align:justify'>Identity (unit matrix). </li>
+</ul>
+
+<p class=MsoNormal align=center style='margin-left:18.0pt;text-align:center'><img
+border=0 width=436 height=157 src="Help_NMFLAB_files/image006.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+6: Pressing the </span><tt><span style='font-size:10.0pt'>ADV. OPTS. </span></tt><span
+style='font-size:10.0pt'>button</span><span style='font-size:10.0pt'> causes
+the following window to appear. The user can set the sparseness level using
+this window.</span></h6>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify'><br>
+Editing the mixing matrix can be achieved by clicking the <tt><span
+style='font-size:10.0pt'>EDIT</span></tt> button, which generates the following
+window: </p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=518 height=387 src="Help_NMFLAB_files/image007.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+7: This window illustrates how to edit the mixing matrix A. The editable mixing
+matrix A cannot be larger than a 20-by-14.</span></h6>
+
+<h6 style='text-align:justify'><span style='font-size:12.0pt;font-weight:normal'>The
+user can to edit every element of the mixing matrix using the window in figure
+7. The condition number of the mixing matrix is updated automatically. The
+maximum mixing matrix allowed is a <i>20</i>-by-<i>14</i>.</span></h6>
+
+<h6 align=center style='text-align:center'>&nbsp;</h6>
+
+<h6 align=center style='text-align:center'>&nbsp;</h6>
+
+<h2>Adding noise to the signals</h2>
+
+<p style='text-align:justify'>Noise can be added to each sensor signal before
+performing NMF or BSS by choosing one of the following options: </p>
+
+<ul type=disc>
+ <li class=MsoNormal style='text-align:justify'><b>No noise</b> - the sensor
+     signals are not changed.</li>
+ <li class=MsoNormal style='text-align:justify'><b>Gaussian noise</b> with a
+     SNR in the range 20dB to 0dB can be added to the signals. </li>
+ <li class=MsoNormal style='text-align:justify'><b>Uniform noise</b> with a SNR
+     in the range 20dB to 0dB can be added to the signals.</li>
+</ul>
+
+<p style='text-align:justify'>Remark:&nbsp; The negative entries&nbsp;of the
+matrix <b>Y</b> are ignored, that is, they are&nbsp;replaced with zero-entries.
+Noise can be added to test the robustness of the algorithms using the various
+benchmarks.</p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=507 height=531 src="Help_NMFLAB_files/image008.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+8: This window illustrates the procedure of adding noise synthetically to the
+signal. This option should be ignored for real data. </span></h6>
+
+<h2>&nbsp;</h2>
+
+<h2>Choosing the algorithm</h2>
+
+<p style='text-align:justify'>Once the data (sources)&nbsp;and the mixing
+matrix (optional) have been chosen, the user can select one of the available
+algorithms to run on the data.  Part 2 of the NMLAB manual gives more details
+on each of them. The algorithms have been arranged into groups. Currently the
+following groups of algorithms are implemented:</p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'>1.
+Regularized Lee-Seung&nbsp;NMF algorithms. The algorithms in this group
+minimize the regularized Frobenius norm, Kullback-Leibler divergence or beta
+divergence (which integrates both loss functions). This group contains the
+following algorithms: EMML, ISRA, Kompass algorithm, and projected
+pseudo-inverse. </p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'>&nbsp;</p>
+
+<p class=MsoNormal style='text-align:justify;text-autospace:none'>2. Projected
+gradient algorithms: GPCG (Gradient Projected Conjugate Gradient), PG
+(Projected Gradient), IPG (Interior Projected Gradient), Regularized MRNSD
+(Regularized Minimal Residual Norm Steepest Descent), Relaxed Hellinger, and
+Projected pseudo-inverse.</p>
+
+<p style='text-align:justify'>3.&nbsp; NMF-ALPHA -Multiplicative algorithms
+based on the Amari's alpha divergence. </p>
+
+<p style='text-align:justify'>4.&nbsp; SMART algorithms based on the Exponentiated
+Gradient (EG) and various divergences.</p>
+
+<p style='text-align:justify'>4. Second-order algorithms (mixing matrix is
+estimated using algorithms based on the quasi-Newton method).</p>
+
+<p style='text-align:justify'>6. Cascade algorithms that estimate the missing
+matrix as a chain of matrices.</p>
+
+<p style='text-align:justify'>In order to compare performance of NMF algorithms
+with BSS/ICA we added three standard BSS algorithms:</p>
+
+<p style='text-align:justify'><span lang=IT>7. AMUSE algorithm (ICA),</span></p>
+
+<p style='text-align:justify'><span lang=IT>8. SOBI algorithm (ICA),</span></p>
+
+<p style='text-align:justify'>9. ThinICA,</p>
+
+<p style='text-align:justify'>10. User-defined algorithms (User algorithm
+10-15).</p>
+
+<p style='text-align:justify'>The user-defined algorithms can be specified
+arbitrarily by the user. Refer to the example m-files: <a
+href="../../Local%20Settings/Temp/RAFAL/NMFLABSP_27March2006/help/NMFLAB-help.html#user_alg">user_alg<i>k</i>.m</a>
+to see how the NMFLAB calls the user-defined algorithms. The user-defined
+algorithm should return only&nbsp;the estimated mixing matrix <b>A</b> and
+estimated&nbsp;sources <b>X.</b></p>
+
+<p class=MsoNormal align=center style='text-align:center'><a name="alg_names"></a><img
+border=0 width=506 height=528 src="Help_NMFLAB_files/image009.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+9: This window illustrates how to select the algorithm from the list of
+available NMF algorithms. </span></h6>
+
+<p class=MsoNormal align=center style='margin-left:216.0pt;text-align:center'>&nbsp;</p>
+
+<p class=MsoNormal align=center style='margin-left:216.0pt;text-align:center'>&nbsp;</p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:216.0pt;border-collapse:collapse'>
+ <tr>
+  <td width=367 valign=top style='width:275.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=282 height=223 src="Help_NMFLAB_files/image010.jpg"></p>
+  <p class=MsoNormal align=center style='text-align:center'>(a)</p>
+  </td>
+  <td width=367 valign=top style='width:275.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=275 height=220 src="Help_NMFLAB_files/image011.jpg"></p>
+  <p class=MsoNormal align=center style='text-align:center'>(b)</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=367 valign=top style='width:275.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=285 height=238 src="Help_NMFLAB_files/image012.jpg"></p>
+  <p class=MsoNormal align=center style='text-align:center'>(c)</p>
+  </td>
+  <td width=367 valign=top style='width:275.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=284 height=238 src="Help_NMFLAB_files/image013.jpg"></p>
+  <p class=MsoNormal align=center style='text-align:center'>(d)</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=367 valign=top style='width:275.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=290 height=212 src="Help_NMFLAB_files/image014.jpg"></p>
+  <p class=MsoNormal align=center style='text-align:center'>(e)</p>
+  </td>
+  <td width=367 valign=top style='width:275.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=287 height=214 src="Help_NMFLAB_files/image015.jpg"></p>
+  <p class=MsoNormal align=center style='text-align:center'>(f)</p>
+  </td>
+ </tr>
+</table>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+10: This window illustrates how to adjust the parameters using </span><tt><span
+style='font-size:10.0pt'>Advanced Options</span></tt><span style='font-size:
+10.0pt'>.</span></h6>
+
+<p style='text-align:justify'>In the package, most of the algorithms are given
+with default parameters; hence the user can start testing the algorithms without
+the needing to set the parameters. The default parameters are tuned for near
+optimum values for typical data. It is necessary to tune some parameters to
+achieve optimal performance in the case of some of the algorithms. This can be
+done by clicking on the <tt><span style='font-size:10.0pt'>ADV. OPTIONS</span></tt>
+button. When the algorithm has been selected and its free parameters adjusted,
+click the <tt><span style='font-size:10.0pt'>RUN ALGORITHM</span></tt> button.
+The learning procedure will be started and algorithm specific messages will
+appear in the main MATLAB command window. During the computation, an additional
+window will display the algorithm name. You can stop the learning process by
+clicking on the <tt><span style='font-size:10.0pt'>INTERRUPT</span></tt> button.
+</p>
+
+<p style='text-align:justify'>In&nbsp;the  version  1 of NMFLAB, the
+interrupting feature is disabled for almost all the algorithms. </p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=464 height=156 src="Help_NMFLAB_files/image016.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+11: While the algorithm is running the following window should appear. The
+process can be interrupted by the user by clicking on the <tt><span
+style='font-family:"Times New Roman"'>INTERRUPT</span></tt> button.<a
+name=SUBBAND></a></span></h6>
+
+<p class=MsoNormal style='margin-bottom:12.0pt'>&nbsp;</p>
+
+<h2>Multi-layer NMF</h2>
+
+<p class=MsoNormal style='margin-right:.95pt;text-align:justify'>In order to
+improve the performance of NMF, especially for ill-conditioned and badly scaled
+data and also to reduce the risk of getting stuck in a local minima of the cost
+function we have developed a simple hierarchical and multi-stage procedure in which
+we perform a sequential decomposition (factorization) of nonnegative matrices. </p>
+
+<p class=MsoNormal style='margin-right:.95pt;text-align:justify'>In the first
+step, we perform the basic decomposition <sub><img border=0 width=65 height=24
+src="Help_NMFLAB_files/image017.gif"></sub> using any available NMF algorithm.
+In the second stage, the results obtained from the first stage are used to
+perform a similar decomposition: <sub><img border=0 width=73 height=24
+src="Help_NMFLAB_files/image018.gif"></sub> using the same or different update
+rules. This multi-layer decomposition is continued using only the components
+generated in the last step. The process can be repeated arbitrary many times
+until some stopping criteria is satisfied. In each step, we usually obtain
+gradual improvements of the performance. The model has the form: <sub><img
+border=0 width=127 height=24 src="Help_NMFLAB_files/image019.gif"></sub>, with
+the basis matrix defined as <sub><img border=0 width=104 height=24
+src="Help_NMFLAB_files/image020.gif"></sub>.  Physically, this means that we
+build up a system that has many layers or a cascade connection of <i>L</i>
+mixing sub-systems. The key point in our novel approach is that the learning
+(update) process to find parameters of sub-matrices <sub><img border=0
+width=21 height=24 src="Help_NMFLAB_files/image021.gif"></sub> and <sub><img
+border=0 width=20 height=24 src="Help_NMFLAB_files/image022.gif"></sub> is
+performed sequentially, i.e., layer by layer. </p>
+
+<p class=MsoNormal style='margin-right:.95pt;text-align:justify'>Thus, our approach
+can be described by the following algorithm:</p>
+
+<p class=MsoNormal style='margin-right:.95pt;text-align:justify'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-right:.95pt;text-align:justify'>Set: <sub><img
+border=0 width=57 height=25 src="Help_NMFLAB_files/image023.gif"></sub>,
+Initialize randomly basis matrix <sub><img border=0 width=29 height=27
+src="Help_NMFLAB_files/image024.gif"></sub> and/or <sub><img border=0 width=29
+height=27 src="Help_NMFLAB_files/image025.gif"></sub>:       </p>
+
+<p class=MsoNormal style='margin-right:.95pt;text-align:justify'>For <sub><img
+border=0 width=81 height=21 src="Help_NMFLAB_files/image026.gif"></sub> do:</p>
+
+<p class=MsoNormal style='margin-right:.95pt;text-align:justify'><span
+style='font-size:13.0pt'>        </span>For <sub><img border=0 width=95
+height=24 src="Help_NMFLAB_files/image027.gif"></sub> do:                                                                                                                               </p>
+
+<p class=MsoNormal style='margin-right:.95pt;text-align:justify'><span
+style='font-size:13.0pt'>         <sub><img border=0 width=301 height=37
+src="Help_NMFLAB_files/image028.gif"></sub>                                                                         </span></p>
+
+<p class=MsoNormal style='margin-right:.95pt;text-align:justify'><span
+style='font-size:13.0pt'>         <sub><img border=0 width=313 height=37
+src="Help_NMFLAB_files/image029.gif"></sub> <sub><img border=0 width=161
+height=53 src="Help_NMFLAB_files/image030.gif"></sub>      </span></p>
+
+<p class=MsoNormal style='margin-right:.95pt;text-align:justify'><span
+style='font-size:13.0pt'>         End (for <i>t</i>)</span></p>
+
+<p class=MsoNormal style='margin-top:0cm;margin-right:.95pt;margin-bottom:0cm;
+margin-left:36.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:36.0pt'><span
+style='font-size:13.0pt'><sub><img border=0 width=99 height=27
+src="Help_NMFLAB_files/image031.gif"></sub></span></p>
+
+<p class=MsoNormal style='margin-right:.95pt;text-align:justify'>End (for <i>l</i>)</p>
+
+<p class=MsoNormal style='margin-right:.95pt;text-align:justify'>In the above
+algorithm, the cost functions <sub><img border=0 width=77 height=21
+src="Help_NMFLAB_files/image032.gif"></sub> and <sub><img border=0 width=77
+height=24 src="Help_NMFLAB_files/image033.gif"></sub> can take various forms,
+e.g.: the Amari alpha divergence, Bregman divergence, Csiszar divergence, beta
+divergence, Euclidean distance. </p>
+
+<h2 align=center style='text-align:center'><img border=0 width=425 height=444
+src="Help_NMFLAB_files/image034.jpg"></h2>
+
+<p class=MsoNormal align=center style='margin-bottom:12.0pt;text-align:center'><b><span
+style='font-size:10.0pt'>Fig. 12: Selection of the number of layers in
+Multilayer NMF (maximum 25 layers can be used).</span></b></p>
+
+<h2>Visualizing the results</h2>
+
+<p style='text-align:justify'>When the program finishes computation, we have
+three sets of parameters: </p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='text-align:justify'>The matrix <b>A<sub>est</sub></b>
+     which is an estimate of the original mixing matrix <b>A</b><span
+     style='color:blue'>.</span> In MATLAB, this matrix has the name <b>AH</b>.</li>
+ <li class=MsoNormal style='text-align:justify'>The matrix <b>X<sub>est</sub></b>
+     which is an estimate of the original sources <b>X.</b>  In MATLAB, this
+     matrix has the name <b>XH</b>.</li>
+ <ul type=circle>
+  <li class=MsoNormal style='text-align:justify'>In practice the data is stored
+      in the matrix form, i.e., <b>Y</b> = <b>A X</b>&nbsp;, where <b>A</b> is
+      a&nbsp; mixing matrix, <b>Y</b> = [<b>y</b>(1), <b>y</b>(2), ..., <b>y</b>(<i>T</i>)
+      ] is <i>m-</i>by-<i>T</i> matrix of observations and <b>X</b> = [<b>x</b>(1),
+      <b>x</b>(2), ..., <b>x</b>(<i>T</i>) ] - is the matrix of primary source
+      signals.</li>
+ </ul>
+ <li class=MsoNormal style='text-align:justify'>The vectors SIR_A and SIR_X
+     represent the Signal to Interferer Ratios (<b>SIR)</b> of individual columns
+     of the matrix <b>A</b> and individual rows of the matrix <b>X</b>. </li>
+</ol>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-align:justify'>NMFLAB
+computes SIRs (Signal to Interference Ratio) for individual sources (the rows
+of the matrix <b>X</b> and the columns of the matrix <b>A).</b></p>
+
+<p style='text-align:justify'>After convergence, the results can be visualized
+by clicking the <tt><span style='font-size:10.0pt'>PLOT</span></tt> button. The
+number of signals <i>p</i> displayed simultaneously in every window can be
+selected by changing the number of subplots. The user can scroll through the
+signals by dragging the vertical scroll-bar. The number of signals displayed
+simultaneously is defined by the user in the main NMFLAB window. The user can
+also scroll through the signals by clicking on the arrow. The estimated source
+signals are shown in the <i>Independent components</i> window. In addition, the
+loaded signals can be seen in the <i>Sources</i> window, which displays the
+original signals.</p>
+
+<p style='text-align:justify'>If the user mixed the signals using an arbitrary
+mixing matrix (<b>A</b> <em>not equal</em> <b>I</b>) it is recommended that the
+<i>Sensors (mixtures)</i> window is viewed. There is no need to mix the signals
+if the original signals were originally mixed of they consist of real (measured
+or observed) superimposed data prepared for decomposition into independent (or spatio-temporal
+de-correlated) components and further processing. The performance of the selected
+algorithm can be viewed using the <i>Global Matrix (Performance Index - PI)</i>
+window for the artificially mixed sources. Additionally, for each chosen plot
+window, it is possible to obtain additional subwindow by checking the
+appropriate <tt><span style='font-size:10.0pt'>Subwindow</span></tt> option. </p>
+
+<h3 style='text-align:justify'>Paging and zooming</h3>
+
+<p style='text-align:justify'>The signals that are greater than 1000 samples
+long are divided automatically into pages (see Fig.12). Each page contains
+approximately one half of the data samples by default. The user can change the
+number of samples displayed in each&nbsp;page by replacing the number in the
+field by an arbitrary integer number. This allows the user to employ the zoom
+facility on the visualized data. The pages can be changed&nbsp;by clicking on
+the <tt><span style='font-size:10.0pt'>&lt;&lt;</span></tt> and <tt><span
+style='font-size:10.0pt'>&gt;&gt;</span></tt> arrows or on the bar displayed
+above the plot (see Figure 12).</p>
+
+<p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+
+<div align=center>
+
+<table class=MsoNormalTable border=0 cellpadding=0>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><img border=0 width=344 height=291
+  src="Help_NMFLAB_files/image035.jpg"></p>
+  <h5>(a)</h5>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><img border=0 width=354 height=291
+  src="Help_NMFLAB_files/image036.jpg"></p>
+  <h5>(b)</h5>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><img border=0 width=346 height=292
+  src="Help_NMFLAB_files/image037.jpg"></p>
+  <h5>(c)</h5>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><img border=0 width=354 height=293
+  src="Help_NMFLAB_files/image038.jpg"></p>
+  <h5>(d)</h5>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+13: Four windows illustrating the output results: (a) Plot of the estimated
+non-negative components or separated/extracted (estimated) sources, depending
+on the algorithm used. (b) Plot of the SIR_A for the estimated columns of matrix
+A, This plot only makes sense for benchmarks or for known mixing matrix. (c)
+Plot of the primary sources (if available). If the sources are not available,
+this window displays the sensor signals. (d) Plot of the SIR_X representing the
+performance achieved in estimating the individual sources.</span></h6>
+
+<h6 align=center style='text-align:center'>&nbsp;</h6>
+
+<h6 align=center style='text-align:center'><img border=0 width=369 height=258
+src="Help_NMFLAB_files/image039.jpg"><img border=0 width=351 height=259
+src="Help_NMFLAB_files/image040.jpg"><img border=0 width=381 height=257
+src="Help_NMFLAB_files/image041.jpg"></h6>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.14
+Windows illustrating various visualization of the observed signals</span></h6>
+
+<h3>Sub-windows</h3>
+
+<p class=MsoNormal style='text-align:justify'>The sub-windows option offers an
+additional possible visualization of the estimated sources, sources and mixed
+signals. Two menu items are available: </p>
+
+<ul type=disc>
+ <li class=MsoNormal style='text-align:justify'><tt><b><span style='font-size:
+     10.0pt'>Signals view</span></b></tt> </li>
+</ul>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='text-align:justify'>Time domain. </li>
+ <li class=MsoNormal style='text-align:justify'>FFT - Frequency domain.</li>
+ <li class=MsoNormal style='text-align:justify'>Spectrogram (Caution! This
+     calculation may take a long time).</li>
+ <li class=MsoNormal style='text-align:justify'>PSD - power spectrum. </li>
+ <li class=MsoNormal style='text-align:justify'>Scatter plot. </li>
+</ol>
+
+<ul type=disc>
+ <li class=MsoNormal style='text-align:justify'><tt><b><span style='font-size:
+     10.0pt'>Scale</span></b></tt></li>
+</ul>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='text-align:justify'>Auto / Fixed. </li>
+ <li class=MsoNormal style='text-align:justify'>Linear / Logarithmic. </li>
+ <li class=MsoNormal style='text-align:justify'>X / Y Limits.</li>
+ <li class=MsoNormal style='text-align:justify'>Scatter plot options - see Fig.
+     17. </li>
+</ol>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=577 height=424 src="Help_NMFLAB_files/image042.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+15: Sub-windows: visualization of signals in time, frequency and time-frequency
+domains. Adjustment of scale and type of axes is possible.</span></h6>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=578 height=415 src="Help_NMFLAB_files/image043.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+16: By clicking on the label of the signal in the main sub-window, it is
+possible to display an individual signal in a separate, large window.&nbsp; </span></h6>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=286 height=224 src="Help_NMFLAB_files/image044.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+17: Scatter plot options. </span></h6>
+
+<h6 align=center style='text-align:center'>&nbsp;</h6>
+
+<h6 align=center style='text-align:center'><img border=0 width=515 height=379
+src="Help_NMFLAB_files/image045.jpg"><img border=0 width=563 height=379
+src="Help_NMFLAB_files/image046.jpg"></h6>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+18: Windows for visualizing various loss function versus alternating steps; and
+also the global matrix related to the Amari index.</span></h6>
+
+<p>The user can also choose to see a 3D plot of the global matrix <b>G</b> = <b>W</b><b>A<sub>est</sub></b>,
+where <b>W</b>=pinv(<b>A<sub>est</sub></b>).</p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=516 height=361 src="Help_NMFLAB_files/image047.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+19: An exemplary of a 3-D plot of the global performance matrix (G = W</span><span
+style='font-size:10.0pt'>A<sub>est</sub></span><span style='font-size:10.0pt'>).</span></h6>
+
+<p><b>Note:</b> Rendering of 3D plots from a large number of signals can be
+very time-consuming. </p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=498 height=308 src="Help_NMFLAB_files/image048.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+20: An exemplary plot of the estimated matrix </span><span style='font-size:
+10.0pt'>A<sub>est</sub></span><sub><span style='font-weight:normal'>t</span></sub><span
+style='font-size:10.0pt'> = inv(W).</span></h6>
+
+<p style='text-align:justify'>The window <i>Estimated mixing matrix</i> <b>A<sub>est</sub>=</b>
+inv(<b>W</b>) shows the distribution of the entries of the estimated mixing
+matrix.<span style='color:red'> </span></p>
+
+<p>The user can specify which plots are to be drawn. At the bottom of the main
+NMFLAB window, clicking <tt><span style='font-size:10.0pt'>View</span></tt>
+will allow the user to choose from a multitude of different plots. Instead of
+closing each of the windows separately, the user can click the <tt><span
+style='font-size:10.0pt'>CLOSE</span></tt> button to close all the plots. The
+plot windows are closed automatically if you re-run any algorithm. All the
+signals (sources, mixtures, independent components) are displayed in a separate
+window. </p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=594 height=357 src="Help_NMFLAB_files/image049.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+21: Window illustrating how to choose various plots for visualizing the
+obtained results.</span></h6>
+
+<h2>Saving the results</h2>
+
+<p>The NMFLAB package generally assumes the following generative mixing model </p>
+
+<p class=MsoNormal align=center style='text-align:center'><b>y</b>(<i>k</i>) = <b>A
+x</b>(<i>k</i>) + <b>v</b>(<i>k</i>),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>k</i> = 1, 2, ..., <i>T</i>
+</p>
+
+<p>where  <b>v</b>(<i>k</i>) is a vector of additive noise, </p>
+
+<p>or in batch mode </p>
+
+<p class=MsoNormal align=center style='text-align:center'><b>Y</b> = <b>A</b> <b>X</b>
++ <b>V</b> </p>
+
+<p><span lang=ES>where: </span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=ES><br>
+&nbsp; <b>Y</b>= [ <b>y</b>(1), <b>y</b>(2), ..., <b>y</b>(<i>N</i>) ], <br>
+&nbsp; <b>X</b> = [ <b>x</b>(1), <b>x</b>(2), ..., <b>x</b>(<i>N</i>) ], <br>
+&nbsp; <b>V</b> = [ <b>v</b>(1), <b>v</b>(2), ..., <b>v</b>(<i>N</i>) ]; </span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=FR>&nbsp;</span></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Table
+1. Basic variables used in NMFLAB</span></h6>
+
+<div align=center>
+
+<table class=MsoNormalTable border=1 cellspacing=1 cellpadding=0>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b>&nbsp;&nbsp;Variable
+  &nbsp;</b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b>Description</b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b>&nbsp; Dimension
+  of matrix &nbsp;</b></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b>X</b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>&nbsp;Original sources or&nbsp;components</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><i>&nbsp;&nbsp;&nbsp; r</i> × <i>T</i></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b>Y</b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>&nbsp;Observations (sensor signals)</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><i>&nbsp;&nbsp;&nbsp; m</i> × <i>T</i>
+  &nbsp;&nbsp;(usually <i>m</i> <span style='font-family:Symbol'>&gt;&gt;</span>
+  <i>r</i>)</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b>XH(=X<sub>est</sub>)</b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>&nbsp;Estimated sources or independent components&nbsp;</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><i>&nbsp;&nbsp;&nbsp; r</i> × <i>T</i></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b>AH(=A<sub>est</sub>)</b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>&nbsp;Estimated mixing matrix</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><i>&nbsp;&nbsp;&nbsp; m</i> × <i>r</i> &nbsp; or
+  &nbsp;&nbsp; <i>m</i> × <i>m</i></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b>W</b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>&nbsp;Demixing matrix (if it exists, <i>m</i> <span
+  style='font-family:Symbol'>&gt;=</span> <i>r</i>)</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><i>&nbsp;&nbsp;&nbsp; m</i> × <i>r</i> &nbsp;&nbsp; or
+  &nbsp;&nbsp; <i>r</i> × <i>r</i></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b>G</b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>&nbsp;Global (mixing-demixing) matrix</p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal>&nbsp;&nbsp;&nbsp; <i>m</i> × <i>r</i>&nbsp;&nbsp;
+  &nbsp;or&nbsp;&nbsp; <i>&nbsp;r × r</i></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<p style='text-align:justify'><b>Remark:</b> Most algorithms automatically
+detect the number of sources and setting them to <i>r</i> using SVD.&nbsp; </p>
+
+<p style='text-align:justify'>The results can be saved for further processing
+by clicking on the <tt><span style='font-size:10.0pt'>SAVE</span></tt> button.
+Note that all the signals will be saved into a single *.mat (MATLAB) file (with
+the specified name) i.e., <b>X</b> - original, primary sources, <b>Y</b> - sensors
+(mixture), <b>AH</b> - estimated&nbsp; components, <b>XH</b> - estimated
+sources, <b>A</b> - mixing matrix, <b>W</b> - demixing matrix, and <b>G</b> -
+global (mixing-demixing) matrix. The data can also be saved in the following
+forms: *.txt (ASCII), or *.xls (Excel). The data can only be saved in the Excel
+format <code><span style='font-size:10.0pt'>*.xls</span></code> if Microsoft
+Excel program is installed on your computer. On <code><span style='font-size:
+10.0pt'>UNIX</span></code> operating systems the data can be saved in <code><span
+style='font-size:10.0pt'>csv</span></code> format. Saving in this format can take
+a long time. <a name="deflation_procedure"></a></p>
+
+<h2 style='text-align:justify'>Monte Carlo Analysis</h2>
+
+<h2 style='text-align:justify'><span style='font-size:12.0pt;font-weight:normal'>The
+algorithms included in this version of NMFLAB do not guarantee convergence to
+the global minimum of the objective function, even though some of them reach
+stationary points quite quickly. Therefore, random initializations of each
+algorithm may give different solutions, since the algorithm may converge to
+different local minima (if it is initialized differently). </span><span
+ style='font-size:12.0pt;font-weight:normal'>Monte Carlo</span><span
+style='font-size:12.0pt;font-weight:normal'> (MC) analysis is applied to
+evaluate the performance of the algorithm objectively. The algorithm is run
+several times with different initializations for each run. A more accurate
+picture of the performance can be obtained from the statistics of the SIR
+samples, both for the mixing matrix and the estimated sources. To run the MC
+analysis, mark the checkbox in the field <i>Monte Carlo Analysis</i> (as shown
+below).   </span></h2>
+
+<h2 align=center style='text-align:center'><img border=0 width=494 height=516
+src="Help_NMFLAB_files/image050.jpg"></h2>
+
+<h2 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+22: To enable </span><span style='font-size:10.0pt'>Monte Carlo</span><span
+style='font-size:10.0pt'> analysis, activate the check box as show in the
+figure above.</span></h2>
+
+<h2 style='text-align:justify'><span style='font-size:12.0pt;font-weight:normal'>Clicking
+the </span><tt><span style='font-size:10.0pt'>Options</span></tt><span
+style='font-size:12.0pt;font-weight:normal'> button opens a window that allows
+the user to set the parameters for MC analysis. The </span><tt><span
+style='font-size:10.0pt'>Setup </span></tt><span style='font-size:12.0pt;
+font-weight:normal'>field allows the user to set the number of times the
+algorithm is run i.e. using </span><tt><span style='font-size:10.0pt'>Runs.</span></tt><span
+style='font-size:12.0pt;font-weight:normal'> The default is 100 runs. This
+number should be large yet the larger the number the longer the computation
+time. </span><span style='font-size:12.0pt;font-weight:normal'>Monte Carlo</span><span
+style='font-size:12.0pt;font-weight:normal'> analysis provides credible results,
+provided that a chain of samples has ergodic properties. To check the ergodicity:
+run two independent MC analysis experiments, and then to compare the means of
+the samples. The means of sufficient long sub-chains of an ergodic chain should
+be the same.  If the means of the samples from independent MC experiments are
+consistently close, this would be an indicator of ergodicity.</span></h2>
+
+<h2 style='text-align:justify'><span style='font-size:12.0pt;font-weight:normal'>For
+a single simulation the algorithms terminate if they satisfy the following stop
+criterion: if the changes in the entries of the estimated mixing matrix between
+two subsequent alternating steps are sufficiently small, or if the total number
+of alternating steps exceeds 2000. Selecting </span><tt><span style='font-size:
+10.0pt'>Dynamically Adjusted </span></tt><span style='font-size:12.0pt;
+font-weight:normal'>allows the use of the default stop criterion. Selecting </span><tt><span
+style='font-size:10.0pt'>Fixed</span></tt><span style='font-size:12.0pt;
+font-weight:normal'> in the </span><tt><span style='font-size:10.0pt'>Alternatings
+</span></tt><span style='font-size:12.0pt;font-weight:normal'>field</span><tt><span
+style='font-size:10.0pt'> </span></tt><span style='font-size:12.0pt;font-weight:
+normal'>allows the user to force the algorithm to run a fixed number of steps
+in each run.</span></h2>
+
+<h2 style='text-align:justify'><span style='font-size:12.0pt;font-weight:normal'>When
+a single simulation is run, it restarts several times with different
+initializations and the factors that generate the lowest cost are chosen as the
+estimates for the sources and mixing matrix after a fixed number of alternating
+steps. This is redundant in the case of </span><span style='font-size:12.0pt;
+ font-weight:normal'>Monte Carlo</span><span style='font-size:12.0pt;
+font-weight:normal'> analysis and can be stopped by un-ticking the checkbox </span><tt><span
+style='font-size:10.0pt'>Restarts</span></tt><span style='font-size:12.0pt;
+font-weight:normal'>.      </span></h2>
+
+<h2 style='text-align:justify'><span style='font-size:12.0pt;font-weight:normal'>The
+fields </span><tt><span style='font-size:10.0pt'>Histograms</span></tt><span
+style='font-size:12.0pt;font-weight:normal'> and </span><tt><span
+style='font-size:10.0pt'>SIRs for the selected samples</span></tt><span
+style='font-size:12.0pt;font-weight:normal'> enable the user to visualize the
+statistics of the samples. Histograms can be plotted for SIR samples of the
+mixing matrix and/or the estimated sources. The means and variances of the
+histograms are also displayed at the top of the plots. The histograms of SIR
+samples for each column of the mixing matrix or for each estimated signal can
+also be seen.</span></h2>
+
+<h2 style='text-align:justify'><span style='font-size:12.0pt;font-weight:normal'> Alternatively,
+the histograms of the means of the SIRs over all the columns of the mixing matrix
+or over all the estimated sources can be plotted if the checkboxes </span><tt><span
+style='font-size:10.0pt'>Mean-Values</span></tt><span style='font-size:12.0pt;
+font-weight:normal'> in the fields </span><tt><span style='font-size:10.0pt'>Mixing
+Matrix</span></tt><span style='font-size:12.0pt;font-weight:normal'> or </span><tt><span
+style='font-size:10.0pt'>Estimated Sources</span></tt><span style='font-size:
+12.0pt;font-weight:normal'> respectively, are checked. </span></h2>
+
+<h2 style='text-align:justify'><span style='font-size:12.0pt;font-weight:normal'>There
+are four possible ways to view the estimated SIRs for the selected sample. For
+the mixing matrix and the sources both the </span><tt><span style='font-size:
+10.0pt'>Worst case</span></tt><span style='font-size:12.0pt;font-weight:normal'>
+and </span><tt><span style='font-size:10.0pt'>Best case</span></tt><span
+style='font-size:12.0pt;font-weight:normal'> </span><span class=Heading6Char><span
+style='font-size:12.0pt;font-family:"Times New Roman";font-weight:normal'>SIRs
+for the selected</span></span><tt><span style='font-size:10.0pt'> </span></tt><span
+class=Heading6Char><span style='font-size:12.0pt;font-family:"Times New Roman";
+font-weight:normal'>sample</span></span><span style='font-size:12.0pt;
+font-weight:normal'> can be viewed. For example choosing </span><tt><span
+style='font-size:10.0pt'>Mixing Matrix</span></tt><span style='font-size:12.0pt;
+font-weight:normal'> and </span><tt><span style='font-size:10.0pt'>Worst Case</span></tt><span
+style='font-size:12.0pt;font-weight:normal'> the sample with the worst SIR of
+the mixing matrix is used, alternatively the option </span><span
+class=Heading6Char><span style='font-size:12.0pt;font-family:"Times New Roman";
+font-weight:normal'>Best Case</span></span><span style='font-size:12.0pt;
+font-weight:normal'> displays the runs with the best SIR.</span></h2>
+
+<h2 align=center style='text-align:center'><img border=0 width=390 height=442
+src="Help_NMFLAB_files/image051.jpg"></h2>
+
+<h2 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+23: Parameters that can be set for the </span><span style='font-size:10.0pt'>Monte
+ Carlo</span><span style='font-size:10.0pt'> analysis. </span></h2>
+
+<h2><span style='font-size:12.0pt;font-weight:normal'>When the MC analysis is
+finished, pressing </span><tt><span style='font-size:10.0pt'>PLOT</span></tt><span
+style='font-size:12.0pt;font-weight:normal'> will display the results.
+Exemplary MC results are shown in Fig. 24.</span></h2>
+
+<p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+
+<div align=center>
+
+<table class=MsoNormalTable border=0 cellpadding=0>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=362 height=265 src="Help_NMFLAB_files/image052.jpg"></p>
+  <h5 align=center style='text-align:center'>(a)</h5>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=361 height=267 src="Help_NMFLAB_files/image053.jpg"></p>
+  <h5 align=center style='text-align:center'>(b)</h5>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=362 height=267 src="Help_NMFLAB_files/image054.jpg"></p>
+  <h5 align=center style='text-align:center'>(c)</h5>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=363 height=267 src="Help_NMFLAB_files/image055.jpg"></p>
+  <h5 align=center style='text-align:center'>(d)</h5>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+24: The four windows above illustrate the output from the MC analysis: (a) Plot
+of the estimated sources in the selected sample (No. of the run is shown on the
+top), (b) Plots of the SIRs for the estimated mixing matrix – the parameters of
+the statistics are also displayed. (c) Plot of the primary sources (if
+available).  If the sources are not available this window displays the sensor
+signals. (d) Plot of the SIRs for the estimated sources.</span></h6>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>&nbsp;</span></h6>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>&nbsp;</span></h6>
+
+<h2>Deflation</h2>
+
+<p style='text-align:justify'>When the independent components have been
+extracted or blind separation of signals has been performed (from the mixture),
+the effects of discarding some of components by reconstructing the sensor
+signals from the remaining components can be explored. This procedure is called
+deflation or reconstruction, and allows the user to remove unnecessary (or undesirable)
+components that are hidden in the mixture (superimposed or overlapped data). In
+other words, the deflation procedure allows the user to extract and remove one
+or more independent component (or uncorrelated sources) from the mixture <b>x</b>(<i>k</i>).
+This can be achieved by clicking the <tt><span style='font-size:10.0pt'>DEFLATION</span></tt>
+button in the main <b>NMFLAB</b> window which opens the <i>Reconstruction
+procedure</i> window. The <tt><span style='font-size:10.0pt'>DEFLATION</span></tt>
+button becomes activated after the estimation of the demixing matrix <b>W</b>
+is completed using any of the built-in or user-defined algorithms. </p>
+
+<p style='text-align:justify'>The deflation procedure is carried out in two
+steps. </p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='text-align:justify'>In the first step, the selected
+     algorithm estimates the mixing matrix <b>A<sub>est</sub></b> and then
+     performs the decomposition of observations into independent components: <b>y</b>(<i>k</i>)
+     = <b>A<sub>est</sub></b> <b>x</b>(<i>k</i>). </li>
+ <li class=MsoNormal style='text-align:justify'>In the second step, the
+     deflation algorithm eliminates one or more of the components from the
+     vector <b>y</b>(<i>k</i>) and then performs the back-propagation <b>x<sub>r</sub></b>
+     = <b>W</b><sup>+</sup> <b>y<sub>r</sub></b>(<i>k</i>), where <b>x<sub>r</sub></b>
+     is a vector of reconstructed sensor signals, <b>W</b><sup>+</sup> = <b>A<sub>est</sub></b>
+     is a generalized pseudo inverse matrix of the estimated demixing matrix <b>W</b>,
+     and <b>x<sub>r</sub></b> (<i>k</i>) is the vector obtained from the vector
+     <b>x</b>(<i>k</i>) after removal of all the undesirable components (i.e.,
+     by replacing them with zeros). In the special case, where the number of
+     sources is equal to the number of sensors and the number of outputs, we
+     can use the inverse matrix <b>W</b><sup>-1</sup> instead of <b>W</b><sup>+</sup>.
+     </li>
+</ol>
+
+<p style='margin-left:36.0pt'>In batch format, the reconstruction procedure can
+be written as </p>
+
+<p class=MsoNormal align=center style='margin-left:36.0pt;text-align:center'><b>Y<sub>r</sub></b>
+= <b>A<sub>est</sub>X<sub>r</sub> = W</b><sup>+</sup> <b>X<sub>r</sub></b> </p>
+
+<p style='margin-left:36.0pt'>where </p>
+
+<p style='margin-left:36.0pt'><b>Y<sub>r</sub></b> = [ <b>y<sub>r</sub></b>(1),
+<b>y<sub>r</sub></b>(2), ..., <b>y<sub>r</sub></b>(<i>N</i>) ] - reconstructed
+sensor signals, </p>
+
+<p style='margin-left:36.0pt'><b>X<sub>r</sub></b> = [ <b>x<sub>r</sub></b>(1),
+<b>x<sub>r</sub></b>(2), ..., <b>x<sub>r</sub></b>(<i>N</i>) ] - reduced (selected
+or filtered) independent components. </p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=506 height=528 src="Help_NMFLAB_files/image056.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+25: This window illustrates the selection of the deflation procedure
+(post-processing) from the main window. Click the <tt><span style='font-family:
+"Times New Roman"'>DEFLATION</span></tt> button to reconstruct
+&quot;clean&quot; data or remove some components.</span></h6>
+
+<p style='text-align:justify'>In the deflation procedure, undesirable
+components, such as noise, artifacts or undesirable interference, can be
+eliminated by un-ticking the check box at the left of each component (signal) 
+as seen in figure 26. Deflation is performed by pressing the <tt><span
+style='font-size:10.0pt'>Do deflation </span></tt>button. Simultaneously, a
+second window appears, similar to the subwindow in Fig. 15, which allows the
+detailed analysis in time and frequency domains of each reconstructed sensor
+signal (Figs. 15, 16). </p>
+
+<p style='text-align:justify'>The deflation (reconstruction) procedure is
+illustrated in Fig. 26. In this figure, almost all of the components <i>x<sub>i</sub></i>
+are reset to zero except for the components <i>x</i><sub>2</sub> and <i>x</i><sub>7</sub>.
+These are projected back to sensor level (as <b>y<sub>r</sub></b>(<i>k</i>) =
+pinv(<b>W</b>) <b>x<sub>r</sub></b><sub> </sub>(<i>k</i>) = <b>W</b><sup>+</sup><b>x<sub>r</sub></b>(<i>k</i>),
+where <b>W</b><sup>+</sup> (10x10) means pseudo-inverse of demixing matrix <b>W</b>
+and <b>x<sub>r</sub></b>(<i>k</i>) = [ 0, <i>x</i><sub>2</sub>(<i>k</i>), 0, 0,
+0, 0, x<sub>7</sub>(<i>k</i>), 0, 0, 0 ]<sup>T</sup>). The results are shown on
+right-side plot in Fig. 27. </p>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='color:red'>&nbsp;</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=444 height=446 src="Help_NMFLAB_files/image057.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+26: This window illustrates the deflation procedure. The plot shows the
+estimated components or separated signals before deflation. In this example,
+only signals <i>x2</i> and <i>x7 </i>are back-projected, while the other
+components are neglected.</span></h6>
+
+<div align=center>
+
+<table class=MsoNormalTable border=0 cellpadding=0>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=338 height=249 src="Help_NMFLAB_files/image058.jpg"></p>
+  <h5 align=center style='text-align:center'>(a)</h5>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><img border=0 width=285 height=250
+  src="Help_NMFLAB_files/image059.jpg"></p>
+  <h5 align=center style='text-align:center'>(b)</h5>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<h2><span style='font-size:10.0pt'>Fig. 27: This window illustrates the plots
+after deflation has been done. The left plot (a) is a paging window, and the
+right plot (b) is an analyzing window. Both windows show the reconstructed
+sensor signals after eliminating the signals x1, x3, x4, x5, x6. </span></h2>
+
+<div align=center>
+
+<table class=MsoNormalTable border=0 cellpadding=0>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=289 height=251 src="Help_NMFLAB_files/image060.jpg"></p>
+  <h5 align=center style='text-align:center'>(a)</h5>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><img border=0 width=298 height=250
+  src="Help_NMFLAB_files/image061.jpg"></p>
+  <h5 align=center style='text-align:center'>(b)</h5>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=287 height=249 src="Help_NMFLAB_files/image062.jpg"></p>
+  <h5 align=center style='text-align:center'>(c)</h5>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><img border=0 width=302 height=249
+  src="Help_NMFLAB_files/image063.jpg"></p>
+  <h5 align=center style='text-align:center'>(d)</h5>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=286 height=222 src="Help_NMFLAB_files/image064.jpg"></p>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='font-size:10.0pt'>(e)</span></b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal align=center style='text-align:center'><img border=0
+  width=304 height=221 src="Help_NMFLAB_files/image065.jpg"></p>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  style='font-size:10.0pt'>(f)</span></b></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+28: This window illustrates different representations of signals </span></h6>
+
+<p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=461 height=402 src="Help_NMFLAB_files/image066.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+29: This figure shows sub-windows for the detailed analysis in time and
+frequency domains of each of the reconstructed sensor signal. Such signal
+analysis can be also performed for source and observed signals. </span></h6>
+
+<p style='text-align:justify'>When the deflation procedure has been finished,
+the reconstructed sensor signals can be saved for further processing by
+clicking on the <tt><span style='font-size:10.0pt'>Save results</span></tt>
+button. This allows the user to process the reconstructed sensor signals by applying
+the same or different NMF/ICA algorithms. For example, in the first stage you
+can apply a second-order statistics BSS algorithm to recover sources with
+temporal structures. In the second stage, you may use any higher-order
+statistics ICA algorithm to recover independent components. </p>
+
+<p style='text-align:justify'>In the same way, the reconstructed data can be
+saved using the deflation procedure. The reconstructed data can be saved as
+follows </p>
+
+<ul type=disc>
+ <li class=MsoNormal style='text-align:center'><code><span style='font-size:
+     10.0pt'>name_XR.mat</span></code> </li>
+ <li class=MsoNormal style='text-align:center'><code><span style='font-size:
+     10.0pt'>name_XR.txt</span></code> </li>
+ <li class=MsoNormal style='text-align:center'><code><span style='font-size:
+     10.0pt'>name_XR.xls</span></code> </li>
+ <li class=MsoNormal style='text-align:center'><code><span style='font-size:
+     10.0pt'>name_XR.csv</span></code></li>
+</ul>
+
+<p style='text-align:justify'>The <tt><span style='font-size:10.0pt'>CANCEL</span></tt>
+button allows the user to leave this window (i.e. deflation procedure) and go
+back to the main program without saving or making any changes. Pressing the <tt><span
+style='font-size:10.0pt'>RETURN</span></tt> button, enables the user to  save
+the reconstructed signals <b>X<sub>r</sub></b> as new sensor signals <b>X</b>
+which can be further processed by any built-in algorithm. This allows
+facilitates further processing and extraction of the signals as part of a
+multistage procedure (multilayer system). </p>
+
+<p style='text-align:justify'>&nbsp;</p>
+
+<h2 align=center style='text-align:center'>Exit from NMFLAB</h2>
+
+<p style='text-align:justify'>It is recommended NMFLAB is closed by clicking
+the <tt><span style='font-size:10.0pt'>EXIT</span></tt> button in the main
+program window as shown below: </p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=453 height=473 src="Help_NMFLAB_files/image067.jpg"></p>
+
+<h6 align=center style='text-align:center'><span style='font-size:10.0pt'>Fig.
+30: Window illustrating how to exit from the program. Click the <tt><span
+style='font-family:"Times New Roman"'>EXIT</span></tt> button to leave the
+program or choose <tt><span style='font-family:"Times New Roman"'>Close</span></tt>
+in the menu bar.</span></h6>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h1 align=center style='text-align:center'><a name=algorithms></a>&nbsp;</h1>
+
+<h1 align=center style='text-align:center'>&nbsp;</h1>
+
+<h1 align=center style='text-align:center'>&nbsp;</h1>
+
+<h1 align=center style='text-align:center'>PART 2</h1>
+
+<h1 align=center style='text-align:center'>Algorithms implemented in NMFLAB</h1>
+
+<p class=MsoNormal align=center style='text-align:center'>Please see “<span
+style='color:#333399'><a href="Help_nmflab_part2.pdf">Guidebook on Algorithms
+in NMFLAB</a></span>” in pdf-format by</p>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='color:green'>&nbsp;</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=PL>A. Cichocki
+and R. Zdunek</span></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

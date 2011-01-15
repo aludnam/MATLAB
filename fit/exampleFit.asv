@@ -1,0 +1,11 @@
+%this is in separate m file example_exp.m
+% function y = example_exp(x,p);
+% y = exp(p(1)*(x-p(2))+p(3);
+
+x = 1:0.1:10;
+y = example_exp(x, [1 5 1]); %creates exp function
+y_exp = y + 0.5*randn(size(x)); %simulates noisy data
+
+[pbest,perror,nchi]=nonlinft('funkce',x,y_exp,ones(size(x)),0.05*[1 1 1],[1 1 1]); %fits the data wit exponential...
+
+plot(x,y,x,y_exp,x,funkce(x,pbest));

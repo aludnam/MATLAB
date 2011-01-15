@@ -1,0 +1,38 @@
+% plot Airy + gauss approximatiion
+
+minX = -10;
+maxX = 10;
+x = minX:0.1:maxX;
+AiryPatt = abs(2*besselj (1,x)./x).^2;
+nanPos = find(isnan(AiryPatt));
+AiryPatt(nanPos) = 1;
+
+% [pbest,perror,nchi]=nonlinft('gauss_fit' ,x,AiryPatt,ones(size(x)),[1 1e-15 1],[1 1 1]);
+[pbest,perror,nchi]=nonlinft('gauss_fit' ,x,AiryPatt,1./AiryPatt,[1 1e-5 1],[0 0 1]);
+
+plot(x, AiryPatt, x, gauss_fit(x, pbest),'--r');
+%ruco fit...:
+
+p1 = plot(x, AiryPatt);
+set(p1,'DisplayName','Airy Pattern');
+hold on
+p2 = plot(x, gauss_fit(x, [1 0 1.4]),'--r', 'LineWidth', 2);
+set(p2, 'DisplayName','Gauss Approx');
+hold off
+legend(gca, 'show');
+set(legend,'FontSize',14,'Location','NorthEast');
+set(gca,'FontSize',16, 'XTick', minX:2:maxX, 'YTick', [0, 0.25, 0.5, 0.75, 1])
+
+% set(gca,'XTick',[1:round(xK(mK))])
+xlabel('\alpha\rho', 'FontSize',16)
+ylabel('Intensity Profile', 'FontSize',16)
+% title('K function and derivative difference', 'FontSize',16)
+
+legend(gca, 'show');
+grid on;
+
+x2 = x-3.8;
+Ar = abs(2*besselj (1,x2)./x2).^2;
+
+x2 = x-2.95;
+As = abs(2*besselj (1,x2)./x2).^2;

@@ -1,0 +1,8 @@
+function [xout, yout]=changerelativedistance(x,y,coef)
+
+mvx=mean(x);
+mvy=mean(y);
+mvxdistout=coef(x-mvx);
+mvydistout=coef(y-mvy);
+xout=mvx+mvxdistout;
+yout=mvy+mvydistout;

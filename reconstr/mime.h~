@@ -1,0 +1,35 @@
+#ifndef MIME_H
+#define MIME_H
+#include <iostream.h>
+#include <string>  // STL string class
+
+string extractTag(string & line, char * tag) // extracts a tag in format tag="value"
+{
+  string tags(tag);
+  int offset=line.find(tag);
+  int offset2=line.find("\"",offset+tags.length());
+  string subs(line,offset+tags.length(),offset2-offset-tags.length());
+  return subs;
+}
+ 
+string ReadMime(istream& input, string & mimetag, string & content)  // returns tagname value in name="value"
+{
+  string line2,empty,value;
+  content=value;  // clear content
+  getline(input,line2);
+  // cout << mimetag << "\n"; 
+  // cout << line2 << "\n"; 
+  getline(input,empty);  // read empty line
+  getline(input,value);
+  value += "\n"; // put the newline in again !
+  while (value.compare(mimetag,0,mimetag.length()-1) != 0) {
+    content+= value; // add string to content
+    getline(input,value);
+    value += "\n"; // put the newline in again !
+    if (input.eof()) return "eof";
+  }
+
+  return extractTag(line2,"name=\"");
+}
+
+#endif

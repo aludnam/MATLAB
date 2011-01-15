@@ -1,0 +1,25 @@
+Npoints = [829, 572, 461];
+ROIs = [ 11, 81, 122, 172; 20, 60, 90, 130; 130, 180, 40, 80];
+factor = [0.23, 1.12, 3.5];
+        
+for ii=1:3
+    p.N = Npoints(ii);
+dataXY_all= generateNoise(p.N, ROIs(ii,:));
+p.xlim1 = ROIs(ii,1); p.xlim2 = ROIs(ii,2); p.ylim1 = ROIs(ii,3); p.ylim2 = ROIs(ii,4);
+% computes K function in for values between Klim with nSteps steps for ROI
+% and simulation envelopes for
+p.Klim = [0 10]; % range of the K function
+p.nSteps = 100; % step of the position of the K function esstimation
+p.envelopes_method = 1;  %to compute simulatyion envelopes from random data1 and data2
+p.Nsimul = 2; % number of simulations for envelope coputation
+p.filename = ['envelope_' num2str(ii)]; % name of the file where K function values are stored
+p.envelopes = 1;  %to compute simulatyion envelopes
+p.factor = factor(ii);
+ 
+[xK, K, KNMax, KNMin] = ...
+    kfunction_main(dataXY_all, p.xlim1, p.xlim2, p.ylim1, p.ylim2, p.Klim, p.nSteps,...
+    p.envelopes, p.Nsimul, p.filename); 
+
+witedata(xK, computeL(xK, KNMax)/p.factor,p , [p.filename '_Max']);
+witedata(xK, computeL(xK, KNMin)/p.factor,p , [p.filename '_Min']);
+end
