@@ -56,6 +56,10 @@ if min(sum(v,2)) == 0
     return
 end
 
+%This is to fix zeros in the data as divergence is not defined for that...
+zerodata=find(v==0);
+v(zerodata)= eps; 
+
 [n,m]=size(v);
 
 if ~isempty(peval.w_fixvec)

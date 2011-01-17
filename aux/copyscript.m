@@ -2,7 +2,12 @@ function copyscript(source, source_app, destination, destination_app)
 % copyscript(source, source_app, destination, destination_app)
 
 dest_dir = ['../' destination];
-mkdir(dest_dir);
+[success,message,messageid] = mkdir(dest_dir);
+
+if ~isempty(message)
+    error(message)
+end
+
 fprintf('Making directory: %s\n',dest_dir)
 app = '_script';
 source_all = [source app source_app '.m'];

@@ -43,7 +43,7 @@ fprintf('Classic NMF iterations\n')
 if ~isfield(peval, 'dterm'); peval.dterm = 1; end %termination criterion
 if ~isfield(peval, 'ddterm'); peval.ddterm = 1; end %termination criterion
 if ~isfield(peval, 'maxiter'); peval.maxiter = 1000; end
-if ~isfield(peval,'showimage')
+if ~isfield(peval,'showimage'); peval.showimage =0; end %showing progres images
 
 
 % test for negative values in v
@@ -56,6 +56,8 @@ if min(sum(v,2)) == 0
     return
 end
 
+zerodata=find(v==0)
+v(ze
 [n,m]=size(v);
 
 if ~isempty(peval.w_fixvec)
