@@ -1,8 +1,13 @@
 function [winit, hinit] = initwh(winit_pix, hinit, peval, verbose)
 % [winit, hinit] = initwh(winit_pix, hinit, peval, verbose)
+if ~exist('verbose','var')
+    verbose=1;
+end
 
 if isempty(winit_pix) %random initialization
-    fprintf('Uniform random initialization of W.\n')
+    if verbose
+        fprintf('Uniform random initialization of W.\n')
+    end
     winit = rand(peval.nx*peval.ny, peval.ncomp);
 else
     switch class (winit_pix)
@@ -15,12 +20,10 @@ else
 end
 
 if isempty(hinit) %random initialization
-    fprintf('Uniform random initialization of H.\n')
+    if verbose
+        fprintf('Uniform random initialization of H.\n')
+    end
     hinit = rand(peval.ncomp, peval.nt);
-end
-
-if ~exist('verbose','var')
-    verbose=1;
 end
     
 w_bg = ones(peval.nx*peval.ny, 1); %background component

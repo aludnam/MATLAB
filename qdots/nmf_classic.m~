@@ -56,8 +56,10 @@ if min(sum(v,2)) == 0
     return
 end
 
-zerodata=find(v==0)
-v(ze
+%This is to fix zeros in the data as divergence is not defined for that...
+zerodata=find(v==0);
+v(zerodata)= eps; 
+
 [n,m]=size(v);
 
 if ~isempty(peval.w_fixvec)
@@ -80,8 +82,6 @@ htrace(1,:,:) = hinit;
 
 w_vec = 1:size(w,2);
 h_vec = 1:size(h,1);
-% peval.w_dovec = find(~(w_vec==peval.w_fixvec));
-% peval.h_dovec = find(~(h_vec==peval.h_fixvec));
 peval.w_dovec = find(~ismember(w_vec,peval.w_fixvec));
 peval.h_dovec = find(~ismember(h_vec,peval.h_fixvec));
 % f1=figure('outerposition',[10 445 560 420],'name','W');
