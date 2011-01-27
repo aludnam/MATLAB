@@ -1,0 +1,6 @@
+function a=update_a(dvec,n, alpha)
+% Computes update for n_jk in variational approximation (Buntine & Jakulin
+% DCA 2006)
+
+
+a = n'*dvec + 
