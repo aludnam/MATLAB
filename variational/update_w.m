@@ -8,4 +8,3 @@ function w=update_w(dvevc, n)
 i=size(dvec,2); % number of images
 
 
-
