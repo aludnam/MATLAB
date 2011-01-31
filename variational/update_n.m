@@ -1,16 +1,26 @@
 function n=update_n(w, a, b)
 % n=update_n(w, a, b)
-% Computes update for n_jk in variational approximation (Buntine & Jakulin
+% Computes update for n_jki (JxKxI) in variational approximation (Buntine & Jakulin
 % DCA 2006)
-% w: basis - each column is one basis vector (component, psf); (#pixels=J x
-% #basis=K)
-% a, b: parameters of the approximative Gamma distribution (1xK each)
+% w: basis - each column is one basis vector (component, psf); (J x K)
+% a, b: parameters of the approximative Gamma distribution (KxI each) where
+% J=#pixels
+% K=#components
+% I=#images.
 
-j=size(w,1); % number of pixels
-e_l = psi(a) - log(b); % expectation of <log(l_k)> (1xK)
-ntmp=w.*repmat(e_l,j,1);
-z=sum(ntmp,1); % normalization constant (1 x K)
+[j,k]=size(w); % j: number of pixels, k: numlber of components 
+i=size(a,2); %i: number of images
 
-n=ntmp./repmat(z,j,1); % (J x K)
+% expectation of <log(l_k)>:
+e_l = psi(a) - log(b); % (K x I) 
+% Expand into another dimension for multiplication with w...
+e_lreshaped=reshape(e_l,1,k,i); %  (1 x K x I) 
+
+% n-update:
+ntmp = bsxfun(@times, w,e_lreshaped); % (J x K x I)
+z=sum(ntmp,2); % normalization constant (J x 1 x I)
+
+%normalized such that sum(n,2)=1 for each k
+n=bsxfun(@rdivide, ntmp, z); % (J x K x I) 
 
 
