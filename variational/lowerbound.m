@@ -23,15 +23,15 @@ e_l = psi(a) - log(b); % (K x I)
 e_lreshaped=reshape(e_l,1,k,i); %  (1 x K x I) 
 
 % n-update:
-ntmp = bsxfun(@times, w,e_lreshaped); % (J x K x I)
+ntmp = bsxfun(@times, w,exp(e_lreshaped)); % (J x K x I)
 z=squeeze(sum(ntmp,2)); % normalization constant (J x I)
 
 t1=e_l.*bsxfun(@minus, alpha', a); %(KxI)
 t2=dvec.*log(z); %(JxI)
 
 % approximation of the log-gamma function
-t31=gammalogapprox(a)-a.*log(b);
-t32=gammalogapprox(alpha)-alpha.*log(beta);
-t3=bsxfun(@minus, t31, t32');
+t31=gammalogapprox(a)-a.*log(b);            % (KxI)
+t32=gammalogapprox(alpha)-alpha.*log(beta); % (1xK)
+t3=bsxfun(@minus, t31, t32');               % (KxI)
 
 l=sum(t1+t3,1)+sum(t2,1); %(1xI)
