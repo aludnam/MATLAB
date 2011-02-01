@@ -22,12 +22,12 @@ e_l = psi(a) - log(b); % (K x I)
 % Expand into another dimension for multiplication with w...
 e_lreshaped=reshape(e_l,1,k,i); %  (1 x K x I) 
 
+
 % n-update:
-ntmp = bsxfun(@times, w,exp(e_lreshaped)); % (J x K x I)
-z=squeeze(sum(ntmp,2)); % normalization constant (J x I)
+[ntmp, z]=update_ntmp(w, a, b); % z (Jx1xI) normalization constant from n update
 
 t1=e_l.*bsxfun(@minus, alpha', a); %(KxI)
-t2=dvec.*log(z); %(JxI)
+t2=dvec.*log(squeeze(z)); %(JxI)
 
 % approximation of the log-gamma function
 t31=gammalogapprox(a)-a.*log(b);            % (KxI)

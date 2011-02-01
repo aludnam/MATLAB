@@ -7,18 +7,9 @@ function n=update_n(w, a, b)
 % J=#pixels
 % K=#components
 % I=#images.
-
-[j,k]=size(w); % j: number of pixels, k: numlber of components 
-i=size(a,2); %i: number of images
-
-% expectation of <log(l_k)>:
-e_l = psi(a) - log(b); % (K x I) 
-% Expand into another dimension for multiplication with w...
-e_lreshaped=reshape(e_l,1,k,i); %  (1 x K x I) 
-
-% n-update:
-ntmp = bsxfun(@times, w,exp(e_lreshaped)); % (J x K x I)
-z=sum(ntmp,2); % normalization constant (J x 1 x I)
+  
+% non-normalized n and normalization constant
+[ntmp, z]=update_ntmp(w, a, b); % ntmp (JxKxI) , z (Jx1xI)
 
 %normalized such that sum(n,2)=1 for each k
 n=bsxfun(@rdivide, ntmp, z); % (J x K x I) 
