@@ -1,5 +1,10 @@
 function [x_mu, y_mu, sig, differ] = fitgauss2d(M,sigfix, showfig)
-% [x_mu, y_mu, sig] = fitgauss2d(M,sigfix)
+% [x_mu, y_mu, sig, differ] = fitgauss2d(M,sigfix, showfig)
+% x_mu, y_mu : coordiantes of the fitted mean
+% sig : fitted std
+% differ : D -devergence between data and figure generated form gaussian
+
+
 M = abs(M)+1e-9;
 mM = max(max(M));
 [xm, ym] = find(mM==M);

@@ -1,12 +1,18 @@
-function [x_mu, y_mu, sig] = fitgauss2d(M,sigfix, showfig)
-% [x_mu, y_mu, sig] = fitgauss2d(M,sigfix)
-M = abs(M);
+function [x_mu, y_mu, sig, differ] = fitgauss2d(M,sigfix, showfig)
+% [x_mu, y_mu, sig, differ] = fitgauss2d(M,sigfix)
+
+
+
+M = abs(M)+1e-9;
 mM = max(max(M));
 [xm, ym] = find(mM==M);
 M = M/mM;
 if ~exist('sigfix','var')
+    sigfix = [];
+end
+if isempty(sigfix)
     sguess = sum(sum(M))/(size(M,1)*size(M,2))*size(M,1);
-    x = fminsearch(@(x) difference(x,M),[ym,xm,sguess]);
+    x = fminsearch(@(x) difference(x,M),[ym(1),xm(1),sguess]);
     x_mu = x(1);
     y_mu = x(2);
     sig = x(3);
@@ -16,7 +22,9 @@ else
     y_mu = x(2);
     sig = sigfix;
 end
-    
+
+differ = difference(x,M);
+
 if exist('showfig','var')
     if showfig == 1
         
