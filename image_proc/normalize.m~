@@ -1,0 +1,9 @@
+function out = normalize(in)
+% out = normalize(in)
+%normalizes 1d vector or 2d image or each slice of 3D image
+nd=ndims(in);
+if nd<3
+    out = in/sum(in(:));
+else
+    si = size(im)
+    
