@@ -1,0 +1,22 @@
+function plotscatter(h,htrue,savethis)
+% plotscatter(h,htrue,savethis)
+if ~exist('savethis','var')
+    savethis = 0
+
+minv=min(min(h(:)), min(htrue(:)));
+maxv=max(max(h(:)), max(htrue(:)));
+
+figure
+hold on
+for ii=1:min(size(h))
+    scatter(h(ii,:)',htrue(ii,:)','.')
+end
+plot([minv:maxv],[minv:maxv],'--k','linewidth',2)
+xlabel('h')
+ylabel('htrue')
+set(gca,'dataaspectratio',[1 1 1])
+grid on
+setfontsizefigure(12)
+if savethis
+    SaveImageFULL('hvsblinkmat')
+end
