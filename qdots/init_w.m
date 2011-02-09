@@ -21,7 +21,7 @@ switch method
         msg='W initialized from the results res.w.';
 end
 winit_pix=max(winit_pix, eps); % To avoid zeros...
-w=reshape(winit_pix,peval.nx*peval.ny, peval.ncomp);
+w=reshape(winit_pix,peval.nx*peval.ny, size(winit_pix,3));
 
 if isfield (peval,'fid')
     mfprintf(peval.fid, [msg '\n'])
