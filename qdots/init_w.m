@@ -17,7 +17,8 @@ switch method
         winit_pix(:,:,1:peval.ncomp) = repmat(an,[1,1,peval.ncomp]);
         msg='W initialized as repmat(image,[1,1,peval.ncomp].)';
     case 'res'
-        winit_pix(:,:,1:peval.ncomp) = reshape(image(:,1:peval.ncomp), peval.nx, peval.ny, peval.ncomp);
+        s2=size(image,2); %it is only 2D (#pixX#comp)
+        winit_pix(:,:,1:s2) = reshape(image, peval.nx, peval.ny, s2);
         msg='W initialized from the results res.w.';
 end
 winit_pix=max(winit_pix, eps); % To avoid zeros...
