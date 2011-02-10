@@ -9,29 +9,21 @@ function l=lowerbound(dvec, w, alpha, beta, a, b)
 % J=#pixels
 % K=#components
 % I=#images.
-%
-% There should be another term log(dvec!) but it is constant during
-% evaluation...
-
-[j,i]=size(dvec);
-k=size(w,2);
 
 % this is the same as in update_n ...
 % expectation of <log(l_k)>:
 e_l = psi(a) - log(b); % (K x I) 
-% Expand into another dimension for multiplication with w...
-e_lreshaped=reshape(e_l,1,k,i); %  (1 x K x I) 
-
 
 % n-update:
 [ntmp, z]=update_ntmp(w, a, b); % z (Jx1xI) normalization constant from n update
 
-t1=e_l.*bsxfun(@minus, alpha', a); %(KxI)
-t2=dvec.*log(squeeze(z)); %(JxI)
+t1=sum(e_l.*bsxfun(@minus, alpha', a),1);   %(1xI)
+t2=sum(dvec.*log(squeeze(z)),1);            %(1xI)
 
 % approximation of the log-gamma function
 t31=gammalogapprox(a)-a.*log(b);            % (KxI)
 t32=gammalogapprox(alpha)-alpha.*log(beta); % (1xK)
-t3=bsxfun(@minus, t31, t32');               % (KxI)
-
-l=sum(t1+t3,1)+sum(t2,1); %(1xI)
+t3=sum(bsxfun(@minus, t31, t32'),1);        % (1xI)
+% This t4 is not really necessary as it is only data dependent:
+t4=sum(factorialapprox(dvec),1);            % (1xI) 
+l=t1+t2+t3-t4; %(1xI)
