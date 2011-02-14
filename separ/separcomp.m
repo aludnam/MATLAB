@@ -20,12 +20,16 @@ end
 
 % Fixing w component of the background
 if sum(peval.fixbackground == 'w')>0 
-    peval.w_fixvec = [peval.w_fixvec, peval.ncomp + 1];
+    if ~sum(ismember(peval.ncomp+1, peval.w_fixvec))
+        peval.w_fixvec = [peval.w_fixvec, peval.ncomp + 1];
+    end
 end
 
 % Fixing h component of the background
 if sum(peval.fixbackground == 'h')>0 
-    peval.h_fixvec = [peval.h_fixvec, peval.ncomp + 1];
+    if ~sum(ismember(peval.ncomp+1, peval.h_fixvec))        
+        peval.h_fixvec = [peval.h_fixvec, peval.ncomp + 1];
+    end
 end
 
 [peval.nx, peval.ny, peval.nt] = size(dpix);
