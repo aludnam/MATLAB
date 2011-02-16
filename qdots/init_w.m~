@@ -1,10 +1,15 @@
-function [w,winit_pix]=init_w(method,peval,image)
-% [w,winit_pix]=init_w(method,peval,image)
+function [w,winit_pix]=init_w(method,peval,image, addbackgroundcomponent)
+% [w,winit_pix]=init_w(method,peval,image, addbackgroundcomponent)
 % method:   'rand' %random initialization
 %           'image' %specified initialization for example image=double(array2im(dpixc_ind))       
 %           'image_repmat' %for example image = mean(image,3);        
 %           'res' %image is res.w -> initialisation from the nmf results
-
+% addbackgroundcomponent:   1 adds one component flat as a background (peval.ncomp th)
+%                           0 no back
+if ~exist('addbackground', 'var')
+    addbackground = 0;
+end
+    
 switch method
     case 'rand'
         winit_pix = normalize(rand(peval.nx,peval.ny,peval.ncomp));        
@@ -17,10 +22,17 @@ switch method
         winit_pix(:,:,1:peval.ncomp) = repmat(an,[1,1,peval.ncomp]);
         msg='W initialized as repmat(image,[1,1,peval.ncomp].)';
     case 'res'
-        winit_pix(:,:,1:peval.ncomp) = reshape(image(:,1:peval.ncomp), peval.nx, peval.ny, peval.ncomp);
-        msg='W initialized from the results res,w';
+        s2=size(image,2); %it is only 2D (#pixX#comp)
+        winit_pix(:,:,1:s2) = reshape(image, peval.nx, peval.ny, s2);
+        msg='W initialized from the results res.w.';
 end
 winit_pix=max(winit_pix, eps); % To avoid zeros...
-w=reshape(winit_pix,peval.nx*peval.ny, peval.ncomp);
+w=reshape(winit_pix,peval.nx*peval.ny, size(winit_pix,3));
 
-fprintf(msg);
+if isfield (peval,'fid')
+    mfprintf(peval.fid, [msg '\n'])
+else
+    fprintf([msg '\n']);
+end
+
+if addbackground

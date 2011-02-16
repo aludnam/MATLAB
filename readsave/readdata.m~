@@ -1,0 +1,6 @@
+readdata(source, fid)
+% readdata(source, fid)
+if exist('fid','var')
+    mfprintf(fid, 'Data read from:\n%s\n',source)
+end
+load source));

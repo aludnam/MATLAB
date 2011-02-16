@@ -4,7 +4,9 @@ function [w,winit_pix]=init_w(method,peval,image)
 %           'image' %specified initialization for example image=double(array2im(dpixc_ind))       
 %           'image_repmat' %for example image = mean(image,3);        
 %           'res' %image is res.w -> initialisation from the nmf results
-
+% addbackgroundcomponent:   1 adds one component flat component as a background (peval.ncomp th)
+%                           0 no background component
+    
 switch method
     case 'rand'
         winit_pix = normalize(rand(peval.nx,peval.ny,peval.ncomp));        
@@ -28,4 +30,9 @@ if isfield (peval,'fid')
     mfprintf(peval.fid, [msg '\n'])
 else
     fprintf([msg '\n']);
+end
+
+if peval.addbgcomp
+    w(:,peval.ncomp)=normalize(ones(peval.nx*peval.ny,1));
+    mfprintf(peval.fid, 'Last component [%g] initialised as a flat background. (background=%g)\n',peval.ncomp,peval.bg);    
 end
