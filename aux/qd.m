@@ -1,0 +1,1 @@
+cd ~/project/data/qdots

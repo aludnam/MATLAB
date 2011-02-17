@@ -1,4 +1,4 @@
-function saveparameters(peval)
+function saveparameters(peval,p)
 % saveparameters(peval)
 % saves parameters and logfile to the directory with results
 
