@@ -1,0 +1,11 @@
+function [meanf,varf]=computeMeanVarFromPermutations(f,k)
+% [meanf,varf]=computeMeanVarFromPermutations(f,k)
+% Computes mean and variance of the all combination of k elements of the
+% columns of f (size(f)=txn)
+n=size(f,2);
+choosevec=nchoosek(1:n, k); % (1:nchoosek(n,k)xk) indices to be taken (all combinations) 
+for ii=1:nchoosek(n,k)
+ftmp = f(choosevec(ii,:),:); % (tx)
+meanf=mean(ftmp(:));
+varf=var(ftmp(:));
+end

@@ -1,0 +1,17 @@
+load timeprofiles/timeprofilesdata2.mat
+
+ca
+figure(1)
+hold on
+n=size(f,1); %number of measurements
+for k=1:n    
+    [meanf,varf]=computeMeanVarFromPermutations(f',k);
+    [color, marker, line] = getcolorfromindex(gca, k);
+    scatter(meanf,sqrt(varf),20,color)               
+    l{k}=['k=' num2str(k)];
+end
+legend(l,'location', 'southeast')
+grid on
+xlabel('mean')
+ylabel('std')
+setfontsizefigure(12)
