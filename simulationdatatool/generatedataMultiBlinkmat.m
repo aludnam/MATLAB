@@ -1,9 +1,11 @@
-function [dpixc, dpixc_ind, blinkmat] = generatedataMultiBlinkmat(size_vec, x_vec,y_vec,intensity_vec,psf_tmp,offset,Nt, blinkmat,noisetype)
+function [dpixc, dpixc_ind, blinkmat] = generatedataMultiBlinkmat(size_vec, x_vec,y_vec,psf_tmp,offset,Nt, blinkmat,noisetype)
+% [dpixc, dpixc_ind, blinkmat] = generatedataMultiBlinkmat(size_vec,
+% x_vec,y_vec,psf_tmp,offset,Nt, blinkmat,noisetype)
 % generate points
 if ~exist('noisetype','var')
     noisetype='Poisson';
 end
-if size(intensity_vec,2)>size(intensity_vec,1); intensity_vec = intensity_vec'; end
+
 if size(x_vec,2)>size(x_vec,1); x_vec = x_vec'; end
 if size(y_vec,2)>size(y_vec,1); y_vec = y_vec'; end
 

@@ -2,6 +2,7 @@ function [xvec, yvec]=generatepointsregular(npoints,diamcirc,origin,phaseoffset)
 % [xvec, yvec]=generatepointsregular(npoints,diamcirc,origin,pahseoffset)
 % generates points qually distributed around the circle with 2r=diamcirc
 % with center at origin
+% phaseoffset: offster of the phase of the first point (default == 0);
 if ~exist('phaseoffset','var') %to make oblique configuration 
     phaseoffset = 0; 
 end

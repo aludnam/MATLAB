@@ -2,7 +2,7 @@ function saveresults(res,peval,p, name_res_file)
 % saveresults(res,peval,p, name_res_file)
 
 if ~exist(peval.res_dir,'dir')
-    fprintf('Creating directory:\n %s\n', peval.res_dir)
+    fprintf('Creating directory:\n%s\n', peval.res_dir)
     mkdir (peval.res_dir);
 end
 

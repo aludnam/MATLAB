@@ -30,7 +30,7 @@ for updateindex=1:peval.maxiter;
     end
 end
 
-varargout = struct('w',w,'a',a,'lb',lb);
+varargout = struct('w',w,'a',a,'lb',lb(end));
 
 end
 

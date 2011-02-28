@@ -7,12 +7,9 @@ if ~exist('destination_app','var')
     destination_app = [];
 end
 
-dest_dir = ['../' destination];
-[success,message] = mkdir(dest_dir);
-
-if ~isempty(message)
-    error(message)
-end
+dest_dir_pref='~/project/data/qdots/';
+dest_dir = [dest_dir_pref destination];
+mkdirsafe(dest_dir);
 
 fprintf('Making directory: %s\n',dest_dir)
 app = '_script';
