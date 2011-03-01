@@ -7,7 +7,7 @@ function [varargout, peval]=variationalupdates(peval, varargin)
 % beta = varargin{4};   % prior parametes for Gamma distribution
 % a = varargin{5};      % initialization for a (peval.ncomp x T)
 % b = varargin{6};
-
+mfprintf(peval.fid, 'Variational updates.\n')
 peval=setDefaultValuesPeval(peval);
 dvec = varargin{1};
 w = varargin{2};

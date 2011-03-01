@@ -7,7 +7,7 @@ function [varargout, peval]=variationalupdates(peval, varargin)
 % beta = varargin{4};   % prior parametes for Gamma distribution
 % a = varargin{5};      % initialization for a (peval.ncomp x T)
 % b = varargin{6};
-
+mfprintf(peval.fid, 'Variational updates.')
 peval=setDefaultValuesPeval(peval);
 dvec = varargin{1};
 w = varargin{2};
@@ -30,7 +30,7 @@ for updateindex=1:peval.maxiter;
     end
 end
 
-varargout = struct('w',w,'a',a,'lb',lb);
+varargout = struct('w',w,'a',a,'lb',lb(end));
 
 end
 
