@@ -1,0 +1,17 @@
+function [timeson, timesoff]=ontimestat(bm, threshold)
+% [timeson, timesoff]=ontimestat(bm, thershold)
+% Computes ON and OFF times of the time serires bm ab
+% bm=f';
+% threshold=500;
+
+fbin=(bm>threshold);
+timeson=computetimes(fbin);
+timesoff=computetimes(1-fbin);
+end
+function times=computetimes(fbin)
+zv = zeros(1,size(fbin,2));
+fbin2=[zv; fbin; zv];
+pos=find(diff(fbin2)>0);
+neg=find(diff(fbin2)<0);
+times=neg-pos;
+end
