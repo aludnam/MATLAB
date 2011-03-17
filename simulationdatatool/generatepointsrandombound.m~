@@ -1,0 +1,9 @@
+function [xvec, yvec]=generatepointsrandombound(npoints,diamcirc,origin)
+% [xvec, yvec]=generatepointsrandombound(npoints,diamcirc,origin)
+% generates points qually distributed around the circle with 2r=diamcirc
+% with center at origin
+% phaseoffset: offster of the phase of the first point (default == 0);
+
+
+xvec=(origin(1)+0.5*diamcirc*rand(1,npoints))';
+yvec=(origin(2)+0.5*diamcirc*rand(1,npoints))';

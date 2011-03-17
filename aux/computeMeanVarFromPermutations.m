@@ -7,7 +7,8 @@ for ii=1:nchoosek(n,k)
     ftmp = sum(f(:,choosevec(ii,:)),2); %tx1
     meanf(ii)=mean(ftmp(:));
     varf(ii)=var(ftmp(:));
-    ftmppos=ftmp+min(ftmp); %to make it positiove everywhere
-    [ftmphist,X] = hist(ftmppos,100);
-    entf(ii)=computeEntropy(ftmphist);
+%     ftmppos=ftmp+min(ftmp); %to make it positiove everywhere
+%     [ftmphist,X] = hist(ftmppos,100);
+%     entf(ii)=computeEntropy(ftmphist);
+    entf(ii)=histogrametropy(ftmp);
 end

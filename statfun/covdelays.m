@@ -1,0 +1,17 @@
+function C=covdelays(A, tdelay)
+% C=covdelays(A, tdelays)
+% Computes (unbiased) correlation matrices of MxN matrix A (rows are time series) for
+% time delayes specified in the 1xT vector TDELAY
+
+[m,n]=size(A);
+t=length(tdelay);
+C=zeros(m,m,t);
+for indext=1:t
+    for indexrow1=1:m
+        for indexrow2=1:m
+            arow=A(indexrow1,:);
+            arowshift=circshift(A(indexrow2,:),[1,tdelay(indext)]);          
+            C(indexrow1, indexrow2, indext)=1/n*arow*arowshift';
+        end
+    end
+end
