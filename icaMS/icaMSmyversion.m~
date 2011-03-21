@@ -1,4 +1,4 @@
-function [S,A,ll,Tau]=icaMS(X,Tau,ncomp,draw)
+function [Sout,A,ll,Tau]=icaMSmyversion(Xin,Tau,ncomp,draw)
 % icaMS     : Dynamic ICA by the Molgedey and Schuster decorrelation algorithm.
 %
 % function [S,A,ll,Tau]=icaMS(X,[Tau],[draw])   Independent component analysis (ICA) using the
@@ -76,6 +76,9 @@ else
     AutoTau=0;
 end
 
+% Remove the mean values
+[X, Xmeanvals] = makezeromean(Xin,2);
+
 [K,N]=size(X);
 
 
@@ -101,15 +104,15 @@ if AutoTau==1,
         if draw==1, disp(sprintf('Warning - Stabel value for Tau could not be found !  tau:%d',Tau)); end;
     end
 end
-
-% sort components according to energy
-Avar=diag(A'*A)/K;
-Svar=diag(S*S')/N;
-vS=var(S');
-sig=Avar.*Svar;
-[a,indx]=sort(sig);
-S=S(indx(K:-1:1),:);
-A=A(:,indx(K:-1:1));
+% 
+% % sort components according to energy
+% Avar=diag(A'*A)/K;
+% Svar=diag(S*S')/N;
+% vS=var(S');
+% sig=Avar.*Svar;
+% [a,indx]=sort(sig);
+% S=S(indx(K:-1:1),:);
+% A=A(:,indx(K:-1:1));
 
 
 % log likelihood
@@ -124,6 +127,12 @@ if nargout>2,
 end
 
 
+Ainv=pinv(A);
+% Adds the mean values
+ Sout=bsxfun(@plus, S, Ainv*Xmeanvals); 
+Sout=S;
+
+
 function [S,A,autos]=molgedey(X,tau, ncomp)
 % Dynamic ICA by the Molgedey and Schuster decorrelation algorithm for a specific Tau.
 
@@ -131,7 +140,7 @@ function [S,A,autos]=molgedey(X,tau, ncomp)
 Xproj=pcavec'*X;
 
 % build upper part of quotient matrix
-Mb=Xproj(:,tau+1:end)*X(:,1:end-tau)'; % Truncate at matrix border
+Mb=Xproj(:,tau+1:end)*Xproj(:,1:end-tau)'; % Truncate at matrix border
 Mb=0.5*(Mb+Mb'); % Ensure symmetri
 
 % build lower part of quotient matrix
@@ -147,7 +156,7 @@ try
     [Aproj,L]=eig(Q); 
     A=pcavec*Aproj;
     % estimated unmixing matrix and sources
-    W =inv(A);
+    W =pinv(A);
     S=W*X;
     
     % variance one for sources
@@ -208,7 +217,5 @@ else
     tau=1;
     if draw==1, disp(sprintf('Tau not estimated,  set tau=%i',tau)); end;
 end
-
-
 
 

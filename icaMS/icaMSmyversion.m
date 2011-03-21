@@ -1,4 +1,4 @@
-function [S,A,ll,Tau]=icaMS(X,Tau,ncomp,draw)
+function [Sout,A,ll,Tau]=icaMSmyversion(Xin,Tau,ncomp,draw)
 % icaMS     : Dynamic ICA by the Molgedey and Schuster decorrelation algorithm.
 %
 % function [S,A,ll,Tau]=icaMS(X,[Tau],[draw])   Independent component analysis (ICA) using the
@@ -76,6 +76,9 @@ else
     AutoTau=0;
 end
 
+% Remove the mean values
+[X, Xmeanvals] = makezeromean(Xin,2);
+
 [K,N]=size(X);
 
 
@@ -122,6 +125,11 @@ if nargout>2,
     end
     ll=logP;
 end
+
+
+Ainv=pinv(A);
+% Adds the mean values
+Sout=bsxfun(@plus, S, Ainv*Xmeanvals); 
 
 
 function [S,A,autos]=molgedey(X,tau, ncomp)
@@ -208,7 +216,5 @@ else
     tau=1;
     if draw==1, disp(sprintf('Tau not estimated,  set tau=%i',tau)); end;
 end
-
-
 
 

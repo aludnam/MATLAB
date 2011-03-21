@@ -16,7 +16,7 @@ end
 Ntimes = 10^6;
 rx=rand(1,Ntimes);
 tx=ceil((alpha-1)*rx.^(1-alpha));
-ncomp = 10;
+% ncomp = 10;
 nt=1000;
 
 blinkmat=zeros(nt,ncomp); %transposed for computation convenience
