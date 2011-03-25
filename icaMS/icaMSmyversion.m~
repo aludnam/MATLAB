@@ -126,14 +126,12 @@ if nargout>2,
     ll=logP;
 end
 
-
 Ainv=pinv(A);
 % Adds the mean values
- Sout=bsxfun(@plus, S, Ainv*Xmeanvals); 
-Sout=S;
+Sout=bsxfun(@plus, S, Ainv*Xmeanvals); 
 
 
-function [S,A,autos]=molgedey(X,tau, ncomp)
+function [S,A,autos]=molgedey(X,tau, ncomp, bg)
 % Dynamic ICA by the Molgedey and Schuster decorrelation algorithm for a specific Tau.
 
 [pcacoef, pcavec]=pca(X',ncomp);
@@ -155,13 +153,16 @@ try
     % eigenvalue decomp
     [Aproj,L]=eig(Q); 
     A=pcavec*Aproj;
+    if exist('bg', 'var')
+        A=[A,ones(size(A,1),1)]; %background
+    A=normalize(A); % normlaizes columns 
     % estimated unmixing matrix and sources
     W =pinv(A);
     S=W*X;
     
-    % variance one for sources
-    A=A.*repmat(std(S'),size(A,1),1);
-    S=S./repmat(std(S')',1,size(S,2));
+%     % variance one for sources
+%     A=A.*repmat(std(S'),size(A,1),1);
+%     S=S./repmat(std(S')',1,size(S,2));
     
 catch
     disp('Warning - Problems solving MS ICA !');

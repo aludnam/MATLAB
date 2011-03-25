@@ -1,5 +1,6 @@
 function copyscript(source, destination, source_app, destination_app)
 % copyscript(source, destination, source_app, destination_app)
+% name format [source '_script' source_app '.m']
 if ~exist('source_app','var')
     source_app = [];
 end
@@ -23,3 +24,4 @@ if exist('params.m', 'file')
 end
 
 cd (dest_dir)
+makecomment('readme');

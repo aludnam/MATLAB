@@ -5,7 +5,7 @@ function wg = makegauss(c, sig, sizevec)
 % image will be of the size sizevec. 
     
 ng = length(c)/2; % Number of gaussians
-if numel(sig) == 1 % All will have the same sig
+if numel(sig) == 1 % All have the same sig
     sig = repmat(sig, 1, ng);
 end
 
@@ -16,4 +16,3 @@ cr = reshape(c,2,ng)';
 for ii=1:ng
     wg(:,:,ii)=n0(ii)*exp(-((X-cr(ii,1)).^2+(Y-cr(ii,2)).^2)/(2*sig(ii)^2));
 end
-wg=normalize(wg);

@@ -1,14 +1,11 @@
-function [w,winit_pix]=init_w(method,peval,image, addbackgroundcomponent)
-% [w,winit_pix]=init_w(method,peval,image, addbackgroundcomponent)
+function [w,winit_pix]=init_w(method,peval,image)
+% [w,winit_pix]=init_w(method,peval,image)
 % method:   'rand' %random initialization
 %           'image' %specified initialization for example image=double(array2im(dpixc_ind))       
 %           'image_repmat' %for example image = mean(image,3);        
 %           'res' %image is res.w -> initialisation from the nmf results
-% addbackgroundcomponent:   1 adds one component flat as a background (peval.ncomp th)
-%                           0 no back
-if ~exist('addbackground', 'var')
-    addbackground = 0;
-end
+% addbackgroundcomponent:   1 adds one component flat component as a background (peval.ncomp th)
+%                           0 no background component
     
 switch method
     case 'rand'
@@ -27,7 +24,8 @@ switch method
         msg='W initialized from the results res.w.';
 end
 winit_pix=max(winit_pix, eps); % To avoid zeros...
-w=reshape(winit_pix,peval.nx*peval.ny, size(winit_pix,3));
+sw=size(winit_pix);
+w=reshape(winit_pix,sw(1)*sw(2), sw(3));
 
 if isfield (peval,'fid')
     mfprintf(peval.fid, [msg '\n'])
@@ -35,4 +33,7 @@ else
     fprintf([msg '\n']);
 end
 
-if addbackground
+if peval.addbgcomp
+    w(:,peval.ncomp)=normalize(ones(peval.nx*peval.ny,1));
+    mfprintf(peval.fid, 'Last component [%g] initialised as a flat background. (background=%g)\n',peval.ncomp,peval.bg);    
+end

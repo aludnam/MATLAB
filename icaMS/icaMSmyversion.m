@@ -126,7 +126,6 @@ if nargout>2,
     ll=logP;
 end
 
-
 Ainv=pinv(A);
 % Adds the mean values
 Sout=bsxfun(@plus, S, Ainv*Xmeanvals); 
@@ -154,13 +153,14 @@ try
     % eigenvalue decomp
     [Aproj,L]=eig(Q); 
     A=pcavec*Aproj;
+    A=normalize(A); % normlaizes columns 
     % estimated unmixing matrix and sources
     W =pinv(A);
     S=W*X;
     
-    % variance one for sources
-    A=A.*repmat(std(S'),size(A,1),1);
-    S=S./repmat(std(S')',1,size(S,2));
+%     % variance one for sources
+%     A=A.*repmat(std(S'),size(A,1),1);
+%     S=S./repmat(std(S')',1,size(S,2));
     
 catch
     disp('Warning - Problems solving MS ICA !');

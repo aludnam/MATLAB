@@ -62,12 +62,17 @@ end
 function [dovec_w, dovec_a]=setDoVec(peval)
 dovec_w=1:peval.ncomp;
 dovec_a=1:peval.ncomp;
-
 if peval.fix_bg_w
     dovec_w=1:peval.ncomp-1;
 end
 if peval.fix_bg_a
     dovec_a=1:peval.ncomp-1;
+end
+if isfield(peval, 'fix_w')
+    dovec_w = removerows(dovec_w',peval.fix_w)';
+end
+if isfield(peval, 'fix_a')
+    dovec_a = removerows(dovec_a',peval.fix_a)';
 end
 mfprintf(peval.fid, '''w'' will be updated for components: ')
 mfprintf(peval.fid, '['); mfprintf (peval.fid, '%g ', dovec_w); mfprintf (peval.fid, ']\n');                        
