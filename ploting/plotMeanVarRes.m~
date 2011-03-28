@@ -1,0 +1,10 @@
+function plotMeanVarRes(S)
+open ../S245/MeanVarQD_aplha17.fig
+hold on
+
+ms=mean(S,2)/1000;
+ss=std(S,[],2)/1000;
+scatter(ms,ss,10^3,'xk')
+% for ii=1:size(S,1)
+%     scatter(mean(S(ii,:))/1000, std(S(ii,:))/1000,1000,'xk')
+% end
