@@ -1,5 +1,5 @@
-function [w,winit_pix]=init_w(method,peval,image)
-% [w,winit_pix]=init_w(method,peval,image)
+function h=init_h(method,peval,image)
+% h=init_h(method,peval,image)
 % method:   'rand' %random initialization
 %           'image' %specified initialization for example image=double(array2im(dpixc_ind))       
 %           'image_repmat' %for example image = mean(image,3);        
@@ -12,11 +12,11 @@ end
 
 switch method
     case 'rand'
-        winit_pix = normalize(rand(peval.nx,peval.ny,peval.ncomp));        
-        msg='W initialzied as uniform random.';
+        h = rand(peval.ncomp,peval.nt);        
+        msg='h initialzied as uniform random.';
     case 'image'
-        winit_pix = normalize(image);
-        msg='W initialized with specified 3D image.';
+        h = image;
+        msg='W initialized with specified image.';
     case 'image_repmat'
         winit_pix(:,:,1:peval.ncomp) = normalize(repmat(image,[1,1,peval.ncomp]));
         msg='W initialized as repmat(image,[1,1,peval.ncomp].)';
@@ -37,5 +37,5 @@ end
 
 if peval.bgcomp
     w(:,peval.ncomp)=normalize(ones(sw(1)*sw(2),1));
-    mfprintf(peval.fid, 'Last component [%g] of w initialised as a flat background. (background=%g)\n',peval.ncomp,peval.bg);    
+    mfprintf(peval.fid, 'Last component [%g] initialised as a flat background. (background=%g)\n',peval.ncomp,peval.bg);    
 end

@@ -27,6 +27,5 @@ for ii=1:200
     sumW=sum(exp(Wxke),1);
     Wxken=Wxke+log(1./repmat(sumW,nx,1)); %to make sum(exp(Wxken))=ones(1,k)
     Hkte= Hkte-log(1./repmat(sumW',1,nt)); %to keep exp(Wxken)*exp(Hkte) constant
-    dW(ii)=ddivWexp(Wxken,Vxt, Hkte, Wxk_fix, Hkt_fix);
-    
+    dW(ii)=ddivWexp(Wxken,Vxt, Hkte, Wxk_fix, Hkt_fix);    
 end

@@ -1,7 +1,6 @@
 function h = init_ab(dpixc, alphain, betain, peval)
 % h = init_ab(dpixc, alphain, betain, peval)
-% Initaialization of the a, b parameters of the factorised distributions in
-% the variational updates of hte GaP model.
+% Initaialization of the a, b parameters of 
 
 alph=repmat(alphain,1,peval.ncomp); % prior parametes for Gamma distribution (peval.ncomp x T)
 beta=repmat(betain,1,peval.ncomp);  % prior parametes for Gamma distribution (peval.ncomp x T)
@@ -14,4 +13,4 @@ beta=repmat(betain,1,peval.ncomp);  % prior parametes for Gamma distribution (pe
         a(peval.ncomp,:)=peval.bg*ones(1,peval.nt)*peval.nx*peval.ny;        
  end
  
- h = struct('a',a,'b', b);
+ hinit = struct('a',ainit,'b', binit);

@@ -1,23 +1,24 @@
-function [varargout, peval]=variationalupdates(peval, varargin)
+function [varargout, peval]=updates_variational(peval, varargin)
 % [varargout, peval]=variationalupdates(peval, varargin)
 % Computes variational updates
 % dvec = varargin{1};   % data (N x T)
 % w = varargin{2};      % initialization for basis (N x peval.ncomp)
-% alph = varargin{3};   % prior parametes for Gamma distribution (peval.ncomp x T)
-% beta = varargin{4};   % prior parametes for Gamma distribution
-% a = varargin{5};      % initialization for a (peval.ncomp x T)
-% b = varargin{6};
+% h = varargin{3};      % initialization for a (peval.ncomp x T) and b
+% a = h.a;      % initialization for a 
+% b = h.b;
 mfprintf(peval.fid, 'Variational updates.\n')
 peval=setDefaultValuesPeval(peval);
 dvec = varargin{1};
-w = varargin{2};
-alph = varargin{3};
-beta = varargin{4};
-a = varargin{5};
-b = varargin{6};
+w = varargin{2};        % initialization for basis (N x peval.ncomp)
+h = varargin{3};        % initialization for a (peval.ncomp x T) and b
+a = h.a;                % initialization for a 
+b = h.b;
+
+alph=repmat(peval.alpha,1,peval.ncomp); % prior parametes for Gamma distribution (peval.ncomp x T)
+beta=repmat(peval.beta,1,peval.ncomp);  % prior parametes for Gamma distribution (peval.ncomp x T)
 
 [dovec_w, dovec_a]=setDoVec(peval); %sets which components used in updates
-
+lb=zeros(1,peval.maxiter);
 lb(1)=sum(lowerbound(dvec, w, alph, beta, a, b));
 for updateindex=1:peval.maxiter;
     n=update_n(w, a, b);
@@ -25,8 +26,7 @@ for updateindex=1:peval.maxiter;
     w(:,dovec_w)=update_w(dvec, n(:,dovec_w,:));
     lb(updateindex+1)=sum(lowerbound(dvec, w, alph, beta, a, b));
     if peval.showprogress
-        imstiled(reshape(w, peval.nx, peval.ny, peval.ncomp),10, 'gray',[],[],1)
-        plot(lb(2:end))
+        plotprogress(w,lb(2:updateindex),peval)
     end
 end
 
@@ -34,6 +34,7 @@ varargout = struct('w',w,'a',a,'lb',lb(end));
 
 end % Main function
 
+% Nested fucntions:
 function peval=setDefaultValuesPeval(peval)
 if ~isfield(peval,'showprogress')
     peval.showprogress = 0;
@@ -42,20 +43,20 @@ end
 if ~isfield(peval, 'fix_bg_w')
     peval.fix_bg_w=0;
     if peval.addbgcomp
-        peval.fix_bg_w=1;        
+        peval.fix_bg_w=1;
     end
 end
 if ~isfield(peval, 'fix_bg_a')
     peval.fix_bg_a=0;
     if peval.addbgcomp
-        peval.fix_bg_a=1;   
+        peval.fix_bg_a=1;
     end
 end
 if peval.fix_bg_w
     mfprintf(peval.fid, '''w'' fixed for background component [%g].\n',peval.ncomp)
 end
 if peval.fix_bg_a
-     mfprintf(peval.fid, '''a'' fixed for background component [%g].\n',peval.ncomp)
+    mfprintf(peval.fid, '''a'' fixed for background component [%g].\n',peval.ncomp)
 end
 end
 
@@ -75,7 +76,12 @@ if isfield(peval, 'fix_a')
     dovec_a = removerows(dovec_a',peval.fix_a)';
 end
 mfprintf(peval.fid, '''w'' will be updated for components: ')
-mfprintf(peval.fid, '['); mfprintf (peval.fid, '%g ', dovec_w); mfprintf (peval.fid, ']\n');                        
+mfprintf(peval.fid, '['); mfprintf (peval.fid, '%g ', dovec_w); mfprintf (peval.fid, ']\n');
 mfprintf(peval.fid, '''a'' will be updated for components: ')
-mfprintf(peval.fid, '['); mfprintf (peval.fid, '%g ', dovec_a); mfprintf (peval.fid, ']\n');                        
+mfprintf(peval.fid, '['); mfprintf (peval.fid, '%g ', dovec_a); mfprintf (peval.fid, ']\n');
+end
+
+function plotprogress(w,lb,peval)
+imstiled(reshape(w, peval.nx, peval.ny, peval.ncomp),10, 'gray',[],[],1)
+plot(lb)
 end
