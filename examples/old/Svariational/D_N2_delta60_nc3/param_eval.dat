@@ -1,0 +1,24 @@
+Computation: 17-Feb-2011 09:02:48 
+
+Parameters:
+logfile = 'evaluation.log'
+fid = [1 3 ]
+home = '/afs/inf.ed.ac.uk/user/s08/s0880377'
+data_path = 'project/data/qdots/D2ptBMrand'
+data_dir = 'D_N2_delta60'
+data_file = 'D_N2_delta60.mat'
+res_path = '/afs/inf.ed.ac.uk/user/s08/s0880377/project/data/qdots/examples/Svariational/'
+maxiter = 250 
+initw1_method = 'rand'
+alpha = 1 
+beta = 0.001 
+bg_clip = 'yes'
+addbgcomp = 1 
+showprogress = 1 
+nx = 9 
+ny = 9 
+nt = 1000 
+bg = 100 
+ncomp = 3 
+res_dir = 'D_N2_delta60_nc3'
+res_name = 'results_iter2'

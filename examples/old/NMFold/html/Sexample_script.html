@@ -1,0 +1,119 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>Sexample_script</title>
+      <meta name="generator" content="MATLAB 7.7">
+      <meta name="date" content="2010-04-20">
+      <meta name="m-file" content="Sexample_script"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content"><pre class="codeinput">sep =[.1 .2 .5];
+offset = [100 1000];
+niter = 1;
+avg_num = [0 1 2 10 50]; <span class="comment">%number of averages os samples (reducing Poisson noise)</span>
+<span class="comment">% avg_num=0 --&gt; noise free image...</span>
+
+path_res = [cd <span class="string">'/'</span>];
+path_data = <span class="string">'~/project/data/qdots/S44/'</span>;
+prename = <span class="string">'S44_sep_'</span>;
+
+cd (path_data)
+savethis = 1;
+separ_Sexample(sep, offset, path_data, path_res, prename, niter, avg_num, savethis);
+</pre><pre class="codeoutput">Undefined function or method 'dip_variancefilter' for input arguments of type 'dip_image'.
+
+Error in ==&gt; varif at 56
+image_out = dip_variancefilter(image_in,[],filterSize,filterShape);
+
+Error in ==&gt; backgroundoffset at 79
+v = varif(in,fs_vari);
+
+Error in ==&gt; separ_Sexample at 25
+                [out, bg(mm), bg_im]=backgroundoffset(dpixc, 'no', 5, 20, 8); %empirical values...               
+
+Error in ==&gt; Sexample_script at 13
+separ_Sexample(sep, offset, path_data, path_res, prename, niter, avg_num, savethis);</pre><p class="footer"><br>
+            Published with MATLAB&reg; 7.7<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+sep =[.1 .2 .5];
+offset = [100 1000];
+niter = 1;
+avg_num = [0 1 2 10 50]; %number of averages os samples (reducing Poisson noise)
+% avg_num=0 REPLACE_WITH_DASH_DASH> noise free image...
+
+path_res = [cd '/'];
+path_data = '~/project/data/qdots/S44/';
+prename = 'S44_sep_';
+
+cd (path_data)
+savethis = 1;
+separ_Sexample(sep, offset, path_data, path_res, prename, niter, avg_num, savethis);
+##### SOURCE END #####
+-->
+   </body>
+</html>

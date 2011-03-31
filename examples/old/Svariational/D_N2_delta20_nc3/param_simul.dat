@@ -1,0 +1,21 @@
+Computation: 17-Feb-2011 09:02:28 
+
+Parameters:
+NA = 1.3 
+lambda = 605 
+pixelsize = 106 
+method = 'gauss'
+sigmapix = 0.988192 
+nx = 9 
+ny = 9 
+N = 2 
+np = 1500 
+noise = 'poisson'
+Nt = 1000 
+offset = 100 
+delta = 0.2 
+prename = 'D'
+path = '~/project/data/qdots/D2ptBMrand/'
+namedir = 'D_N2_delta20'
+x_vec = [4.3 4.1 ]
+y_vec = [4.7 4.7 ]

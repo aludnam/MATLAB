@@ -1,0 +1,10 @@
+Computation: 17-Feb-2011 09:02:19
+
+Parameters read from:
+/afs/inf.ed.ac.uk/user/s08/s0880377/project/data/qdots/examples/Svariational/params.m
+Data read from:
+/afs/inf.ed.ac.uk/user/s08/s0880377/project/data/qdots/D2ptBMrand/D_N2_delta20/D_N2_delta20.mat
+W initialzied as uniform random.
+Last component [3] initialised as a flat background. (background=100)
+Saving data to:
+/afs/inf.ed.ac.uk/user/s08/s0880377/project/data/qdots/examples/Svariational/D_N2_delta20_nc3/results_iter2

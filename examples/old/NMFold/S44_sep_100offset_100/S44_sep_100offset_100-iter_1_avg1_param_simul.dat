@@ -1,0 +1,28 @@
+Computation: 30-Apr-2010 08:48:15 
+
+Parameters:
+sizevec = 0 
+sizevec = 32 
+sizevec = 0 
+sizevec = 32 
+nx = 32 
+ny = 32 
+lambda = 655 
+pixelsize = 106 
+lambdapix = 6.17925 
+NA = 1.3 
+broadenfactor = 1 
+s = 1.05911 
+niter = 10 
+Nt = 500 
+maxphotvec = 10000 
+maxphotvec = 10000 
+prename = S44_sep_
+path = ~/project/data/qdots/S44/
+namedir = S44_sep_100offset_100
+separ = 1 
+separ = 0 
+offset = 100 
+
+X 			 Y 
+------------------

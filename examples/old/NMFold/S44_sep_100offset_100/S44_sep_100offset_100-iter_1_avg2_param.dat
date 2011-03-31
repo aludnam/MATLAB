@@ -1,0 +1,35 @@
+Computation: 28-Apr-2010 16:06:54 
+
+Parameters:
+path_res = /afs/inf.ed.ac.uk/user/s08/s0880377/project/data/qdots/example/
+path_data = ~/project/data/qdots/S44/
+prename = S44_sep_
+sep_vec = 1 
+offset_vec = 100 
+niter_vec = 1 
+avg_num_vec = 1 
+avg_num_vec = 2 
+ncomp = 2 
+catiter_vec = 1 
+namedir_data = S44_sep_100offset_100
+namefile_data = S44_sep_100offset_100-iter_1
+nx = 32 
+ny = 32 
+nt = 500 
+numpix = 1024 
+meandata = 109.701 
+bg_clip = no
+bg_fs_var = 5 
+bg_perc = 20 
+bg_ob_dist = 8 
+bg = 100.294 
+w_fixvec = 3 
+h_fixvec = 3 
+niter = 1000 
+maxiter = 368 
+maxiter_reached_flag = 0 
+name_res_file = S44_sep_100offset_100-iter_1_avg2
+dir_res = /afs/inf.ed.ac.uk/user/s08/s0880377/project/data/qdots/example/S44_sep_100offset_100
+
+X 			 Y 
+------------------
