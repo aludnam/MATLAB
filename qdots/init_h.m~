@@ -8,26 +8,18 @@ function h=init_h(method,peval,image)
 %                           0 no background component
 if ~isfield(peval, 'bgcomp')
     peval.bgcomp = 1;
+    mfprintf(peval.fid, 'Value of the peval.bgcomp was set to 1 (by default the last component is backgroud).')
 end
 
 switch method
     case 'rand'
         h = rand(peval.ncomp,peval.nt);        
         msg='h initialzied as uniform random.';
-    case 'image'
-        h = image;
-        msg='W initialized with specified image.';
-    case 'image_repmat'
-        winit_pix(:,:,1:peval.ncomp) = normalize(repmat(image,[1,1,peval.ncomp]));
-        msg='W initialized as repmat(image,[1,1,peval.ncomp].)';
     case 'res'
-        s2=size(image,2); %it is only 2D (#pixX#comp)
-        winit_pix(:,:,1:s2) = reshape(image, peval.nx, peval.ny, s2);
-        msg='W initialized from the results res.w.';
+        h = image;
+        msg='h initialized from the results res.w.';        
 end
-winit_pix=max(winit_pix, eps); % To avoid zeros...
-sw=size(winit_pix);
-w=reshape(winit_pix,sw(1)*sw(2), sw(3));
+h=max(h, eps); % To avoid zeros...
 
 if isfield (peval,'fid')
     mfprintf(peval.fid, [msg '\n'])
@@ -36,6 +28,6 @@ else
 end
 
 if peval.bgcomp
-    w(:,peval.ncomp)=normalize(ones(sw(1)*sw(2),1));
-    mfprintf(peval.fid, 'Last component [%g] initialised as a flat background. (background=%g)\n',peval.ncomp,peval.bg);    
+    h(peval.ncomp,:)=peval.nx*peval.ny*peval.bg;
+    mfprintf(peval.fid, 'Last component [%g] of h initialised as a flat background. (background=%g)\n',peval.ncomp,peval.bg);    
 end

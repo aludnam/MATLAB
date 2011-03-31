@@ -10,12 +10,11 @@ function writedata (x, y, p, filename, commentStr, dataonly)
 % and y (doesn't write p, or comment string), dataonly==0 (default) - adds comment
 % string
 
+fprintf('Writing into file: %s\n', filename);
 fid = fopen([filename '.dat'],'wt');
-
 if nargin<6
     dataonly = 0;
 end
-
 if dataonly==0
     
     if nargin>4
@@ -33,14 +32,17 @@ if dataonly==0
                 name = fn{ii};
                 value = getfield(p,fn{ii});
                 if ischar (value)
-                    fprintf (fid, [name ' = ' value '\n']);
-                else
-                    if length(value)>1
-                        fprintf (fid, [name ' = [');
+                    fprintf (fid, [name ' = ''' value '''\n']);
+                else 
+                    if isempty(value)
+                        fprintf (fid, [name ' = [ ]\n']);                        
+                    elseif length(value)>1
+                        fprintf (fid, [name ' = [']);
                         fprintf (fid, '%g ', value);
-                        
+                        fprintf (fid, ']\n');                        
                     else
-                    fprintf (fid, [name ' = %g \n'], value);
+                        fprintf (fid, [name ' = %g \n'], value);
+                    end
                 end
             end
         else
@@ -49,14 +51,14 @@ if dataonly==0
             end
             
         end
-    end
-    
+    end    
+end
+
+if or(~isempty(x), ~isempty(y))
     fprintf (fid,'\nX \t\t\t Y \n');
     fprintf (fid,'------------------\n');
+    for ii=1:length(y)
+        fprintf (fid,'%-8.3f \t %-8.3f \n', x(ii), y(ii));
+    end
 end
-
-for ii=1:length(y)
-    fprintf (fid,'%-8.3f \t %-8.3f \n', x(ii), y(ii));
-end
-
 fclose(fid);

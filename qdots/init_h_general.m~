@@ -1,0 +1,22 @@
+function h=init_h_general(method,peval,image)
+% h=init_h_general(method,peval,image)
+% Initialization of the h (NMF, variationla) or a (h.a) and b (h.b) for MAP
+% updates. 
+% NMF and MAP:
+% method:   'rand' %random initialization
+%           'image' %specified initialization for example image=double(array2im(dpixc_ind))       
+%           'image_repmat' %for example image = mean(image,3);        
+%           'res' %image is res.w -> initialisation from the nmf results
+%
+% Variational: 
+% method:   not used
+% image:    sum(dpixc(:)) (sum of the data)
+
+updates = func2str(peval.fun);
+
+switch updates
+    case {'updates_nmfclassic', 'updates_variational'}        
+        h=init_h(method,peval,image);
+    case 'updates_map'
+        h = init_hvar(method, peval, sumdata);
+end

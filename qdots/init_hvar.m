@@ -1,0 +1,19 @@
+function h = init_hvar(method, peval, sumdata)
+% h = init_hvar(method, peval, sumdata)
+% Initaialization of the a, b parameters of the factorised distributions in
+% the variational updates of hte GaP model.
+% sumdata = sum(dpixc(:))
+% method not used for now....
+
+alph=repmat(peval.alpha,1,peval.ncomp); % prior parametes for Gamma distribution (peval.ncomp x T)
+beta=repmat(peval.beta,1,peval.ncomp);  % prior parametes for Gamma distribution (peval.ncomp x T)
+
+ b = repmat(beta'+1, 1, peval.nt);
+ a = repmat((sum(alph) + sum(sumdata))/(peval.ncomp*peval.nt), peval.ncomp, peval.nt);
+ if peval.bgcomp
+        ncomp = peval.ncomp-1;
+        a = repmat((sum(alph) + sum(sumdata-peval.bg))/(ncomp*peval.nt), ncomp, peval.nt);
+        a(peval.ncomp,:)=peval.bg*ones(1,peval.nt)*peval.nx*peval.ny;        
+ end
+ 
+ h = struct('a',a,'b', b);

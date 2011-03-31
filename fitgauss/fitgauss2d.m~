@@ -1,10 +1,8 @@
 function [x_mu, y_mu, sig, differ] = fitgauss2d(M,sigfix, showfig)
 % [x_mu, y_mu, sig, differ] = fitgauss2d(M,sigfix, showfig)
-% Fits isotropic gaussian to the each z-slice of hte matrix M.
 % x_mu, y_mu : coordiantes of the fitted mean
 % sig : fitted std
 % differ : D -devergence between data and figure generated form gaussian
-% 31/3/2011
 
 nd=ndims(M);
 sm=size(M);
@@ -29,19 +27,19 @@ end
 for sl = 1:nslice    
     Mslice = M(:,:,sl);
     if isempty(sigfix)
-        sguess = sum(sum(Mslice))/(sm(1)*sm(2))*sm(1);
-        x = fminsearch(@(x) difference(x,Mslice),[ym(sl),xm(sl),sguess]);
-        x_mu(sl) = x(1);
-        y_mu(sl) = x(2);
-        sig(sl) = x(3);
+        sguess = sum(sum(M(:,:,sl)))/(sm(1)*sm(2))*sm(1);
+        x = fminsearch(@(x) difference(x,M(:,:,sl)),[ym(sl),xm(sl),sguess]);
+        x_mu = x(1);
+        y_mu = x(2);
+        sig = x(3);
     else
         x = fminsearch(@(x) difference_sigfix(x,Mslice,sigfix),[ym(sl),xm(sl)]);
-        x_mu(sl) = x(1);
-        y_mu(sl) = x(2);
-        sig(sl) = sigfix;
+        x_mu = x(1);
+        y_mu = x(2);
+        sig = sigfix;
     end
     
-    differ = difference(x,Mslice);
+    differ = difference(x,M);
 end
 
 if exist('showfig','var')
