@@ -5,10 +5,16 @@ sizevec = varargin{2};
 W = reshape(x, sizevec(1)*sizevec(2), sizevec(3));
 ntau = size(covmat,3); % #taus (different time delays)
 gftmp = zeros(ntau,prod(sizevec));
+fcol = zeros(1,sizevec(3));
 for tau=1:ntau
     covmattmp = covmat(:,:,tau);
-    Q = diag(1./diag(W'*covmattmp*W));
-    gftmp(tau,:) = reshape(Q'*W'*0.5*(covmattmp+covmattmp'),1,prod(sizevec));
+    for col=1:sizevec(3)
+        wcol = W(:,col);
+        fcol(col) = (wcol'*covmattmp*wcol);
+    end
+    Q = diag(1./fcol);
+%     Q = diag(1./diag(W'*covmattmp*W));
+% gftmp(tau,:) = reshape((Q*W'*0.5*(covmattmp+covmattmp'))',1,prod(sizevec));
+gftmp(tau,:) = reshape((Q*W'*0.5*(covmattmp+covmattmp'))',1,prod(sizevec));
 end
-
-gf = sum(gftmp);
+gf = sum(gftmp,1);

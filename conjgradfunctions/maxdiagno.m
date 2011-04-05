@@ -6,12 +6,11 @@ W = reshape(x, sizevec(1)*sizevec(2), sizevec(3)); % #pix X #comp
 % W = max(W,eps);
 ntau = size(covmat,3); % #taus (different time delays)
 ftmp = zeros(1,ntau);
-fcol = zeros(1,sizevec(3));
 for tau=1:ntau
-    covmattmp = covmat(:,:,tau);    
-    ftmp(tau) = 0.5*(sum(fcol)-log(abs(det(W'*covmattmp*W))));
+    covmattmp = covmat(:,:,tau);
+    M = W'*covmattmp*W;
+    ftmp(tau) = 0.5*(sum(log(diag(M)))-log(abs(det(M))));
 end
-
 f = sum(ftmp);
 
 
