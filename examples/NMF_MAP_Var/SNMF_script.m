@@ -26,7 +26,7 @@ for ncompindex = 1:length(ncomp);
         % Initialization of W:
         %             winit = init_wmap('rand',peval,double(array2im(dpixc_ind)));
         winit = init_w_general(peval.init_w_method,peval,sum(dpixc,3));
-        hinit = init_h_general(peval.init_h_method,peval,[]);
+        hinit = init_h_general(peval.init_h_method,peval,[],dpixc);
                
         dvec=reshape(dpixc,peval.nx*peval.ny,peval.nt);
         

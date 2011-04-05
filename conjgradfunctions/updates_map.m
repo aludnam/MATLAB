@@ -19,12 +19,11 @@ for kk=1:peval.nIterAlter %alternating optimization
     cx=Wres(1:peval.ncomp); 
     cy=Wres(peval.ncomp+1:end);
     % W fixed, optimizing H (intensities)
-    [Hres, optionsH, flogH, pointlogH] = conjgrad(peval.Hupdate, Hres, optionsH, ['grad' peval.Hupdate],dvec, peval.sigmaPSF, peval.alpha, peval.beta, peval, cx,cy);
-    
+    [Hres, optionsH, flogH, pointlogH] = conjgrad(peval.Hupdate, Hres, optionsH, ['grad' peval.Hupdate],dvec, peval.sigmaPSF, peval.alpha, peval.beta, peval, cx,cy);    
     flog=[flog; flogH];
-    pointlogHall=[pointlogHall; pointlogH];
+    pointlogHall=[pointlogHall; pointlogH];    
     % H fixed, optimizing W (positions)
-    [Wres, optionsW, flogW, pointlogW] = conjgrad(peval.Wupdate, Wres, optionsW, ['grad' peval.Wupdate],dvec, peval.sigmaPSF, peval.alpha, peval.beta, peval, Hres);
+    [Wres, optionsW, flogW, pointlogW] = conjgrad(peval.Wupdate, Wres, optionsW, ['grad' peval.Wupdate],dvec, peval.sigmaPSF, peval.alpha, peval.beta, peval, Hres);    
     flog=[flog; flogW];
     pointlogWall=[pointlogWall; pointlogW];                    
 end

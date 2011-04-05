@@ -1,0 +1,15 @@
+Computation: 31-Mar-2011 14:59:37
+
+Parameters read from:
+/Users/ondrejmandula/project/MATLAB/examples/NMF_MAP_Var/params.m
+Data read from:
+/Users/ondrejmandula/project/data/qdots/D3ptBMrand/D3ptBMrand_N3_offset50_delta10/D3ptBMrand_N3_offset50_delta10_iter1.mat
+W initialized as repmat(image,[1,1,peval.ncomp].)
+Last component [6] of w initialised as a flat background. (background=50)
+h initialzied as uniform random.
+Last component [6] of h initialised as a flat background. (background=50)
+Classic NMF iterations
+'w' fixed for background component [6].
+'g' fixed for background component [6].
+'w' will be updated for components: [1 2 3 4 5 ]
+'h' will be updated for components: [1 2 3 4 5 ]
