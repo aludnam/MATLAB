@@ -7,8 +7,11 @@ ntau = size(covmat,3); % #taus (different time delays)
 gftmp = zeros(ntau,prod(sizevec));
 for tau=1:ntau
     covmattmp = covmat(:,:,tau);
+    P = W'*covmattmp*W;
     Q = diag(1./diag(W'*covmattmp*W));
-    gftmp(tau,:) = reshape(Q'*W'*0.5*(covmattmp+covmattmp'),1,prod(sizevec));
+    R = inv(P);
+    gfr = (Q'*W'+ R'*W')*0.5*(covmattmp+covmattmp');
+    gftmp(tau,:) = reshape(gfr,1,prod(sizevec));
 end
 
 gf = sum(gftmp);
