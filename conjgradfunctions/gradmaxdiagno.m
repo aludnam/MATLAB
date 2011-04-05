@@ -11,7 +11,7 @@ for tau=1:ntau
     Q = diag(1./diag(P));
     R = inv(P);
     gfr = (Q'*W' - (W*R)')*0.5*(covmattmp+covmattmp');
-    gftmp(tau,:) = reshape(gfr,1,prod(sizevec));
+    gftmp(tau,:) = reshape(gfr',1,prod(sizevec));
 end
 
-gf = sum(gftmp);
+gf = sum(gftmp,1);
