@@ -6,12 +6,7 @@ function C=covdelays(A, tdelay)
 [m,n]=size(A);
 t=length(tdelay);
 C=zeros(m,m,t);
-for indext=1:t
-    for indexrow1=1:m
-        for indexrow2=1:m
-            arow=A(indexrow1,:);
-            arowshift=circshift(A(indexrow2,:),[1,tdelay(indext)]);          
-            C(indexrow1, indexrow2, indext)=1/n*arow*arowshift';
-        end
-    end
+for indext = 1:t
+    Ashift = (circshift(A',tdelay(indext)))';
+    C(:,:,indext)=1./n*A*Ashift';
 end
