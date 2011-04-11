@@ -1,0 +1,7 @@
+function peval = createresname(peval, app)
+% peval = createresname(peval, app)
+if ~isfield(pe
+    
+res_nameappendix = ['_nc' num2str(peval.ncomp)];
+peval.res_dir = [peval.data_dir res_nameappendix];
+peval.res_name = ['results_iter' num2str(app)];

@@ -32,10 +32,10 @@ plotData(dataXY)
 Klim = [0 10]; % range of the K function
 nSteps = 100; % step of the position of the K function esstimation
 envelopes = 1;  %to compute simulatyion envelopes
-Nsimul = 3; % number of simulations for envelope coputation
+Nsimul = 5; % number of simulations for envelope coputation
 filename = 'Kfunction_example'; % name of the file where K function values are stored
  
-[xK, K, KNMax, KNMin] = ...
+[xK, K, KNMax, KNMin, Kall] = ...
     kfunction_main(dataXY_all, xlim1, xlim2, ylim1, ylim2, Klim, nSteps,...
     envelopes, Nsimul, filename); 
 
@@ -46,11 +46,18 @@ plot (xK, K, xK, pi*xK.^2, '--k')
 hold on 
 plot (xK, KNMax, '-.r', xK, KNMin, '-.r')
 
+% plot all simulations
+plot (xK, Kall,':');
+
 % compute L function 
 L = computeL(xK, K);
 
-% plot L function with computed envelopes
+
 figure
+% plot L function for all simulations:
+hold on
+plot(xK, computeL(xK, Kall),':m');
+% plot L function with computed envelopes
 plot(xK, L, xK, computeL(xK, KNMax), '-.r', xK, computeL(xK, KNMin), '-.r')
 
 %fiting:

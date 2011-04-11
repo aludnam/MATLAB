@@ -3,7 +3,7 @@ function h=init_h(method,peval,image,dpixc)
 % method:   'rand' %random initialization
 %           'image' %specified initialization for example image=double(array2im(dpixc_ind))       
 %           'image_repmat' %for example image = mean(image,3);        
-%           'res' %image is res.w -> initialisation from the nmf results
+%           'res' %image is res.h -> initialisation from the nmf results
 % addbackgroundcomponent:   1 adds one component flat component as a background (peval.ncomp th)
 %                           0 no background component
 if ~isfield(peval, 'bgcomp')
@@ -17,7 +17,7 @@ switch method
         msg='h initialzied as uniform random.';
     case 'res'
         h = image;
-        msg='h initialized from the results res.w.';        
+        msg='h initialized from the results res.h.';        
 end
 h=max(h, eps); % To avoid zeros...
 

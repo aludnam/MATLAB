@@ -1,10 +1,13 @@
-function [xK, K, KNMax, KNMin] = ...
+function [xK, K, KNMax, KNMin, Kall] = ...
     kfunction_main (dataXY_all, xlim1, xlim2, ylim1, ylim2, Klim, nSteps, envelopes, Nsimul, filename)
 
 % KFUNCTION_MAIN computes Ripley's K function for soelected ROI in the data
-% [xK, K, KNMax, KNMin] = ...
+% [xK, K, KNMax, KNMin, Kall] = ...
 %     kfunction_main (dataXY_all, xlim1, xlim2, ylim1, ylim2, Klim, nSteps,
 %     envelopes, Nsimul, filename)
+%
+% xK - xcoordinates of Kfunction K, KNMax, KNMin are the simulated
+% envelopes of the K function (selected as max and min of Kall).
 % dataXY_all - input data, #points-by-2 matrix, each row correspond to xy
 % coordinate of the datapoint
 % xlim1, xlim2, ylim1, ylim2 - selected ROI
@@ -32,10 +35,12 @@ K = kfunction(dataXY, xK, box, 1);
 
 if p.envelopes
     p.Nsimul=Nsimul;
+    Kall = zeros(length(xK), p.Nsimul);
     fprintf('Computing simulation envelopes... \n');
     for ii=1:p.Nsimul
         simNoise = generateNoise(p.nPoints,box);
         KN = kfunction(simNoise,xK, box, 1);
+        Kall(:,ii) = KN;
         if ii==1 %first round
             KNMax = KN;
             KNMin = KN;

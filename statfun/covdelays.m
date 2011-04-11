@@ -8,5 +8,6 @@ t=length(tdelay);
 C=zeros(m,m,t);
 for indext = 1:t
     Ashift = (circshift(A',tdelay(indext)))';
-    C(:,:,indext)=1./n*A*Ashift';
+    C(:,:,indext)=1/n*A*Ashift';
+    
 end

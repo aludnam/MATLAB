@@ -1,5 +1,5 @@
 % params
-mfprintf(peval.fid, 'Parameters read from:\n%s\n',[cd '/params.m'])
+mfprintf(peval.fid, 'Parameters read from:\n%s\n',mfilename('fullpath'));
 
 peval.fun = @updates_nmfclassic;
 % peval.fun = @variationalupdates;

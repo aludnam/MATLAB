@@ -1,2 +1,2 @@
 % Lists m-files. 
-ls -lrt *.m
+ls -lrt *.mat

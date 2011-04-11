@@ -3,4 +3,4 @@ function L = computeL(xK,K)
 % L = computeL(xK,K)
 % xK - position where K function was estimated
 % K - K-function
-L=sqrt(K/pi)-xK;
+L=bsxfun(@minus,sqrt(K/pi),xK);

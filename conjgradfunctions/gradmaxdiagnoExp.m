@@ -25,6 +25,7 @@ gf1r = reshape(gf1,sizevec(1), sizevec(2));
 % gf2 = -(W'*pinv(gf1r)*W');
 % gf2 = -(W*pinv(gf1r)*W);
 % gf2 = -gf1r.*W;
-gf2 = -gf1r.*1./W;
+% S pinv(W) to nejak nefunguje...
+gf2 = -gf1r.*W;
 
 gf=reshape(gf2,1,prod(sizevec));

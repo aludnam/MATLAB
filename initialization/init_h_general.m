@@ -19,5 +19,5 @@ switch lower(updates)
     case {'updates_nmfclassic', 'updates_map'}        
         h=init_h(method,peval,image, dpixc);
     case 'updates_variational'
-        h = init_hvar(method, peval, sum(dpixc(:))); %here image is sum(dpixc(:))
+        h=init_hvar(method, peval, image, dpixc); %here image is sum(dpixc(:))
 end
