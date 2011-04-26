@@ -34,7 +34,7 @@ function [varargout, peval]=updates_nmfclassic(peval,varargin)
 % fixvec - vector which component should be fixed: eg [2 3] will
 % fix second and third component while varying the first...
 
-mfprintf(peval.fid,'Classic NMF iterations\n')
+mfprintf(peval.fid,'Classic NMF iterations.\n')
 peval=setDefaultValuesPeval(peval);
 v = varargin{1};
 w = varargin{2};

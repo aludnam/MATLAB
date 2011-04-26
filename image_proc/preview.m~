@@ -1,0 +1,11 @@
+function preview(pathname,filename)
+% preview(pathname,filename)
+% reads on
+if ~exist('pathname', 'var')
+    pathname = '.';
+end
+if ~exist('filename','var')
+    filename = 'img_000000001__000.tif';
+end
+out = readtimeseries([pathname filename]);
+dipshow(out);

@@ -1,8 +1,7 @@
 function imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore)
 % imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore)
 % Tiles array of images
-% handlefig: figure handle, if 0 then handlefig = gcf, if empyt ([]) then
-% creates a new figure;
+% handlefig: figure handle, if 0 then handlefig = gcf
 % cmap : colormap
 % titleshow : shows title, if set to [] no title is shown
 % sizevec : defines size of the subplot. If set to [] then automatic.
@@ -50,11 +49,10 @@ else % defined
     b = sizevec(2);
 end
 
-
-if handlefig; 
-    figure(handlefig);
-else
-    figure(gcf)
+if isempty(handlefig)
+    figure;
+elseif handlefig; 
+    figure(handlefig); 
 end
 
 for ii=1:d3
