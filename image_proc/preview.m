@@ -1,4 +1,4 @@
-function preview(pathname,filename)
+function out = preview(pathname,filename)
 % preview(pathname,filename)
 % reads one file (filename) and displays it. 
 if ~exist('pathname', 'var')

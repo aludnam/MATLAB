@@ -10,7 +10,8 @@ function textscatter(varargin)
 
 args = varargin;    
 if nargin<5 % textcolor 
-    args{5} = [0 0 0]; % black   
+%     args{5} = [0 0 0]; % black   
+    args{5} = [1 0 0]; % red   
 end
 if nargin<6 % textoffset
     args{6}= .5;
