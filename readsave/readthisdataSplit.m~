@@ -12,8 +12,7 @@ nimages = range(2)-range(1)+1;
 nsteps = ceil(nimages / nbatch);
 sizeim = size(preview(pathname));
 
-% out = newim(sizeim(1),sizeim(2), nimages);
-out = [];
+out = newim(sizeim(1),sizeim(2), nimages);
 
 for ii=0:nsteps-1
     rangetmp(1) = range(1)+ii*nbatch;
@@ -21,6 +20,5 @@ for ii=0:nsteps-1
     rangetmp(2) = min(r,range(2));    
     
     [outtmp, datadir] = readthisdata(pathname, filename, rangetmp);
-%     out(:,:,rangetmp(1):rangetmp(2)) = outtmp;
-    out = cat(3,out, outtmp);
+    out(:,:,rangetmp(1):rangetmp(2)) = outtmp;
 end
