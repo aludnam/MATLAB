@@ -6,9 +6,16 @@ function [out, datadir] = readthisdata(pathname, filename, range)
 if ~exist('pathname', 'var')
     pathname = '.';
 end
-if or(~exist('filename','var'), isempty(filename))
+if isempty(pathname)
+    pathname = '.';
+end
+if ~exist('filename','var')
         filename = 'img_000000*__000.tif';
 end
+if isempty(filename)
+    filename = 'img_000000*__000.tif';
+end
+    
 if ~exist('range','var')
     range = [];
 end

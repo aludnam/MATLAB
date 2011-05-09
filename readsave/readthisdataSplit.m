@@ -8,6 +8,23 @@ if ~exist('nbatch', 'var')
     nbatch = 100;
 end
 
+if ~exist('pathname', 'var')
+    pathname = '.';
+end
+if isempty(pathname)
+    pathname = '.';
+end
+if ~exist('filename','var')
+        filename = 'img_000000*__000.tif';
+end
+if isempty(filename)
+    filename = 'img_000000*__000.tif';
+end
+    
+if ~exist('range','var')
+    range = [0,999];
+end
+
 nimages = range(2)-range(1)+1;
 nsteps = ceil(nimages / nbatch);
 sizeim = size(preview(pathname));

@@ -1,7 +1,20 @@
 function [resid, resid_norm, Wxk,Hkt,centers,Vxtpix, Vxtpixbg] = computeresid(res,dpixc,peval)
-% [Wxk,Hkt,centers,Vxkpix, Vxkpixbg, resid, resid_norm] =
-% computeresidfromres(res,peval)
+% [resid, resid_norm, Wxk,Hkt,centers,Vxtpix, Vxtpixbg] =
+% computeresid(res,dpixc,peval)
 [Wxk,Hkt,centers,Vxtpix]=reshapeGaP(res.hvec,res.cxcy,peval);
 Vxtpixbg=reshape(Wxk*Hkt,peval.nx,peval.ny,peval.nt)+peval.bg;
-resid=(Vxtpixbg-res.dpixc);
+resid=(Vxtpixbg-dpixc);
 resid_norm=resid./sqrt(Vxtpixbg);
+
+data=resid_norm;
+        sized = size(data);
+        dveccr= reshape(data,sized(1)*sized(2), sized(3));
+        ccd = (corrcoef(dveccr'));
+        ccds = correlation2distance(ccd, 'pos');
+        
+        Z = linkage(ccds,method);
+        
+        if savethis
+            save ([res_dir '/corrcoefdist.mat'], 'Z')
+        end
+        maxcorrel(ii,iteration)=1-min(Z(:,3));

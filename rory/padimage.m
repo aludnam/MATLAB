@@ -1,4 +1,5 @@
 function imout=padimage(im, sizeimout)
+% imout=padimage(im, sizeimout)
 
 sizeim = size(im);
 
