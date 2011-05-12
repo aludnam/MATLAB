@@ -1,5 +1,5 @@
-function imout = convolvepoints(x,y,psf_tmp,np,pixelsize)
-% imout = convolvepoints(x,y,psf_tmp,np,pixelsize)
+function [imout, xrout, yrout] = convolvepoints(x,y,psf_tmp,np,pixelsize)
+% [imout, xrout, yrout] = convolvepoints(x,y,psf_tmp,np,pixelsize)
 %
 % Generates an image with multiple (N) PSFs placed at coordinates ([x,y]).
 % x,y:          x,y coordiantes (each Nx1 vector)
@@ -13,27 +13,47 @@ function imout = convolvepoints(x,y,psf_tmp,np,pixelsize)
 if ~exist ('np', 'var')
     np = ones(size(x));
 end
+
+if ~isequal(length(x), length(np))
+    np = np * ones(size(x));
+end
+
 if ~exist ('pixelsize', 'var')
     pixelsize = 1;
 end
+x = x/pixelsize; % all in pixels...
+y = y/pixelsize; 
+minx = min(x); maxx = max(x);
+miny = min(y); maxy = max(y);
+margin = [5 5]; % margin around the image - provides spave for shifting to the very edge
 
-minx = min(x);
-maxx = max(x);
-miny = min(y);
-maxy = max(y);
-sp = size(psf_tmp);
-psf_tmp2 = double(psf_tmp/sum(psf_tmp(:))); %normalize to 1
-sizeim_tmp = [ceil((maxx-minx)/pixelsize), ceil((maxy-miny)/pixelsize)];
-sizeim = sizeim_tmp + ~mod(sizeim_tmp,2); %to make it odd
+psf_tmpnorm = double(psf_tmp/sum(psf_tmp(:))); %normalize to 1
+sizeim_tmp = ceil([maxx-minx, maxy-miny])+2*margin;
+margincorr = 1-mod(sizeim_tmp,2) % correction of the margin to make it odd...
+sizeim = sizeim_tmp + margincorr; 
 
-centerim = [maxx-minx, maxy-miny]/2;
-psf_tmp3 = padimage(psf_tmp2,fliplr(sizeim)+2*sp);
-xr=x-minx;
-yr=y-miny;
+centerpoints = [maxx-minx, maxy-miny]/2;
+centerim = sizeim/2;
+% psf_tmp3 = padimage(psf_tmp2,fliplr(sizeim)+2*sp);
+psf = padimage(psf_tmpnorm,sizeim);
+xr=x-minx+.5; % so that it starts from .5 (point has center in the middle of hte first pixel)
+yr=y-miny+.5;
 
-psf = dip_image(psf_tmp3);
-imout_tmp = newim(psf);
+imout_tmp = zeros(size(psf));
 for ii=1:length(x)
-    imout_tmp = imout_tmp + np(ii)*shift(psf, [xr(ii)-centerim(1), yr(ii)-centerim(2)]);
+    imout_tmp = imout_tmp + np(ii)*FourierShift2D(psf, [xr(ii), yr(ii)]-centerpoints);
 end
-imout = imout_tmp(sp:end-sp,sp:end-sp);
+% sphalf = floor(sp/2);
+% imout = imout_tmp(sphalf(1):end-sphalf(1),sphalf(2):end-sphalf(2));
+
+imout = imout_tmp(margin(1)+margincorr(1:end-margin(1),margin(2)+margincorr(2):end-margin(2));
+% imout = imout_tmp;
+% xrout = size(imout,1)/2 + (yr - centerim(1)); % some confusion in x and y (colum of the matrix are hte x coordiantes, rows are the y coordinates...)
+% yrout = size(imout,2)/2 + (xr - centerim(2)); 
+pointscorr=centerim-centerpoints-margin
+coorout = bsxfun(@plus, [xr', yr'],pointscorr);
+xrout = coorout(:,2);
+yrout = coorout(:,1);
+
+%(centerim(2)-centerpoints(2)); % some confusion in x and y (colum of the matrix are hte x coordiantes, rows are the y coordinates...)
+% yrout = xr-margincorr(2)/2+0.5;%(centerim(1)-centerpoints(1)); 

@@ -12,16 +12,26 @@ N = 100;
 pixelsize = 100; % in nanometers
 x = 1e4*rand(N,1); % N random coordiantes in the range 0:10000
 y = 1e4*rand(N,1); 
-np = 100 + 20*rand(N,1); % N random intesnitis with mean 100 pixels and some variacne
+np = 100 + 20*randn(N,1); % N random intesnities with mean 100 pixels and variance 50
 
 % generate the image:
-imout1 = convolvepoints(x,y,psf,np,pixelsize)
+imout1 = convolvepoints(x,y,psf,np,pixelsize);
+imagesc(imout1)
+title('imout1')
+axis off
+set (gca, 'DataAspectRatio',[1 1 1]);
+colormap('gray')
 
 % if all intensities are the same than you can pass np as a single number
 % eg: 
 np = 1000;
 % this will crate an image where all psf have the same intesnity 1000;
-imout2 = convolvepoints(x,y,psf,np,pixelsize)
+imout2 = convolvepoints(x,y,psf,np,pixelsize);
+imagesc(imout2)
+title('imout2')
+axis off
+set (gca, 'DataAspectRatio',[1 1 1]);
+colormap('gray')
 
 % if you don't pass np and pixelsize argumetn then defaulet values (np =1
 % and pixelsize = 1 are used. This is for the case where all psf have same
@@ -30,7 +40,11 @@ imout2 = convolvepoints(x,y,psf,np,pixelsize)
 % pixels:
 x = 100*rand(N,1); % in pixels
 y = 100*rand(N,1);
-imout3 = convolvepoints(x,y, psf)
+imout3 = convolvepoints(x,y, psf);
+imagesc(imout1)
+title('imout1')
+axis off
+set (gca, 'DataAspectRatio',[1 1 1]);
+colormap('gray')
 % this is equivalent to: 
 % convolvepoints(x,y, psf, 1,1);
-% If you need to convert dip_image 
