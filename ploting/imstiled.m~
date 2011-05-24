@@ -1,7 +1,8 @@
 function imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore)
 % imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore)
 % Tiles array of images
-% handlefig: figure handle, if 0 then handlefig = gcf
+% handlefig: figure handle, if 0 then handlefig = gcf, if empyt ([]) then
+% creates a new figure;
 % cmap : colormap
 % titleshow : shows title, if set to [] no title is shown
 % sizevec : defines size of the subplot. If set to [] then automatic.
@@ -22,8 +23,7 @@ if steponemore
 end
 
 if ~isempty(titleshow)
-    if length(titleshow) == 1
-        titleshow = titleshow;
+    if length(titleshow) == 1       
         titlename = num2cell(1:d3); % default title - number of figure
     else %specified ttile as a vector...
         titleshow = 1;
@@ -49,10 +49,11 @@ else % defined
     b = sizevec(2);
 end
 
-if isempty(handlefig)
-    figure;
-elseif handlefig; 
-    figure(handlefig); 
+
+if handlefig; 
+    figure(handlefig);
+else
+    figure(gcf)
 end
 
 for ii=1:d3
@@ -60,7 +61,8 @@ for ii=1:d3
     ims(imagein(:,:,ii),cmap,0,1);
     if titleshow
 %         title(num2str(titlename{ii}));
-        xlabel(num2str(titlename{ii}));
+        xlabel(num2str(titlename{ii}),'fontsize',5);
+        text
     end
 end
 

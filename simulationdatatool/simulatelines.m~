@@ -1,0 +1,32 @@
+jitter = .2;
+ysp = 2; 
+ymaxsp = 4;
+xsp = 0.5;
+xmaxsp = 5;
+yfix = [0:ysp:ymaxsp]';
+xfix = [0:xsp:xmaxsp]';
+nxfix= length(xfix);
+nyfix= length(yfix);
+
+coord=zeros(nxfix*nyfix,2);
+indstart = 1; 
+indend= nxfix;
+for ii=1:length(yfix)
+    coord(indstart:indend,1)=xfix+jitter*rand(nxfix,1);
+    coord(indstart:indend,2)=repmat(yfix(ii),nxfix,1)+jitter*rand(nxfix,1);
+    indstart=indend+1;
+    indend=indstart+nxfix-1;
+end
+
+
+jitter = .2;
+ysp = .5; 
+ymaxsp = 10;
+xsp = 2;
+xmaxsp = 4;
+yfix = [0:ysp:ymaxsp]';
+xfix = [0:xsp:xmaxsp]';
+nxfix= length(xfix);
+nyfix= length(yfix);
+
+coord2=

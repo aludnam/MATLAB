@@ -23,8 +23,7 @@ if steponemore
 end
 
 if ~isempty(titleshow)
-    if length(titleshow) == 1
-        titleshow = titleshow;
+    if length(titleshow) == 1       
         titlename = num2cell(1:d3); % default title - number of figure
     else %specified ttile as a vector...
         titleshow = 1;
@@ -62,7 +61,8 @@ for ii=1:d3
     ims(imagein(:,:,ii),cmap,0,1);
     if titleshow
 %         title(num2str(titlename{ii}));
-        xlabel(num2str(titlename{ii}));
+%         xlabel(num2str(titlename{ii}),'fontsize',5);
+        text(5, 5, num2str(titlename{ii}),'color','w' ,'fontsize',10)
     end
 end
 
