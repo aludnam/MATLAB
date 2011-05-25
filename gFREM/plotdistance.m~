@@ -1,0 +1,11 @@
+figure; 
+plot(l2,2*y,'x')
+legend(l)
+hold on
+plot([l2(1),l2(end)], repmat(y1'+y2',1,2),'--')
+vline2(sig1*.66*2*pi/sqrt(2),); % [Zhang et al., 2007]
+grid on
+xlabel('distance')
+ylabel('2*I_{12} (-) and I_1+I_2 (--)')
+setfontsizefigure(12)
+% setforsave
