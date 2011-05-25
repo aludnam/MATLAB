@@ -12,7 +12,7 @@ y=trapz(x,kernel);
 
 if showim
 figure; 
-plot(x,int1*f1, x,int2*f2,x,p,':');
+plot(x,int1*f1, x,int2*f2,x,p,':k');
 hold on
 plot(x,kernel,'r--');
 grid on
