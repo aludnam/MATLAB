@@ -1,0 +1,19 @@
+% This computes FREM for differ
+int1_multi{1}=1;
+int2_multi{1}=1;
+int1_multi{2}=[1 0];
+int2_multi{2}=[1 0];
+int1_multi{3}=[1 .5 0];
+int2_multi{3}=[1 .5 0];
+int1_multi{4}=[0:.1:1];
+int2_multi{4}=[0:.1:1];
+
+
+for mm=1:4
+    
+int1_vec= int1_multi{mm};
+int2_vec= int2_multi{mm};
+gFREMdemo
+y_multi(:,mm)=y';
+end
+

@@ -12,10 +12,10 @@ setfontsizefigure(12)
 % setforsave
 
 
-% figure; 
-% plot(l2,4*y,'o-');
-% legend(l)
-% hold on
-% plot(l2,y+ y1+y2,'--')
-% vline2(sig1*.61*2*pi/sqrt(2),'k--',{'Raleigh'}); % [Zhang et al., 2007]
-% vline2(sig1*.47*2*pi/sqrt(2),'k--'); % [Zhang et al., 2007]
+figure; 
+plot(l2,4*y,'o-');
+legend(l)
+hold on
+plot(l2,y+ y1+y2,'--')
+vline2(sig1*.61*2*pi/sqrt(2),'k--',{'Raleigh'}); % [Zhang et al., 2007]
+vline2(sig1*.47*2*pi/sqrt(2),'k--'); % [Zhang et al., 2007]
