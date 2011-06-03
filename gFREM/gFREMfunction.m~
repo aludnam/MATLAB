@@ -1,13 +1,27 @@
-function y=gFREMfunction(x,f1,f2, int1, int2, showim)
-% y=gFREMfunction(x,f1,f2, int1, int2, showim)
+function y=gFREMfunction(x,f1,f2, int1, int2, showim, pixelversion)
+% y=gFREMfunction(x,f1,f2, int1, int2, showim, pixelversion)
 
 if ~exist('showim','var')
     showim = 0;
 end
-
-p = int1*f1+int2*f2;
+if ~exist('pixelversion','var')
+    pixelversion = 0; 
+end
 dx=x(2)-x(1);
-kernel = (1./p).*(int1*gradient(f1,dx)-int2*gradient(f2,dx)).^2;
+if pixelversion
+    fp1=pixelize1d(x,f1);
+    fp2=pixleize1d(x,f2);
+    gfp1=pixelize1d(gradient(f1,dx));
+    gfp2=pixelize1d(gradient(f2,dx));
+else 
+    fp1=f1; 
+    fp2=f2;
+    gfp1=gradient(f1,dx);
+    gfp2=gradient(f2,dx);
+end
+p = int1*fp1+int2*fp2;
+
+kernel = (1./p).*(int1*gfp1-int2*gfp2).^2;
 y=trapz(x,kernel);
 
 if showim

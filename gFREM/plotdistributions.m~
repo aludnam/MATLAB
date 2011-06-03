@@ -1,0 +1,23 @@
+
+% int1_cell2mat=reshape(cell2mat(int1_mat),length(int1_vec),length(int1_multi));
+% pint1_cell2mat = reshape(cell2mat(pint1_mat),length(int1_vec),length(int1_multi));
+
+figure; 
+hold on
+co = get(gca, 'colororder');
+mm=0;
+for ii=1:length(int1_mat)
+    mm=max(mm, lenght(int1_mat{ii})
+end
+
+for ii=1:length(int1_mat)
+%    plot(int1_mat{ii},pint1_mat{ii},'-o','color',co(ii,:))
+%     bh=bar(int1_mat{ii},pint1_mat{ii},.1),%,.1/length(int1_mat{ii}));
+%     set(bh,'facecolor',co(ii,:))
+end
+hold off
+xlabel('intensity')
+ylabel('probability')
+grid on
+legend(l)
+setfontsizefigure(12)

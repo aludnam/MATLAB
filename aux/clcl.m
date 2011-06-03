@@ -1,3 +1,4 @@
 function clcl
 close all
-clear
+clear all
+clc

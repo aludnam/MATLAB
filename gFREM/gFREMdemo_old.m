@@ -1,4 +1,4 @@
-showim=0;
+showim=1;
 x=[-15:.01:25];
 
 % positions

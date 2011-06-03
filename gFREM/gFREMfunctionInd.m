@@ -1,5 +1,5 @@
-function y=gFREMfunction(x,f1,f2, int1, int2, showim, pixelversion)
-% y=gFREMfunction(x,f1,f2, int1, int2, showim, pixelversion)
+function y=gFREMfunctionInd(x,f1,f2, int1, int2, showim, pixelversion)
+% y=gFREMfunctionInd(x,f1,f2, int1, int2, showim, pixelversion)
 
 if ~exist('showim','var')
     showim = 0;
@@ -22,18 +22,24 @@ else
 end
 p = int1*fp1+int2*fp2;
 
-kernel = (1./p).*(int1*gfp1-int2*gfp2).^2;
+kernel1 = (1./p).*(int1*gfp1).^2;
+kernel2 = (1./p).*(int2*gfp2).^2;
 if pixelversion
-    y = sum(kernel);
+    I1=sum(kernel1);
+    I2=sum(kernel2);    
+    y = 1/(1/I1+1/I2);
 else
-    y=trapz(xp,kernel);
+    I1=trapz(xp,kernel1);
+    I2=trapz(xp,kernel2);
+    y = 1/(1/I1 + 1/I2);
 end
 
 if showim
 figure; 
 plot(x,int1*f1, x,int2*f2,x,p,':k');
 hold on
-plot(x,kernel,'r--');
+plot(x,kernel1,'r--');
+plot(x,kernel2,'g--');
 grid on
 end
 
