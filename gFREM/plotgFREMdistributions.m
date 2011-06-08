@@ -1,16 +1,16 @@
 % This computes FREM for different number of states the sources can get
 % into (uniformly distributed over these states).
-int1_multi{1}=[0 1];
-int2_multi{1}=[0 1];
-int1_multi{2}=[0 1];
-int2_multi{2}=[0 1];
-int1_multi{3}=[0 1];
-int2_multi{3}=[0 1];
-int1_multi{4}=[0 1];
-int2_multi{4}=[0 1];
+% int1_multi{1}=[0 1];
+% int2_multi{1}=[0 1];
+% int1_multi{2}=[0 1];
+% int2_multi{2}=[0 1];
+% int1_multi{3}=[0 1];
+% int2_multi{3}=[0 1];
+% int1_multi{4}=[0 1];
+% int2_multi{4}=[0 1];
 % 
-% int1_multi{1}=[1];
-% int2_multi{1}=[1];
+int1_multi{1}=[1];
+int2_multi{1}=[2];
 % int1_multi{2}=[0 1];
 % int2_multi{2}=[0 1];
 % int1_multi{3}=[0 .5 1];

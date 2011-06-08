@@ -1,4 +1,4 @@
-function [y1ind,y2ind,y1,y2, int1_out, int2_out, pint1, pint2]=fisherInfo(x,l1,l2,sig,int_vec, pint, pixelizeversion)
+function vard=computeSeparationVariance(x,l1,l2,sig,int_vec, pint, pixelizeversion)
 showim=0;
 sig1=sig(1); sig2=sig(2);
 int1_vec=int_vec(1,:);
@@ -29,6 +29,8 @@ for ind_dist=1:length(l2)
             else
 %                 y(ind_dist)=y(ind_dist)+p1*p2*gFREMfunction(x,f1,f2, int1, int2,showim, pixelizeversion);
 %                 [ytmp1,ytmp2]=gFREMfunctionInd(x,f1,f2, int1, int2,showim, pixelizeversion);
+               % This is accumulating the Fisher Information matrix for
+               % different intensities.
                 I=I+fisherInformationMatrix(x,f1,f2, int1, int2,pixelizeversion);
                 
 %                 y1ind(ind_dist)=y1ind(ind_dist)+p1*p2*ytmp2;
@@ -43,8 +45,7 @@ for ind_dist=1:length(l2)
             
         end        
     end
-    
-    vard(ind_dist)=vard(ind_dist)+vardtmp;
+    vard(ind_dist)=[1,-1]/I*[1,-1]';                
 end
 int1_out=int1_vec; 
 int2_out=int2_vec;
