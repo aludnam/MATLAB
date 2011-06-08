@@ -27,3 +27,7 @@ grid on
 legend(l)
 setfontsizefigure(12)
 setforsave(gcf,1.1)
+
+if savethis
+    SaveImageFULL(['images/Distrib_' probfunction nameappendix])
+end

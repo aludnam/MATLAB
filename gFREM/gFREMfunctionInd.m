@@ -1,4 +1,4 @@
-function y=gFREMfunctionInd(x,f1,f2, int1, int2, showim, pixelversion)
+function [y1,y2]=gFREMfunctionInd(x,f1,f2, int1, int2, showim, pixelversion)
 % y=gFREMfunctionInd(x,f1,f2, int1, int2, showim, pixelversion)
 
 if ~exist('showim','var')
@@ -29,9 +29,9 @@ if pixelversion
     I2=sum(kernel2);    
     y = 1/(1/I1+1/I2);
 else
-    I1=trapz(xp,kernel1);
-    I2=trapz(xp,kernel2);
-    y = 1/(1/I1 + 1/I2);
+    y1=trapz(xp,kernel1);
+    y2=trapz(xp,kernel2);
+%     y = 1/(1/I1 + 1/I2);
 end
 
 if showim

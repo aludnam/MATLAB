@@ -1,4 +1,4 @@
-function [y,y1,y2, int1_out, int2_out, pint1, pint2]=fisherInfo(x,l1,l2,sig,int_vec, pint, pixelizeversion)
+function [y1ind,y2ind,y1,y2, int1_out, int2_out, pint1, pint2]=fisherInfo(x,l1,l2,sig,int_vec, pint, pixelizeversion)
 showim=0;
 sig1=sig(1); sig2=sig(2);
 int1_vec=int_vec(1,:);
@@ -22,7 +22,8 @@ lint2=length(int2_vec);
 
 % % % probfunction = 'exponential';
 
-y=zeros(1,length(l2));
+y1ind=zeros(1,length(l2));
+y2ind=zeros(1,length(l2));
 for ind_dist=1:length(l2)
     for ind_int1=1:lint1
         int1=int1_vec(ind_int1);
@@ -34,10 +35,14 @@ for ind_dist=1:length(l2)
             f2=makeGauss(x,l2(ind_dist),sig2);
             %             y(ind_dist,ind_int2)=gFREMfunction(x,f1,f2, int1, int2,showim);            
             if and(int1==0, int2==0)
-                y(ind_dist)=0;
+                y1ind(ind_dist)=0;
+                y2ind(ind_dist)=0;
             else
-                y(ind_dist)=y(ind_dist)+p1*p2*gFREMfunction(x,f1,f2, int1, int2,showim, pixelizeversion);
-                y(ind_dist)=y(ind_dist)+p1*p2*gFREMfunctionInd(x,f1,f2, int1, int2,showim, pixelizeversion);
+%                 y(ind_dist)=y(ind_dist)+p1*p2*gFREMfunction(x,f1,f2, int1, int2,showim, pixelizeversion);
+                [ytmp1,ytmp2]=gFREMfunctionInd(x,f1,f2, int1, int2,showim, pixelizeversion);
+                y1ind(ind_dist)=y1ind(ind_dist)+p1*p2*ytmp2;
+                y2ind(ind_dist)=y2ind(ind_dist)+p1*p2*ytmp1;
+                
             end
             if showim
                 ylim([0,int1/(sqrt(2*pi)*sig1)+int2/(sqrt(2*pi)*sig2)])
