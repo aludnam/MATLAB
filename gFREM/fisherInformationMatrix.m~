@@ -4,10 +4,7 @@ function I=fisherInformationMatrix(x,f1,f2, int1, int2, pixelversion, offset)
 if ~exist('pixelversion','var')
     pixelversion = 0; 
 end
-if ~exist('offset','var')
-    offset=0;
-end
-
+if ~exit(
 dx=x(2)-x(1);
 if pixelversion    
     [fp1, xp]= pixelize1d(x,f1);
@@ -22,8 +19,8 @@ else
     xp=x;
 end
 I=zeros(2); %Fisher Information matrix 2x2;
-p1 = int1*fp1+int2*fp2+offset;
-p2 = int2*fp2+int1*fp1+offset;
+p1 = int1*fp1+int2*fp2;
+p2 = int2*fp2+int1*fp1;
 
 kernel1 = (1./p1).*(int1*gfp1).^2;
 kernel2 = (1./p2).*(int2*gfp2).^2;

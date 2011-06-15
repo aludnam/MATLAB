@@ -1,5 +1,7 @@
 % This computes FREM for different number of states the sources can get
 % into (uniformly distributed over these states).
+savethis =0;
+
 % int1_multi{1}=[0 1];
 % int2_multi{1}=[0 1];
 % int1_multi{2}=[0 1];
@@ -9,10 +11,10 @@
 % int1_multi{4}=[0 1];
 % int2_multi{4}=[0 1];
 % 
-int1_multi{1}=[1];
-int2_multi{1}=[1];
-int1_multi{2}=[0 1];
-int2_multi{2}=[0 1];
+int1_multi{1}=[100];
+int2_multi{1}=[100];
+% int1_multi{2}=[0 1];
+% int2_multi{2}=[0 1];
 % int1_multi{3}=[0 .5 1];
 % int2_multi{3}=[0 .5 1];
 % int1_multi{4}=[0:.1:1];
@@ -39,10 +41,10 @@ clear int1_mat;
 int1_mat{1}=[0 1];
 clear('y_multi')
 
-x=[-15:.01:25];
+x=-15:.01:25;
 % positions
 l1=0;
-l2=[0:.2:8];
+l2=2:1:8;
 % l2=[2];
 
 % sigma
@@ -66,7 +68,5 @@ for mm=1:length(int1_multi)
     vard(:,mm)=computeSeparationVariance(x,l1,l2,[sig1,sig2],int_vec, pint, pixelizeversion);    
 end
 
-% figure;
-% plotdistanceDistributions
-% plotdistributions
+plotledacos
 
