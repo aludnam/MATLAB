@@ -1,5 +1,5 @@
-function vard=computeSeparationVariance(x,l1,l2,sig,int_vec, pint, pixelizeversion)
-% vard=computeSeparationVariance(x,l1,l2,sig,int_vec, pint, pixelizeversion)
+function [vard, I3d]=computeSeparationVariance(x,l1,l2,sig,int_vec, pint, pixelizeversion)
+% [vard, I3d]=computeSeparationVariance(x,l1,l2,sig,int_vec, pint, pixelizeversion)
 % Computes variance (as a inverse of the Fisher Information) of two points
 % separated by a distance d=c1-c2.
 
@@ -28,10 +28,7 @@ for ind_dist=1:length(l2)           % distance
             end
         end
     end
-    I3d(:,:,ind_dist)=I;
-    nphot = int_vec(1);
-    vard(ind_dist)=[1,-1]/I*[1,-1]';
-    Iintout(:,:,ind_dist)=numericalMeanEstimation(x,f1,f2, offset, nphot);
-    vardintout(ind_dist)=[1,-1]/Iintout(:,:,ind_dist)*[1,-1]';
+    I3d(:,:,ind_dist)=I;    
+    vard(ind_dist)=[1,-1]/I*[1,-1]';    
 end
 q=0;
