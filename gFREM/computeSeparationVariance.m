@@ -8,7 +8,7 @@ int1_vec=int_vec(1,:);
 int2_vec=int_vec(2,:);
 pint1=pint(1,:);
 pint2=pint(2,:);
-offset=10;
+offset=0;
 lint1=length(int1_vec);
 lint2=length(int2_vec);
 
@@ -29,7 +29,7 @@ for ind_dist=1:length(l2)           % distance
         end
     end
     I3d(:,:,ind_dist)=I;
-    nphot = 100;
+    nphot = int_vec(1);
     vard(ind_dist)=[1,-1]/I*[1,-1]';
     Iintout(:,:,ind_dist)=numericalMeanEstimation(x,f1,f2, offset, nphot);
     vardintout(ind_dist)=[1,-1]/Iintout(:,:,ind_dist)*[1,-1]';
