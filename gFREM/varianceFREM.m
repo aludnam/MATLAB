@@ -11,8 +11,8 @@ savethis =0;
 % int1_multi{4}=[0 1];
 % int2_multi{4}=[0 1];
 % 
-int1_multi{1}=[100];
-int2_multi{1}=[100];
+int1_multi{1}=[1];
+int2_multi{1}=[1];
 % int1_multi{2}=[0 1];
 % int2_multi{2}=[0 1];
 % int1_multi{3}=[0 .5 1];
