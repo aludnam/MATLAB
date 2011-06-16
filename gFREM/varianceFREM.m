@@ -41,10 +41,10 @@ clear int1_mat;
 int1_mat{1}=[0 1];
 clear('y_multi')
 
-x=-15:.01:25;
+x=-10:.01:25;
 % positions
 l1=0;
-l2=2:1:8;
+l2=10:.2:10;
 % l2=[2];
 
 % sigma
