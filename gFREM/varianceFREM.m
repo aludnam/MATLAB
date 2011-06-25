@@ -11,10 +11,10 @@ savethis =0;
 % int1_multi{4}=[0 1];
 % int2_multi{4}=[0 1];
 % 
-int1_multi{1}=[1];
-int2_multi{1}=[1];
-int1_multi{2}=[0 1];
-int2_multi{2}=[0 1];
+int1_multi{1}=[1000];
+int2_multi{1}=[1000];
+% int1_multi{2}=[0 1];
+% int2_multi{2}=[0 1];
 % int1_multi{3}=[0 .5 1];
 % int2_multi{3}=[0 .5 1];
 % int1_multi{4}=[0:.1:1];
@@ -66,7 +66,10 @@ for mm=1:length(int1_multi)
     int_vec=cat(1,int1_multi{mm},int2_multi{mm});
     [pint, int_out]=generateDistribution(int_vec,tau, probfunction, correctIntensity);
     [vard(:,mm), I3d(:,:,:,mm), ]=computeSeparationVariance(x,l1,l2,[sig1,sig2],int_vec, pint, pixelizeversion);    
-%     [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,l1,l2,sig,int_vec, pixelizeversion);
+    if length(int1_multi{mm})==1
+        % Integrating out
+        [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,l1,l2,[sig1,sig2],int_vec, pixelizeversion);
+    end
 end
 
 % plotledacos
