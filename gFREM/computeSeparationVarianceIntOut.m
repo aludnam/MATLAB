@@ -1,3 +1,4 @@
+
 function [vardintout, Iintout]=computeSeparationVarianceIntOut(x,l1,l2,sig,int_vec, pixelizeversion)
 % [vardintout, Iintout]=computeSeparationVarianceIntOut(x,l1,l2,sig,int_vec, pixelizeversion)
 % Computes variance (as a inverse of the Fisher Information) of two points
