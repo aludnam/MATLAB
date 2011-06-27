@@ -11,8 +11,8 @@ savethis =0;
 % int1_multi{4}=[0 1];
 % int2_multi{4}=[0 1];
 % 
-int1_multi{1}=[1];
-int2_multi{1}=[1];
+int1_multi{1}=[100];
+int2_multi{1}=[100];
 int1_multi{2}=[10];
 int2_multi{2}=[10];
 int1_multi{3}=[100];
@@ -51,7 +51,7 @@ clear('y_multi')
 x=-10:.01:25;
 % positions
 l1=0;
-l2=[0:.2:10];
+l2=[1:.2:10];
 % l2=[2];
 
 % sigma
