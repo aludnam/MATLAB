@@ -1,4 +1,4 @@
-function [maxcorrel, maxcorrelhmax, maxcorrelhmin, maxcorreltrue]=plotcorrelatioondistance(delta_vec,dir1,dir2, name1, name2, marker, col, savethis)
+function [maxcorrel, maxcorrelhmax, maxcorrelhmin]=plotcorrelatioondistanceNMF(delta_vec,dir1,dir2, name1, name2, marker, col, savethis)
 % [maxcorrel, maxcorrelhmx, maxcorrelhmin]=plotcorrelatioondistance(delta_vec,res_dir, res_name, marker,
 % color savethis)
 
@@ -9,24 +9,18 @@ for delta = delta_vec
     for iteration =1:10;
         res_dir = [dir1 num2str(delta*100) dir2];
         res_name = [name1 num2str(iteration) name2];
-        load ([res_dir '/' res_name]);
-%         load ([peval.data_path peval.data_dir '/' peval.data_name]); %data
-        [Wxk,Hkt,centers,Vxkpix]=reshapeGaP(res.hvec,res.cxcy,peval);
-        Vxtpixbg=reshape(Wxk*Hkt,peval.nx,peval.ny,peval.nt)+peval.bg;
-        resid=(Vxtpixbg-res.dpixc);
-        resid_norm=resid./sqrt(Vxtpixbg);
-        %         [Z,H,T,perm] = dendrogram_subtreepixels(resid_norm,'average', p , centers(:,1)+1, centers(:,2)+1, savethis)
-        data=resid_norm;
-        sized = size(data);
-        dveccr= reshape(data,sized(1)*sized(2), sized(3));
+        load ([res_dir '/' res_name]);        
+        resid=(res.w*res.h-reshape(res.dpixc, peval.nx*peval.ny, peval.nt));
+        dveccr=resid./sqrt(res.w*res.h);                
         ccd = (corrcoef(dveccr'));
-        ccds=squareform(1-ccd);        
+        ccds=squareform(1-ccd);
+        
         Z = linkage(ccds,method);
         
         if savethis
             save ([res_dir '/corrcoefdist.mat'], 'Z')
         end
-        maxcorrel(ii,iteration)=1-min(Z(:,3));
+        maxcorrel(ii,iteration)=max(max(ccd-eye(size(ccd))));
         maxcorrelhmax(ii,iteration)= max(max(corr(res.h(1:end-1,:)')-eye(size(res.h,1)-1)));
         maxcorrelhmin(ii,iteration)= min(min(corr(res.h(1:end-1,:)')));
     end
@@ -42,7 +36,7 @@ m=mean(maxcorrelhmax,2);
 s=std(maxcorrelhmax,[],2);
 errorbar(deltanm, m,s,'x-','color', col)
 % plot(deltanm,mincorr,['-s' col], 'linewidth',2)
-xlabel('Separation of sources [nm]')
+xlabel('d [nm]')
 ylabel('Maximum correlation intensities (res.h)')
 grid on
 
@@ -53,7 +47,7 @@ m=mean(maxcorrelhmin,2);
 s=std(maxcorrelhmin,[],2);
 errorbar(deltanm, m,s,'x-','color', col)
 % plot(deltanm,mincorr,['-s' col], 'linewidth',2)
-xlabel('Separation of sources [nm]')
+xlabel('d [nm]')
 ylabel('Minimum correlation intensities (res.h)')
 grid on
 
@@ -84,4 +78,3 @@ grid on
 % ylabel('Maximum correlation in residuals')
 % grid on
 % 
-    
