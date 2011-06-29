@@ -7,7 +7,7 @@ hold on
 li=length(int1_multi);
 intmat=cell2mat(int1_multi);
 p=2;
-q=5;
+q=2;
 plot(repmat(l2(q:end)',1,li-p+1),bsxfun(@times,intmat(p:end)/intmat(p),vardintout(q:end,p:end)));
 plot(l2(q:end),2*vard(q:end,p),'--k');
 setforsave(gcf,2)
@@ -60,8 +60,8 @@ end
 
 figure; 
 clear('l')
-ristat=reshape(I3d,4,51,4);
-ri= reshape(Iintout,4,51,4);
+ristat=reshape(I3d,4,size(I3d,3),4);
+ri= reshape(Iintout,4,size(Iintout,3),4);
 clear('ccal')
 hold on
 li=length(int1_multi);

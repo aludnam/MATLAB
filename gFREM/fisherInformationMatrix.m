@@ -1,5 +1,5 @@
 function I=fisherInformationMatrix(x,f1,f2, int1, int2, pixelversion, offset)
-% I=fisherInformationMatrix(x,f1,f2, int1, int2, showim, pixelversion)
+% I=fisherInformationMatrix(x,f1,f2, int1, int2, pixelversion, offset)
 
 if ~exist('pixelversion','var')
     pixelversion = 0; 
