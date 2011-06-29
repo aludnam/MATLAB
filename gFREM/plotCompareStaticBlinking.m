@@ -6,14 +6,14 @@ clear('l')
 hold on
 li=length(int1_multi);
 intmat=cell2mat(int1_multi);
-p=2;
+m=1;
 q=2;
-plot(repmat(l2(q:end)',1,li-p+1),bsxfun(@times,intmat(p:end)/intmat(p),vardintout(q:end,p:end)));
-plot(l2(q:end),2*vard(q:end,p),'--k');
+plot(repmat(l2(q:end)',1,li-m+1),bsxfun(@times,intmat(m:end)/intmat(m),vardintout(q:end,m:end)));
+plot(l2(q:end),2*vard(q:end,m),'--k');
 setforsave(gcf,2)
 jj=1;
-for ii=p:li
-    l{jj}=['\alpha=' num2str(1/(int1_multi{ii}/int1_multi{p})) ' (\Lambda=' num2str(int1_multi{ii}) 'photons)'];
+for ii=m:li
+    l{jj}=['\alpha=' num2str(1/(int1_multi{ii}/int1_multi{m})) ' (\Lambda=' num2str(int1_multi{ii}) 'photons)'];
     jj=jj+1;
 end
 l{length(l)+1}='static';
@@ -25,7 +25,11 @@ ylabel('\alpha \times var(d) [pix^2]')
 setfontsizefigure(12)
 
 if savethis 
-    SaveImageFULL('images/ComarisonStaticVsBlinking_var')
+    name = 'images/ComarisonStaticVsBlinking_var';
+    if p.offset > 0
+        name = [name '_bg' num2str(p.offset)];
+    end
+    SaveImageFULL(name)
 end
 
 % Plotting the sqrt(variance)
@@ -35,14 +39,12 @@ clear('l')
 hold on
 li=length(int1_multi);
 intmat=cell2mat(int1_multi);
-p=2;
-q=5;
-plot(repmat(l2(q:end)',1,li-p+1),sqrt(bsxfun(@times,intmat(p:end)/intmat(p),vardintout(q:end,p:end))));
-plot(l2(q:end),sqrt(2*vard(q:end,p)),'--k');
+plot(repmat(l2(q:end)',1,li-m+1),sqrt(bsxfun(@times,intmat(m:end)/intmat(m),vardintout(q:end,m:end))));
+plot(l2(q:end),sqrt(2*vard(q:end,m)),'--k');
 setforsave(gcf,2)
 jj=1;
-for ii=p:li
-    l{jj}=['\alpha=' num2str(1/(int1_multi{ii}/int1_multi{p})) ' (\Lambda=' num2str(int1_multi{ii}) 'photons)'];
+for ii=m:li
+    l{jj}=['\alpha=' num2str(1/(int1_multi{ii}/int1_multi{m})) ' (\Lambda=' num2str(int1_multi{ii}) 'photons)'];
     jj=jj+1;
 end
 l{length(l)+1}='static';
@@ -53,7 +55,11 @@ xlabel('d [pixels]')
 ylabel('\alpha \times \surd (var(d)) [pix]')
 setfontsizefigure(12)
 if savethis 
-    SaveImageFULL('images/ComarisonStaticVsBlinking_sqrtvar')
+    name = 'images/ComarisonStaticVsBlinking_sqrtvar';
+    if p.offset > 0
+        name = [name '_bg' num2str(p.offset)];
+    end
+    SaveImageFULL(name)
 end
 
 % Plotting the components of the Fisher information matrix
@@ -66,16 +72,15 @@ clear('ccal')
 hold on
 li=length(int1_multi);
 intmat=cell2mat(int1_multi);
-p=2;
 q=1;
-plot(repmat(l2(q:end)',1,li-p+1),bsxfun(@times,1./(intmat(p:end)/intmat(p)),squeeze(ri(1,q:end,p:end))));
-plot(l2(q:end),.5*squeeze(ristat(1,q:end,p)),'k');
-plot(repmat(l2(q:end)',1,li-p+1),bsxfun(@times,1./(intmat(p:end)/intmat(p)),squeeze(ri(3,q:end,p:end))),'--');
-plot(l2(q:end),.5*squeeze(ristat(3,q:end,p)),'--k');
+plot(repmat(l2(q:end)',1,li-m+1),bsxfun(@times,1./(intmat(m:end)/intmat(m)),squeeze(ri(1,q:end,m:end))));
+plot(l2(q:end),.5*squeeze(ristat(1,q:end,m)),'k');
+plot(repmat(l2(q:end)',1,li-m+1),bsxfun(@times,1./(intmat(m:end)/intmat(m)),squeeze(ri(3,q:end,m:end))),'--');
+plot(l2(q:end),.5*squeeze(ristat(3,q:end,m)),'--k');
 setforsave(gcf,2)
 jj=1;
-for ii=p:li
-    l{jj}=['\alpha=' num2str(int1_multi{ii}/int1_multi{p}) ' (\Lambda=' num2str(int1_multi{ii}) 'photons)'];
+for ii=m:li
+    l{jj}=['\alpha=' num2str(int1_multi{ii}/int1_multi{m}) ' (\Lambda=' num2str(int1_multi{ii}) 'photons)'];
     jj=jj+1;
 end
 l{length(l)+1}='static';
@@ -86,5 +91,9 @@ xlabel('d [pix]')
 ylabel('\alpha \times Fisher Information [pix^{-2}]')
 setfontsizefigure(12)
 if savethis 
-    SaveImageFULL('images/ComarisonStaticVsBlinking_FisherInfo')
+    name = 'images/ComarisonStaticVsBlinking_FisherInfo';
+    if p.offset > 0
+        name = [name '_bg' num2str(p.offset)];
+    end
+    SaveImageFULL(name)
 end
