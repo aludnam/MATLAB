@@ -16,7 +16,8 @@ for ii=1:length(c1)
 end
 
 
-contourf(logl)
+ifcontourf(logl)
+colorbar
 set(gca,'dataaspectratio',[1 1 1])
 xlabel('c_1 (center of the source one)')
 ylabel('c_2 (center of the source two)')

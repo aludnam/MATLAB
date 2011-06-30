@@ -2,10 +2,10 @@
 % into (uniformly distributed over these states).
 savethis =0;
 
-int1_multi{1}=[100];
-int1_multi{2}=[500];
-int1_multi{3}=[1000];
-int1_multi{4}=[5000];
+int1_multi{1}=[500];
+% int1_multi{2}=[500];
+% int1_multi{3}=[1000];
+% int1_multi{4}=[5000];
 
 int2_multi = int1_multi;
 
@@ -27,7 +27,7 @@ clear('y_multi')
 
 % positions of sources
 l1=0;
-l2=0:.5:10;
+l2=0:.2:10;
 x=-7:.01:16;
 % x=-10:.01:20;
 
@@ -54,10 +54,10 @@ for mm=1:length(int1_multi)
     int_vec=cat(1,int1_multi{mm},int2_multi{mm});
     [pint, int_out]=generateDistribution(int_vec,tau, probfunction, correctIntensity);
     [vard(:,mm), I3d(:,:,:,mm)]=computeSeparationVariance(x,l1,l2,[p.sig1,p.sig2],int_vec, pint, pixelizeversion, p.offset);    
-    if length(int1_multi{mm})==1
-        % Integrating out
-        [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,l1,l2,[p.sig1,p.sig2],int_vec, pixelizeversion, p.offset);
-    end
+%     if length(int1_multi{mm})==1
+%         % Integrating out
+%         [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,l1,l2,[p.sig1,p.sig2],int_vec, pixelizeversion, p.offset);
+%     end
 end
 
 % plotledacos
