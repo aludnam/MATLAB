@@ -1,6 +1,9 @@
 function nout = factorialapprox(nin, method)
 % Compute approximation of the log-factorial (log(nin!))
 % from: http://mathworld.wolfram.com/StirlingsApproximation.html
+%
+% nout = factorialapprox(nin, method)
+%
 % method:   'Stirling' Striling approximation
 %           'Gosper'  (default) Gosper approximation (better?)
 

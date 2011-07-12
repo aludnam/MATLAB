@@ -51,10 +51,10 @@ It12=dlbgMat(:,:,1).*dlbgMat(:,:,2).*sum(rPo(:,:,[1,3]),3).*sum(rPo(:,:,[2,3]),3
 % It12=sum(rPo(:,:,[1,3]),3).*sum(rPo(:,:,[2,3]),3);
 
 
-mask = It11>precMask;
+mask = abs(It11)>precMask;
 I(1,1)=1/4*dx*trapz(It11(mask)./sPo(mask));
-mask = It22>precMask;
+mask = abs(It22)>precMask;
 I(2,2)=1/4*dx*trapz(It22(mask)./sPo(mask));
-mask = It12>precMask;
+mask = abs(It12)>precMask;
 I(1,2)=1/4*dx*trapz(It12(mask)./sPo(mask));
-I(2,1)=I(1,2);
+I(2,1)=I(1,2); 

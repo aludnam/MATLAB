@@ -12,6 +12,8 @@ for ii=1:length(ncvec)
         %     r=load (['results_updates_nmfclassic_nc' num2str(ncvec(ii)) '/results_iter' num2str(iteration) '.mat']);
         if isfield(r.peval,'data_dir')
             d = load(['~/' r.peval.data_path '/' r.peval.data_dir '/' r.peval.data_file]);
+        elseif isfield (r.peval,'data_file')
+            d=load(['~/' peval.data_path '/' peval.data_file]);            
         else 
             if exist('dpixc', 'var')
                 d.dpixc = dpixc; 
