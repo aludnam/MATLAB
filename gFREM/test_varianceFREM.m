@@ -1,14 +1,15 @@
 % This computes FREM for different number of states the sources can get
 % into (uniformly distributed over these states).
 savethis =0;
-p.offset = 10 ;
 
-int1_multi{1}=[10];
-% int1_multi{2}=[100];
+int1_multi{1}=[750];
+% int1_multi{2}=[500];
 % int1_multi{3}=[1000];
 % int1_multi{4}=[5000];
 
-int2_multi = int1_multi;
+% int2_multi = int1 _multi;
+int2_multi{1} = 750;
+
 
 tau1_vec = [0 .2 .5 .9];
 
@@ -20,9 +21,11 @@ clear('y_multi')
 % positions of sources
 l1=0;
 % l2=0:.2:10;
-l2=0:.5:8;
-x=-7:.5:16;
+l2=[8];
+x=-7:.01:16;
 % x=-10:.01:20;
+
+p.offset =  0 ;
 
 % sigma
 p.lambda = 655; %nm
@@ -44,20 +47,12 @@ for mm=1:length(int1_multi)
     tau= cat(1,tau1_vec(mm),tau2_vec(mm));
     int_vec=cat(1,int1_multi{mm},int2_multi{mm});
     [pint, int_out]=generateDistribution(int_vec,tau, probfunction, correctIntensity);
-    [vard(:,mm), I3d(:,:,:,mm)]=computeSeparationVariance(x,l1,l2,[p.sig1,p.sig2],int_vec, pint, pixelizeversion, p.offset);    
-    if length(int1_multi{mm})==1
-        % Integrating out
-        [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,l1,l2,[p.sig1,p.sig2],int_vec, pixelizeversion, p.offset);
-    end
+    [vard(:,mm), I3d(:,:,:,mm)]=test_computeSeparationVariance(x,l1,l2,[p.sig1,p.sig2],int_vec, pint, pixelizeversion, p.offset);    
+%     if length(int1_multi{mm})==1
+%         % Integrating out
+%         [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,l1,l2,[p.sig1,p.sig2],int_vec, pixelizeversion, p.offset);
+%     end
 end
 
 % plotledacos
 
-q=5;plot(l2(q:end), vard(q:end))
-[m,i]=min(vard(q:end)); 
-% l2(i)
-
-
-o=[o, p.offset];
-dv = [dv,vard(end)-m];
-lv=[lv,l2(i)];

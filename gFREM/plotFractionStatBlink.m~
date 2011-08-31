@@ -1,0 +1,4 @@
+
+fraction= vardintout./(2*vard);
+q=3;
+plot(l2(q:end), fraction(q:end,:));
