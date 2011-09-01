@@ -1,6 +1,6 @@
-bg = 100;
-% dvec=[0 1 2 3 4 5];
-dvec = 
+bg = 0;
+dvec=[0 1 2 3 4 5];
+fontsize = 15; 
 
 for ii=1:length(dvec)
     p.d = dvec(ii);
@@ -20,7 +20,7 @@ for ii=1:length(dvec)
     colorbar
     set(gca,'dataaspectratio',[1 1 1])
     grid on
-    setfontsizefigure(12)
+    setfontsizefigure(fontsize)
     % colormap(gray)
     if savethis
         name = ['images/LogLikelihoodSurface_d' num2str(p.d) '_bg' num2str(p.bg)];
@@ -35,13 +35,13 @@ for ii=1:length(dvec)
     scatter3(p.c2_true, p.c1_true, max(logl(:)),'*k')
     % title(['bg=' num2str(p.bg)]);
     
-    xlabel('c_1 (center of the source one)')
-    ylabel('c_2 (center of the source two)')
+    xlabel('c_1')
+    ylabel('c_2')
     zlabel('log likelihood')
-    zlim([-2.5e4 0])
-    setfontsizefigure(12)
+%     zlim([-2.5e4 0])
+    setfontsizefigure(fontsize)
     % colormap(gray)
-    if savethis
+    if savethis > 2
         name = ['images/LogLikelihoodSurface3d_d' num2str(p.d) '_bg' num2str(p.bg)];
         SaveImageFULL(name)
     end
