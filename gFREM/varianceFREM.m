@@ -1,28 +1,46 @@
 % This computes FREM for different number of states the sources can get
 % into (uniformly distributed over these states).
+dimensionality =2; % Number of diensions (1 or 2) of the PSF.
 savethis =0;
-p.offset = 10 ;
+p.offset = 0 ;
 
-int1_multi{1}=[10];
+int1_multi{1}=[1000];
 % int1_multi{2}=[100];
 % int1_multi{3}=[1000];
 % int1_multi{4}=[5000];
 
 int2_multi = int1_multi;
 
-tau1_vec = [0 .2 .5 .9];
-
-tau2_vec = tau1_vec;
-clear int1_mat;
-int1_mat{1}=[0 1];
+% tau1_vec = [0 .2 .5 .9];
+% 
+% tau2_vec = tau1_vec;
+% clear int1_mat;
+% int1_mat{1}=[0 1];
 clear('y_multi')
 
 % positions of sources
 l1=0;
 % l2=0:.2:10;
-l2=0:.5:8;
-x=-7:.5:16;
-% x=-10:.01:20;
+l2=.1:.1:1.5;
+
+stepCoord = 0.2;
+% x1=-7:stepCoord:16;
+x1=-5:stepCoord:6;
+y1=-5:stepCoord:5;
+
+if dimensionality ==1
+    % This is for 1D evaluation:
+    x = x1;    
+    % x=-7:.5:16;
+    % x=-10:.01:20;
+elseif dimensionality ==2
+    % This is for 2D evaluation:
+    [xx,yy]=meshgrid(x1,y1);
+    x=cat(3,xx,yy);
+end
+fprintf('Computaiton for %gD PSF.\n',dimensionality);
+
+
 
 % sigma
 p.lambda = 655; %nm
@@ -40,11 +58,9 @@ end
 pixelizeversion = 0;
 vard=zeros(length(l2), length(int1_multi));
 
-for mm=1:length(int1_multi)   
-    tau= cat(1,tau1_vec(mm),tau2_vec(mm));
-    int_vec=cat(1,int1_multi{mm},int2_multi{mm});
-    [pint, int_out]=generateDistribution(int_vec,tau, probfunction, correctIntensity);
-    [vard(:,mm), I3d(:,:,:,mm)]=computeSeparationVariance(x,l1,l2,[p.sig1,p.sig2],int_vec, pint, pixelizeversion, p.offset);    
+for mm=1:length(int1_multi)      
+    int_vec=cat(1,int1_multi{mm},int2_multi{mm});   
+    [vard(:,mm), I3d(:,:,:,mm)]=computeSeparationVariance(x,l1,l2,[p.sig1,p.sig2],int_vec, pixelizeversion, p.offset);    
     if length(int1_multi{mm})==1
         % Integrating out
         [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,l1,l2,[p.sig1,p.sig2],int_vec, pixelizeversion, p.offset);
@@ -53,11 +69,11 @@ end
 
 % plotledacos
 
-q=5;plot(l2(q:end), vard(q:end))
-[m,i]=min(vard(q:end)); 
-% l2(i)
-
-
-o=[o, p.offset];
-dv = [dv,vard(end)-m];
-lv=[lv,l2(i)];
+% q=5;plot(l2(q:end), vard(q:end))
+% [m,i]=min(vard(q:end)); 
+% % l2(i)
+% 
+% 
+% o=[o, p.offset];
+% dv = [dv,vard(end)-m];
+% lv=[lv,l2(i)];

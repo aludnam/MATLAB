@@ -8,9 +8,20 @@ if ~exist('offset','var')
     offset=0; % background
 end
 
-f1=makeGauss(x,l1,sig(1));                  % creates PSF (gauss approx)
-for ind_dist=1:length(l2)                   % distance    
-    f2=makeGauss(x,l2(ind_dist),sig(2));    % creates PSF (gauss approx) shifted to l2       
+if ndims(x) == 1
+    f1=makeGauss(x,l1,sig(1));                  % creates PSF (gauss approx -> !!! Different to simulationtools/makegauss.m !!!)
+else 
+    f1_2D=makeGauss2D(x,l1,sig(1));
+    f1 = reshape(f1_2D,1,prod(size(f12D));
+end
+    
+for ind_dist=1:length(l2)                       % distance    
+    if ndims(x)==1
+        f2=makeGauss(x,l2(ind_dist),sig(2));    % creates PSF (gauss approx) shifted to l2
+    else
+        f22D=makeGauss2D(x,l2(ind_dist),sig(2));
+        f2 = reshape(f12D,1,prod(size(f12D));
+    end
     nphot = int_vec(1);    
     Iintout(:,:,ind_dist)=numericalMeanEstimation(x,f1,f2, offset, nphot);
     vardintout(ind_dist)=[1,-1]/Iintout(:,:,ind_dist)*[1,-1]';

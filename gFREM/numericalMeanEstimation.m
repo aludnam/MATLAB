@@ -13,7 +13,11 @@ l(:,3)=nphot*(f1+f2);
 l(:,4)=zeros(length(f1),1);
 lbg=l+offset;               % adding background
 N=size(l,2);
-dx=x(2)-x(1);
+if ndims(x)==2 %1D vector
+    dx=x(2)-x(1);
+else
+    dx=x(1,2,1)-x(1,1,1);
+end
 precMask=10^-8;             % Precision for masking intenisty images     
 prec=10^-10;                % Precision up to which n_k will be generated                    
 pcdf=poisscdf(0:50*max(lbg(:)),max(lbg(:)));
@@ -44,12 +48,6 @@ sPo=sum(Po,3);      % Denominator term...
 It11=dlbgMat(:,:,1).^2.*sum(rPo(:,:,[1,3]),3).^2;
 It22=dlbgMat(:,:,2).^2.*sum(rPo(:,:,[2,3]),3).^2;
 It12=dlbgMat(:,:,1).*dlbgMat(:,:,2).*sum(rPo(:,:,[1,3]),3).*sum(rPo(:,:,[2,3]),3);
-% just testng something
-% warning('just testng something in numericalMeanEstimation.m !!!')
-% It11=sum(rPo(:,:,[1,3]),3).^2;
-% It22=sum(rPo(:,:,[2,3]),3).^2;
-% It12=sum(rPo(:,:,[1,3]),3).*sum(rPo(:,:,[2,3]),3);
-
 
 mask = abs(It11)>precMask;
 I(1,1)=1/4*dx*trapz(It11(mask)./sPo(mask));

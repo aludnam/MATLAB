@@ -1,0 +1,5 @@
+function y=makeGauss2D(x,mu,sig)
+% y=makeGauss2D(x,mu, sigma)
+% Makes 2D gaussian centered at mu and with variance sig^2.
+
+y = 1/(2*pi*sig)*exp(-(x-mu).^2/(2*sig^2));
