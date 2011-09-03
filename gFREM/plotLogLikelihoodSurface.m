@@ -1,5 +1,6 @@
-bg = 0;
-dvec=[0 1 2 3 4 5];
+bg = 100;
+% dvec=[0 1 2 3 4 5];
+dvec = 1;
 fontsize = 15; 
 
 for ii=1:length(dvec)
@@ -35,10 +36,10 @@ for ii=1:length(dvec)
     scatter3(p.c2_true, p.c1_true, max(logl(:)),'*k')
     % title(['bg=' num2str(p.bg)]);
     
-    xlabel('c_1')
-    ylabel('c_2')
+    xlabel('c_2')
+    ylabel('c_1')
     zlabel('log likelihood')
-    zlim([-2.5e4 0])
+%     zlim([-2.5e4 0])
     setfontsizefigure(fontsize)
     % colormap(gray)
     if savethis > 2

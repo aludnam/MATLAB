@@ -1,28 +1,22 @@
 % This computes FREM for different number of states the sources can get
 % into (uniformly distributed over these states).
-dimensionality =2; % Number of diensions (1 or 2) of the PSF.
+dimensionality =2; % Number of dimensions (1 or 2) of the PSF.
 savethis =0;
-p.offset = 0 ;
+p.offset = 0     ;
 
-int1_multi{1}=[1000];
-% int1_multi{2}=[100];
-% int1_multi{3}=[1000];
-% int1_multi{4}=[5000];
+int1_multi{1}=[2000];       % intensity of the source one
+% int1_multi{2}=[200];      % this allows comparison of sources with different intensity
+% int1_multi{3}=[2000];
+% int1_multi{4}=[6000];
 
-int2_multi = int1_multi;
-
-% tau1_vec = [0 .2 .5 .9];
-% 
-% tau2_vec = tau1_vec;
-% clear int1_mat;
-% int1_mat{1}=[0 1];
-clear('y_multi')
+int2_multi = int1_multi;    % intensity of the source two
 
 % positions of sources
 l1=0;
 % l2=0:.2:10;
-l2=.1:.1:1.5;
+l2=0:.05:1;
 
+% coordinates of the images (pixelised version needs to do some binnign)
 stepCoord = 0.2;
 % x1=-7:stepCoord:16;
 x1=-5:stepCoord:6;
@@ -40,40 +34,30 @@ elseif dimensionality ==2
 end
 fprintf('Computaiton for %gD PSF.\n',dimensionality);
 
-
-
-% sigma
 p.lambda = 655; %nm
 p.NA = 1.2;
 p.pixelsize = 106; %nm
 p.sig1=sqrt(2)/2/pi*p.lambda/p.NA/p.pixelsize; %[Zhang 2007]
 p.sig2=p.sig1;
 
-probfunction='binomial';
-nameappendix = 'Ind';
-correctIntensity = 0;
-if correctIntensity
-    nameappendix = [nameappendix 'CorrInt'];
-end
 pixelizeversion = 0;
 vard=zeros(length(l2), length(int1_multi));
 
 for mm=1:length(int1_multi)      
     int_vec=cat(1,int1_multi{mm},int2_multi{mm});   
-    [vard(:,mm), I3d(:,:,:,mm)]=computeSeparationVariance(x,l1,l2,[p.sig1,p.sig2],int_vec, pixelizeversion, p.offset);    
+    % Not integrating out. Cheating...
+    % In this case only static situation (int_vec has only one column)
+    
+    int_vec_static = int_vec/2; % Intensity must be adjusted by 0.5 to reflect the double number of photons compared to the blinking situation. This must be done before adding background. Correcting the final vard by a factor of 2 would not compare the background situation correctly...
+    bg_static = p.offset/2; % This is for fair comparison. It is like recording with half integration time. Backgroudn lever is then lower. 
+    [vard(:,mm), I3d(:,:,:,mm)]=computeSeparationVariance(x,l1,l2,[p.sig1,p.sig2],int_vec_static, pixelizeversion, bg_static);    
     if length(int1_multi{mm})==1
-        % Integrating out
+        % Integrating out 
         [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,l1,l2,[p.sig1,p.sig2],int_vec, pixelizeversion, p.offset);
     end
 end
 
-% plotledacos
-
-% q=5;plot(l2(q:end), vard(q:end))
-% [m,i]=min(vard(q:end)); 
-% % l2(i)
-% 
-% 
-% o=[o, p.offset];
-% dv = [dv,vard(end)-m];
-% lv=[lv,l2(i)];
+% Now with corrected intensity by 0.5 in computaiton of vard we can compare
+% vard and vardintout withou any further correction. This takes the effect
+% of the background correctly (computation with the same intensity and
+% correcting vard by a factor of 2 is not a correct comparison... )

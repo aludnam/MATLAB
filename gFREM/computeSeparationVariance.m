@@ -1,5 +1,5 @@
 function [vard, I3d]=computeSeparationVariance(x,l1,l2,sig,int_vec, pixelizeversion, offset)
-% [vard, I3d]=computeSeparationVariance(x,l1,l2,sig,int_vec, pixelizeversion)
+% [vard, I3d]=computeSeparationVariance(x,l1,l2,sig,int_vec, pixelizeversion, offset)
 % Computes variance (as a inverse of the Fisher Information) of two points
 % separated by a distance d=l1-l2.
 
@@ -20,10 +20,10 @@ if ndims(x) == 2 %1D vector
     f1=makeGauss(x,l1,sig(1));                  % creates PSF (gauss approx -> !!! Different to simulationtools/makegauss.m !!!)
 else 
     f1_2D=makeGauss2D(x,l1,sig(1));
-    f1 = reshape(f1_2D,1,numel(f1_2D));          % making 1D vector by concatenating 2D array
+    f1 = reshape(f1_2D,1,numel(f1_2D));         % making 1D vector by concatenating 2D array
 end
 
-for ind_dist=1:ll                           % distance
+for ind_dist=1:ll                               % distance
     I=zeros(2);    
     if ndims(x)==2 %1D vector
         f2=makeGauss(x,l2(ind_dist),sig(2));    % creates PSF (gauss approx) shifted to l2
@@ -31,9 +31,9 @@ for ind_dist=1:ll                           % distance
         f2_2D=makeGauss2D(x,l2(ind_dist),sig(2));
         f2 = reshape(f2_2D,1,numel(f2_2D));     % making 1D vector by concatenating 2D array
     end
-    for ind_int1=1:lint1                    % intensity of the source 1
+    for ind_int1=1:lint1                        % intensity of the source 1
         int1=int1_vec(ind_int1);
-        for ind_int2=1:lint2                % intensity of the source 1
+        for ind_int2=1:lint2                    % intensity of the source 2
             int2=int2_vec(ind_int2);            
             % This is accumulating the Fisher Information matrix for
             % different intensities:

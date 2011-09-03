@@ -9,6 +9,8 @@ intmat=cell2mat(int1_multi);
 m=1;
 q=2;
 plot(repmat(l2(q:end)',1,li-m+1),bsxfun(@times,intmat(m:end)/intmat(m),vardintout(q:end,m:end)));
+% There is a factor of two to compensate for the double number of photosn
+% in the static case...
 plot(l2(q:end),2*vard(q:end,m),'--k');
 setforsave(gcf,2)
 jj=1;

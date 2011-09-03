@@ -10,6 +10,8 @@ p.sig1=sqrt(2)/2/pi*p.lambda/p.NA/p.pixelsize; %[Zhang 2007]
 p.sig2=p.sig1;
 p.int1=750;
 p.int2=750;
+p.int1_coef = 2; % this is for altering the actual PSF (not the true ones)
+p.int2_coef = 0;
 
 % x=-25:.1:25;
 p.stepCoord = 0.1;
@@ -32,7 +34,8 @@ end
 
 p.c1_true = p.d/2; %[0 .5 1 1.5 2 3 4];
 p.c2_true = -p.c1_true;
-q=8;
+% q=8;
+q=3;
 qstep = .5;
 % c1=[p.c1_true-q:.2:p.c1_true+q];
 % c2=[p.c2_true-q:.2:p.c2_true+q];
@@ -57,7 +60,8 @@ for ii=1:length(c1)
     if ndims(x) == 2 %1D vector
         f1=makeGauss(x,c1(ii),p.sig1);
     else
-        f1_2D=makeGauss2D(x,c1(ii),p.sig1);
+        svindlcoef = 1.05
+        f1_2D=makeGauss2D(x,c1(ii),svindlcoef*p.sig1);
         f1 = reshape(f1_2D,1,numel(f1_2D));                    % making 1D vector by concatenating 2D array
     end
     
@@ -70,7 +74,7 @@ for ii=1:length(c1)
         end
         
         
-        l=p.int1*f1+p.int2*f2+p.bg;
+        l=p.int1_coef*p.int1*f1+p.int2_coef*p.int2*f2+p.bg;
         logl(ii,jj)=sum(l_true.*log(l)-l-factorialapprox(l_true));
     end
 end
