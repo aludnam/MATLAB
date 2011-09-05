@@ -22,6 +22,7 @@ for ii=1:length(bgvec)
     o=bgvec(ii);i1000(:,:,ii)=double(noise(resample(int1*f1_2D+int1*f2_2D+o,.2), 'poisson'));
 end
 
+
 if savethis
     for ii=1:4
         dipshow(i1000(:,:,ii));
