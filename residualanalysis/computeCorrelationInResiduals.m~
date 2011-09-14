@@ -2,7 +2,7 @@ function cmax = computeCorrelationInResiduals(data, model)
 % cmax = computeCorrelationInResiduals(data, model)
 %
 % Computes maximum correlation in residuals (standartised): 
-% residuals: (data-model)/sqrt(model)
+% residuals: (data-model)/
 
 resid = (data - model)./model;
 c = corrcoef(resid');
