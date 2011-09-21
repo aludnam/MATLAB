@@ -27,7 +27,7 @@ switch method
 end
 winit_pix=max(winit_pix, eps); % To avoid zeros...
 sw=size(winit_pix);
-w=reshape(winit_pix,sw(1)*sw(2), sw(3));
+w=reshape(winit_pix,sw(1)*sw(2), size(winit_pix,3)); % it must be specifically set to size(winit_pix,3) for the case tehre is only one compoenent (ncomp=1)
 
 if isfield (peval,'fid')
     mfprintf(peval.fid, [msg '\n'])
