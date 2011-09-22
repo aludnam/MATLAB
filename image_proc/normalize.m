@@ -10,7 +10,7 @@ switch nd
     case 1 %1D
         out = in/sum(in.^p);
     case 2 %2D
-        out=bsxfun(@rdivide, in,sum(in.^p,1));
+        out=bsxfun(@rdivide, in,sum(in(:).^p,1));
     case 3 %3D
         si = size(in);
         inr = reshape(in,si(1)*si(2),si(3));
