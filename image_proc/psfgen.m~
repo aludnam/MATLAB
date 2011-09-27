@@ -1,5 +1,5 @@
 function [out, p]= psfgen(varargin)
-% OUT = PSFGEN('lambda', 520, 'na', 1.2, 'pixelsize', 100, 'sizevec', [25 25], 'method', 'airy', 'nphot',1, 'verbose',1)
+% [OUT,p] = PSFGEN('lambda', 520, 'na', 1.2, 'pixelsize', 100, 'sizevec', [25 25], 'method', 'airy', 'nphot',1, 'verbose',1)
 %
 % computes 2D (in focus) point spread function from the parameters. PSF is 
 % centered on a middle (odd 'sizevec') or lower-right-next-to-middle 
@@ -14,6 +14,8 @@ function [out, p]= psfgen(varargin)
 % nphot - number of photons emmited by source 
 % verbose - print out the parameters
 %
+% output parameters: 
+% p.sigma 
 % default values:
 % lambda = 520; %nm
 % na = 1.2;
@@ -70,16 +72,18 @@ centervec = ceil(p.sizevec/2);
 [X,Y] = meshgrid(1:p.sizevec(1), 1:p.sizevec(2));
 out = zeros(p.sizevec);
 
-if strcmp (p.method, 'gauss') %gaussian approximation
-    p.sigma = sqrt(2)/(2*pi) * p.lambda/p.na; %[Zhang et al., 2007]
-    p.sigmapix = p.sigma/p.pixelsize;
-    out = p.nph/(2*pi*p.sigmapix^2) * exp(-((X-centervec(1)).^2 + (Y-centervec(2)).^2)/(2*p.sigmapix^2));
+% This is sqrt(variance) of the Gaussian approximation [Zhang et al., 2007]
+p.sigma = sqrt(2)/(2*pi) * p.lambda/p.na;
+p.sigmapix = p.sigma/p.pixelsize;
+
+if strcmp (p.method, 'gauss') %gaussian approximation    
+    out = p.nphot/(2*pi*p.sigmapix^2) * exp(-((X-centervec(1)).^2 + (Y-centervec(2)).^2)/(2*p.sigmapix^2));
 elseif strcmp (p.method, 'airy') %airy pattern
     p.alpha = 2*pi * p.na/p.lambda;
     z=sqrt((X-centervec(1)).^2+(Y-centervec(2)).^2)*p.pixelsize;
     out = (real(besselj(1,p.alpha*z))./(p.alpha*z+eps)).^2;
     out(centervec(1),centervec(2))=0.25; %limit for x-> 0....
-    out=out/sum(out(:)); %normalization
+    out=p.nphot*out/sum(out(:)); %normalization
 end
 
 if p.verbose %printout the parameters

@@ -14,6 +14,10 @@ function [out, p]= psfgen(varargin)
 % nphot - number of photons emmited by source 
 % verbose - print out the parameters
 %
+% output parameters: 
+% p.sigma, p.sigmapix - standard deviation (in nm or pixels, respectively) of the gaussian approximation [Zhang et
+% al., 2007]
+% p.alpha - parameter of the Airy disk
 % default values:
 % lambda = 520; %nm
 % na = 1.2;
@@ -70,9 +74,11 @@ centervec = ceil(p.sizevec/2);
 [X,Y] = meshgrid(1:p.sizevec(1), 1:p.sizevec(2));
 out = zeros(p.sizevec);
 
-if strcmp (p.method, 'gauss') %gaussian approximation
-    p.sigma = sqrt(2)/(2*pi) * p.lambda/p.na; %[Zhang et al., 2007]
-    p.sigmapix = p.sigma/p.pixelsize;
+% This is sqrt(variance) of the Gaussian approximation [Zhang et al., 2007]
+p.sigma = sqrt(2)/(2*pi) * p.lambda/p.na;
+p.sigmapix = p.sigma/p.pixelsize;
+
+if strcmp (p.method, 'gauss') %gaussian approximation    
     out = p.nphot/(2*pi*p.sigmapix^2) * exp(-((X-centervec(1)).^2 + (Y-centervec(2)).^2)/(2*p.sigmapix^2));
 elseif strcmp (p.method, 'airy') %airy pattern
     p.alpha = 2*pi * p.na/p.lambda;
