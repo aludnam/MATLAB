@@ -1,35 +1,18 @@
 function [varargout, peval]=updates_nmfclassic(peval,varargin)
 % [varargout, peval]=updates_nmfclassic(peval,varargin)
+% Non-negative matrix factorisation updates minimising KL divergence
+% KL(V|WH) 
+% references : D.D. Lee and H.S. Seung. Algorithms for non-negative matrix
+% factorization. Advances in neural information processing systems, 13, 2001.
 %
-% Jean-Philippe Brunet
-% Cancer Genomics
-% The Broad Institute
-% brunet@broad.mit.edu
-% NMF divergence update equations :
-% Lee, D..D., and Seung, H.S., (2001), 'Algorithms for Non-negative Matrix
-% Factorization', Adv. Neural Info. Proc. Syst. 13, 556-562.
-%
-% v (n,m) : N (genes) x M (samples) original matrix
-%           Numerical data only.
-%           Must be non negative.
-%           Not all entries in a row can be 0. If so, add a small constant to the
-%           matrix, eg.v+0.01*min(min(v)),and restart.
-%
-% r       : number of desired factors (rank of the factorization)
-%
-% verbose : prints iteration count and changes in connectivity matrix elements
-%           unless verbose is 0
-%
-% Note : NMF iterations stop when connectivity matrix has not changed
-%        for 10*stopconv interations. This is experimental and can be
-%        adjusted.
-%
-% w    : N x r NMF factor
-% h    : r x M NMF factor
+% v    : N x T data matrix
+% w    : N x K NMF factor
+% h    : K x T NMF factor
+% K is the rank of factorisation. 
 %
 % v = varargin{1};
-% w = varargin{2};
-% h = varargin{3};
+% w = varargin{2};  % initial values  
+% h = varargin{3};  % initial values
 % peval.h_fixvec & peval.w_fixvec:
 % fixvec - vector which component should be fixed: eg [2 3] will
 % fix second and third component while varying the first...
@@ -41,30 +24,26 @@ w = varargin{2};
 h = varargin{3};
 [peval.dovec_w, peval.dovec_h]=setDoVec(peval);
 
-checkv(v) %check values of v
-[n,m]=size(v);
-checkddivfreq=10; % How often ot check ddiv
+checkv(v)           %check values of v
+checkddivfreq=10;   % How often ot check ddiv
 dall=zeros(1, ceil(peval.maxiter/checkddivfreq));
 indexd=1;
-for ii=2:peval.maxiter
-    w_old = w;
-    h_old = h;
-        
-    x1=repmat(sum(w,1)',1,m);
-    y1=w'*(v./(w*h));
-    h(peval.dovec_h,:)=h(peval.dovec_h,:).*(y1(peval.dovec_h,:))./x1(peval.dovec_h,:);
+for ii=2:peval.maxiter    
+    
+    y1=w'*(v./(w*h));    
+    sw = sum(w,1)';
+    h(peval.dovec_h,:)= bsxfun(@rdivide,h(peval.dovec_h,:).*(y1(peval.dovec_h,:)),sw(peval.dovec_h));
     h=max(h,eps); % adjust small values to avoid undeflow
     
-    x2=repmat(sum(h,2)',n,1);
-    y2=(v./(w*h))*h';
-    w(:,peval.dovec_w)=w(:,peval.dovec_w).*(y2(:,peval.dovec_w))./x2(:,peval.dovec_w);
+    y2=(v./(w*h))*h';       
+    sh=sum(h,2)';
+    w(:,peval.dovec_w)=bsxfun(@rdivide,w(:,peval.dovec_w).*(y2(:,peval.dovec_w)),sh(peval.dovec_w));
     w=max(w,eps); % adjust small values to avoid undeflow
         
-    % normalization of all h:
-    sumw = sum(w,1);
-    w = w./repmat(sumw,n,1); %normalization of each component
-    h = h.*repmat(sumw',1,m); %to keep the multiplication equal
-        
+    % normalization:
+    sw = sum(w,1)'; % summation after the update of w...
+    w = bsxfun(@rdivide, w, sw');
+    h = bsxfun(@times, h, sw); % this is to keep the product WH constant after normalisation of w        
     if rem(ii,checkddivfreq)==0
         d = ddivergence(v, w*h);
         fprintf('Cycle %g D-divergence %g\n',ii-1,d)
