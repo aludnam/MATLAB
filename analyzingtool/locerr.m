@@ -1,7 +1,10 @@
-function [dist, indexmutual]=locerr(xt,yt,xl,yl)
-% [dist, indexmutual]=locerr(xt,yt,xl,yl)
+function [dist, indexmutual]=locerr(xt,yt,xl,yl,showimage)
+% [dist, indexmutual]=locerr(xt,yt,xl,yl,showimage)
 % Estimates minimum distances between the localized points (xl,yl) and the
 % true locations (xt,yt) in the vector dist
+if ~exist('showimage','var')
+    showimage = 0; 
+end
 sl=size(xl);
 if sl(1)<sl(2) %making column vectors
     xl=xl'; yl=yl';
@@ -17,7 +20,6 @@ m=[mt;ml];
 mdist=squareform(pdist(m)); %distance matrix
 mdistmutual=mdist(st+1:end, 1:st); %mutual distances
 [dist, indexmutual]=findminimaldist(mdistmutual);
-showimage=0;
 if showimage
     scatterpoints(xt,yt,xl,yl,indexmutual)
 end

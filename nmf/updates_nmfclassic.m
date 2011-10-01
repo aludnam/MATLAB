@@ -56,9 +56,9 @@ for ii=2:peval.maxiter
         if d < peval.ddterm
             break
         end
-    end
+    end    
 end
-
+peval.ddiv_end = ddivergence(v, w*h); % final values of the d-divergence
 peval.numiter = ii;
 peval.maxiter_reached_flag = 0;
 if ii == peval.maxiter
@@ -89,13 +89,11 @@ end
 
 function checkv(v)
 % test for negative values in v
-if min(min(v)) < 0
+if min(v(:)) < 0
     error('matrix entries can not be negative');
-    return
 end
 if min(sum(v,2)) == 0
     error('not all entries in a row can be zero');
-    return
 end
 end
 
