@@ -31,7 +31,7 @@ end
 nn=squeeze((sqrt(perror2(:,1,:).^2+perror2(:,2,:).^2)));
 objectiveFunction = (nchi1.^2+nchi2.^2);
 mo=min(objectiveFunction,[],2); % minimum the two either including (1) or not (2) the middle point 
-[del, ixmo]=min(objectiveFunction./(1./nn)); %whie
+[del, ixmo]=min(objectiveFunction./(1./nn),[],2); %whether to choose (1) or (2). This is weighted by error of the estimation...
 % [m,mx]=min(objectiveFunction);
 % [m,mx]=min(mo)+ixmo-1;
 % K=x(mx+1);

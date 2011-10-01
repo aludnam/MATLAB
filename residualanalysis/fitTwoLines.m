@@ -21,11 +21,11 @@ for ind_includeMidPoint=0:1 % when 0 then middle point is included (shared by bo
         [pbest,perror,nchi]=nonlinft('linearfunction' ,x1,y1,ones(size(x1)),[-1 1e-5],[1 1]);
         pbest1(index,:,ind_includeMidPoint+1)=pbest;
         perror1(index,:,ind_includeMidPoint+1)=perror;
-        nchi1(index,ind_includeMidPoint+1)=nchi;
+        nchi1(index,ind_includeMidPoint+1)=nchi*(numel(y1)-1); % to compensate for degrees of freedom
         [pbest,perror,nchi]=nonlinft('linearfunction' ,x2,y2,ones(size(x2)),[-1 1e-5],[1 1]);
         pbest2(index,:,ind_includeMidPoint+1)=pbest;
         perror2(index,:,ind_includeMidPoint+1)=perror;
-        nchi2(index,ind_includeMidPoint+1)=nchi;
+        nchi2(index,ind_includeMidPoint+1)=nchi*(numel(y2)-1); % to compensate for degrees of freedom
     end
 end
 nn=squeeze((sqrt(perror2(:,1,:).^2+perror2(:,2,:).^2)));
