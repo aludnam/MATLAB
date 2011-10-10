@@ -30,12 +30,12 @@ dall=zeros(1, ceil(peval.maxiter/checkddivfreq));
 indexd=1;
 for ii=2:peval.maxiter    
     
-    y1=w'*(v./(w*h));    
+    y1=w'*(bsxfun(@rdivide,v,w*h));    
     sw = sum(w,1)';
     h(peval.dovec_h,:)= bsxfun(@rdivide,h(peval.dovec_h,:).*(y1(peval.dovec_h,:)),sw(peval.dovec_h));
     h=max(h,eps); % adjust small values to avoid undeflow
     
-    y2=(v./(w*h))*h';       
+    y2=(bsxfun(@rdivide,v,w*h))*h';
     sh=sum(h,2)';
     w(:,peval.dovec_w)=bsxfun(@rdivide,w(:,peval.dovec_w).*(y2(:,peval.dovec_w)),sh(peval.dovec_w));
     w=max(w,eps); % adjust small values to avoid undeflow
@@ -76,13 +76,13 @@ if ~isfield(peval, 'dterm'); peval.dterm = 1; end %termination criterion
 if ~isfield(peval, 'ddterm'); peval.ddterm = 1; end %termination criterion
 if ~isfield(peval, 'maxiter'); peval.maxiter = 1000; end
 if ~isfield(peval,'showimage'); peval.showimage =0; end %showing progres images
-if ~isfield(peval,'addbgcomp'); peval.addbgcomp = 1; end %last componnent as a backgroufn
+if ~isfield(peval,'bgcomp'); peval.bgcomp = 1; end %last componnent as a backgroufn
 if peval.bgcomp
-    if ~isfield(peval, 'fix_bg_w')    
-        peval.fix_bg_w=1;        
+    if ~isfield(peval, 'fix_bg_w') 
+        peval.fix_bg_w=1; % last component w is fixed and not updated       
     end
     if ~isfield(peval, 'fix_bg_h')    
-        peval.fix_bg_h=1;        
+        peval.fix_bg_h=1; % last component h is fixed and not updated       
     end
 end
 end
