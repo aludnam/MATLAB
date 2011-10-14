@@ -1,10 +1,13 @@
-function [x_mu, y_mu, sig, differ] = fitgauss2d(M,sigfix, showfig)
-% [x_mu, y_mu, sig, differ] = fitgauss2d(M,sigfix, showfig)
+function [x_mu, y_mu, sig, ddiv] = fitgauss2d(M,sigfix, showfig)
+% [x_mu, y_mu, sig, ddiv] = fitgauss2d(M,sigfix, showfig)
 % Fits isotropic gaussian to the each z-slice of hte matrix M.
+% Uses fminsearch to look for the minimum of d-divergence (log-Poisson).
 % x_mu, y_mu : coordiantes of the fitted mean
 % sig : fitted std
-% differ : D -devergence between data and figure generated form gaussian
+% ddiv: D -devergence between data and figure generated form gaussian
 % 31/3/2011
+if ~exist('sigfix','var'); sigfix = []; end
+if ~exist('showfig','var'); showfig = 0; end
 
 nd=ndims(M);
 sm=size(M);
@@ -17,41 +20,40 @@ switch nd
         nslice = size(M,3);
 end
 
+M = max(abs(M),eps); %ensures positive values
+mM = max(max(M));
+% indlin = find(bsxfun(@eq,M,mM));
+% [xm,ym]=ind2sub(sm,indlin);
+M = bsxfun(@rdivide,M,mM); % scales the matrix
 
-    M = max(abs(M),eps); %ensures positive values
-    mM = max(max(M));
-    indlin = find(bsxfun(@eq,M,mM));
-    [xm,ym,z_mu]=ind2sub(sm,indlin);
-    M = bsxfun(@rdivide,M,mM);
-    if ~exist('sigfix','var')
-        sigfix = [];
-    end
-for sl = 1:nslice    
+x_mu = zeros(1,nslice);
+y_mu = zeros(1,nslice);
+sig = zeros(1,nslice);
+ddiv = zeros(1,nslice);
+
+for sl = 1:nslice
     Mslice = M(:,:,sl);
+    [xguess, yguess]=find(Mslice == 1,1);
     if isempty(sigfix)
-        sguess = sum(sum(Mslice))/(sm(1)*sm(2))*sm(1);
-        x = fminsearch(@(x) difference(x,Mslice),[ym(sl),xm(sl),sguess]);
-        x_mu(sl) = x(1);
-        y_mu(sl) = x(2);
+        sguess = max(sum(Mslice(:))/(sm(1)*sm(2))*sm(1),1);
+        x = fminsearch(@(x) ddivGauss(x,Mslice),[yguess,xguess,sguess]);
         sig(sl) = x(3);
     else
-        x = fminsearch(@(x) difference_sigfix(x,Mslice,sigfix),[ym(sl),xm(sl)]);
-        x_mu(sl) = x(1);
-        y_mu(sl) = x(2);
+        x = fminsearch(@(x) ddivGauss_sigfix(x,Mslice,sigfix),[yguess,xguess]);
         sig(sl) = sigfix;
     end
-    
-    differ = difference(x,Mslice);
+    x_mu(sl) = x(1);
+    y_mu(sl) = x(2);
+    ddiv(sl) = ddivGauss(x,Mslice);
 end
 
-if exist('showfig','var')
-    if showfig == 1
-        
-        %         ims(gauss2d(size(M), [x_mu y_mu], sig,1));
-        ims(M, 'gray');
+if showfig
+    for sl = 1 : nslice     
+        width = 1;
+        ims(M(:,:,sl), 'gray');
         hold on
-        scatter (x_mu, y_mu, 80 , 'xr');
-        [x,y,z] = cylinder(sig,200);
-        plot(x(1,:) + x_mu, y(1,:) + y_mu,'r')
+        scatter (x_mu(sl), y_mu(sl), 'xr','linewidth',width);
+        h=circle([x_mu(sl),y_mu(sl)], sig(sl),100,'--r');
+        set(h,'linewidth',width)
     end
 end

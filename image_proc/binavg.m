@@ -13,9 +13,9 @@ for ii=1:numim2bin
     tmp = tmp + circshift(in,[0 0 -1*ii]);
 end
 
-nb = floor(size(in,3)/numin2bin);
-ix=numim2bin*(1:nb)-(numin2bin-1);
-out = tmp(ix)/numin2bin;
+nb = floor(size(in,3)/numim2bin);
+ix=numim2bin*(1:nb)-(numim2bin-1);
+out = tmp(:,:,ix)/numim2bin;
 if di
     out=dip_image(out);
 end

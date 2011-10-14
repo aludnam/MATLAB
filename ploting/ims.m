@@ -3,8 +3,8 @@ function h = ims(matrix, cmap, newfigure, noticks)
 % matrix - data to image
 % cmap - colormap
 % newfigure - creates new figure (default)
-if nargin < 3 newfigure = 0; end
-if nargin < 4 noticks = 0; end
+if nargin < 3; newfigure = 1; end
+if nargin < 4; noticks = 0; end
     
 matrixs = squeeze(matrix);
 nd = ndims(matrixs);
