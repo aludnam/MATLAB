@@ -1,0 +1,27 @@
+function [out, c1, c2] = roiClick(in, showim)
+% Selects region of interest of the input image by clicking on the ROI
+% corners. 
+% [out, c1, c2] = roiClick(in, showim)
+%
+% in: image in
+% showim: show the original image with roi (default showim = 0)
+% out: cut region of interest
+% c1, c2: coordinates of the corners
+
+if ~exist('showim','var'); showim = 0; end
+
+fprintf('Click to upper left corner.\n');
+c1=dipgetcoords;
+fprintf('Click to bottom right corner.\n');
+c2=dipgetcoords;
+out = in(c1(1):c2(1), c1(2):c2(2), :);
+if showim
+    
+    c1=c1(1:2);
+    c2=c2(1:2);
+    dipshow(in)
+    line(c1, [c1(1) c2(1)]); 
+    line([c1(1), c2(1)); 
+    line(c2(1), c2(2)); 
+    line(c1(2), c2(2));
+end

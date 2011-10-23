@@ -7,14 +7,14 @@ if ~exist('style','var')
     style = ':';
 end
 if ~exist('offset','var')
-    offset = 0;
+    offset = [0 0];
 end
-xlim([0,sizeim(1)]+offset);
-ylim([0,sizeim(2)]+offset);
+xlim([0,sizeim(1)]+offset(1));
+ylim([0,sizeim(2)]+offset(2));
 for ii=0:sizeim(1)
-    vline2(offset+ii,style)
+    vline2(offset(1)+ii,style)
 end
 for ii=0:sizeim(2)
-    hline2(offset+ii,style)
+    hline(offset(2)+ii,style)
 end
 set (gca, 'DataAspectRatio',[1 1 1]);

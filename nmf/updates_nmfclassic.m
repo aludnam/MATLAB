@@ -116,7 +116,7 @@ if peval.fix_bg_w
     mfprintf(peval.fid, '''w'' fixed for background component [%g].\n',peval.ncomp)
 end
 if peval.fix_bg_h
-     mfprintf(peval.fid, '''g'' fixed for background component [%g].\n',peval.ncomp)
+     mfprintf(peval.fid, '''h'' fixed for background component [%g].\n',peval.ncomp)
 end
 
 mfprintf(peval.fid, '''w'' will be updated for components: ')
