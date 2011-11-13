@@ -97,8 +97,8 @@ end
 fprintf(' Khoros called with command:\n %s\n',kh)
 global KhorosOutput
 LDP=getenv('LD_LIBRARY_PATH');   % Will be ignored for Windows systems, but fixes confusions with libraries in Linux systems
-% setenv('LD_LIBRARY_PATH','/usr/lib');  % Will be ignored for Windows systems, but fixes confusions with libraries in Linux systems
-setenv('LD_LIBRARY_PATH','/usr/lib64');
+setenv('LD_LIBRARY_PATH','/usr/lib');  % Will be ignored for Windows systems, but fixes confusions with libraries in Linux systems
+% setenv('LD_LIBRARY_PATH','/usr/lib64');
 if strcmp(KhorosOutput,'Direct')
     s=system(kh);
 else

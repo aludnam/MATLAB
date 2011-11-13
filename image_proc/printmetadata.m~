@@ -1,0 +1,8 @@
+function printmetadata(pathname, metadataFileName)
+% printmetadata(pathname)
+% Extracts Time, Comment and Exposure from ./metadata.txt)
+if 
+fprintf('Directory %s\t (Figure %2.0f):\n',pathname,gcf);    
+system (['cat ' pathname '/metadata.txt | grep \"Time\": -m 1']);   
+system (['cat ' pathname '/metadata.txt | grep Comment']);    
+system (['cat ' pathname '/metadata.txt | grep Exposure -m 1']);    

@@ -1,11 +1,14 @@
-function preview(pathname,filename)
+function out = preview(pathname,filename)
 % preview(pathname,filename)
-% reads on
+% reads one file (filename) and displays it. 
 if ~exist('pathname', 'var')
     pathname = '.';
 end
 if ~exist('filename','var')
     filename = 'img_000000001__000.tif';
+    if ~exist(filename, 'file')
+        filename='img_000000100_Sequence_000.tif';
+    end
 end
-out = readtimeseries([pathname filename]);
-dipshow(out);
+out = readim([pathname '/' filename]);
+[],3)dipshow(out);
