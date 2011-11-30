@@ -27,7 +27,6 @@ end
 
 nimages = range(2)-range(1)+1;
 nsteps = ceil(nimages / nbatch);
-sizeim = size(preview(pathname));
 
 % out = newim(sizeim(1),sizeim(2), nimages);
 out = [];

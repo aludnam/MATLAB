@@ -1,11 +1,27 @@
-function [x_mu, y_mu sig] = localizew(w,peval)
-% [x_mu, y_mu sig] = localizew(w,peval)
+function [x_mu, y_mu sig] = localizew(w,peval,localMaxRadius)
+% [x_mu, y_mu sig] = localizew(w,peval,localMaxRadius)
 % Localilzes w (#pixels x #components) from NMF model (V=WH)
 % peval : parameters (needed peval.nx, peval.ny)
-
+% localMaxDiameter : diameter in pixels to which confine a local maximum search. If set to 0 (default) no confinemend is done.  
+if ~exist('localMaxRadius', 'var')
+    localMaxRadius = 0; % Finding global max. 
+end
 K=size(w,2);
 wr=reshape(w,peval.nx, peval.ny,K); %K can be different from peval.ncomp if background is takes as one component...
+[x,y] = meshgrid(1:peval.ny, 1:peval.nx); % nx and ny has to be swapped as in the image the first coordiante is number of rows
 
-for ii=1:peval.ncomp %background is not localized...
+for ii=1:K %background is not localized...
     [x_mu(ii), y_mu(ii), sig(ii), differ(ii)] = fitgauss2d(wr(:,:,ii));
+    if localMaxRadius>0
+        fprintf('Looking for local maximum only.\n');
+        confinementMaskTmp=(x-x_mu(ii)).^2+(y-y_mu(ii)).^2<=localMaxRadius^2;
+        [ymtmp,xmtmp]=find(wr(:,:,ii)==max(max(wr(:,:,ii).*confinementMaskTmp)),1);
+        if isempty(xmtmp)&isempty(ymtmp)
+            xmtmp=10*peval.nx;
+            ymtmp=xmtmp;
+            fprintf('Problem with 
+        confinementMask=(x-xmtmp).^2+(y-ymtmp).^2<=localMaxRadius^2; % mask cenered on the local maximum
+        [x_mu(ii), y_mu(ii), sig(ii), differ(ii)] = fitgauss2d(wr(:,:,ii).*confinementMask);
+    end
+        
 end

@@ -1,6 +1,7 @@
 function out = binsum(in, numim2bin)
+% Rebins image by averaging nnumim2bin bins together along z-direction
 % out = binavg(in, numim2bin)
-% Rebins image by averaging nnumim2bin bins together.
+
 
 if strcmp(class(in),'dip_image')
     di=1;

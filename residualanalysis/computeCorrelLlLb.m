@@ -2,7 +2,12 @@ function [cmax,ll,lb,pcacoef, cmax_artificial, cmax_artificial_var] =computeCorr
 % [cmax,ll,lb,pcacoef, cmax_artificial, cmax_artificial_var] =computeCorrelLlLb(namefile)
 
 r=load(namefile);
-d=load(['~/' r.peval.data_path '/' r.peval.data_file]);
+if isfield(r.res, 'data_file')
+    d=load(['~/' r.peval.data_path '/' r.peval.data_file]);
+else 
+    d=load('dpixc'); % Data stored directlu in the directory
+end
+
 if isfield(r.res,'a')
     r.res.h=r.res.a;
 end

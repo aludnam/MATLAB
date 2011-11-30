@@ -25,7 +25,7 @@ h = varargin{3};
 [peval.dovec_w, peval.dovec_h]=setDoVec(peval);
 
 checkv(v)           %check values of v
-checkddivfreq=10;   % How often ot check ddiv
+checkddivfreq=50;   % How often ot check ddiv
 dall=zeros(1, ceil(peval.maxiter/checkddivfreq));
 indexd=1;
 for ii=2:peval.maxiter    
