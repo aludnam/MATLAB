@@ -1,0 +1,10 @@
+function out=resampleImageStack(in, zoom)
+% Uses resample.m function on the stack on images. Resamples each of the
+% image in the scatck by zoom value.
+% out=resampleImageStack(in, zoom)
+% out(:,:,ii)=resample(in(:,:,ii),zoom)
+nz=size(in,3); 
+out=zeros(size(in,1),size(in,2), s); 
+for ii=1:nz
+    out(:,:,ii)=resample(in(:,:,ii), zoom);
+end

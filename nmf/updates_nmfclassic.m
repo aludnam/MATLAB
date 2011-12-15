@@ -37,6 +37,10 @@ for ii=2:peval.maxiter
     
     y2=(bsxfun(@rdivide,v,w*h))*h';
     sh=sum(h,2)';
+%%% experiment: 
+%     beta_w = 10000;
+%     sh=sum(h,2)'+beta_w*sum(w.^2,1);
+%%%
     w(:,peval.dovec_w)=bsxfun(@rdivide,w(:,peval.dovec_w).*(y2(:,peval.dovec_w)),sh(peval.dovec_w));
     w=max(w,eps); % adjust small values to avoid undeflow
         

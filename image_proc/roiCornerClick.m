@@ -20,7 +20,13 @@ fprintf('Click to bottom right corner.\n');
 c2=dipgetcoords;
 c1=c1(1:2);
 c2=c2(1:2);
-out = in(c1(1):c2(1), c1(2):c2(2), :);
+if ndims(in)>2
+    out = in(c1(1):c2(1), c1(2):c2(2), :);
+else 
+    out = in(c1(1):c2(1), c1(2):c2(2));
+end
+    
+    
 if ~isdip
     out = double(out);
 end

@@ -18,7 +18,12 @@ in = dip_image(in);
 dipshow(in); 
 c1=topLeft;
 c2=bottomRight;
-out = in(c1(1):c2(1), c1(2):c2(2), :);
+if ndims(in)>2
+    out = in(c1(1):c2(1), c1(2):c2(2), :);
+else 
+    out = in(c1(1):c2(1), c1(2):c2(2));
+end
+
 if ~isdip
     out = double(out);
 end
