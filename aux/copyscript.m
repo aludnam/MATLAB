@@ -21,7 +21,7 @@ fprintf('Making directory: %s\n',dest_dir)
 mkdirsafe(dest_dir);
 
 if isempty(source)
-    source_dir = [dest_dir_pref '/Default'];
+    source_dir = [ '~/project/MATLAB/qdots/Default'];
     source = 'Default';
     fprintf('Default directory will be used as the source.\n')
 else 
