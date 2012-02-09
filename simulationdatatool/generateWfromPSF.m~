@@ -1,0 +1,19 @@
+function w=generateWfromPSF(sizevec,x_vec,y_vec,psf)
+% w=generateWfromPSF(sizevec,x_vec,y_vec,psf)
+
+npoints = length(x_vec); 
+center=sizevec/2;
+center(psf)=
+shift_x=x_vec-center(1); 
+shift_y=y_vec-center(2);
+w=zeros(prod(sizevec),npoints);
+if ndims(psf)<3
+    % if pased only one 2D image of PSF then all points have the same PSF
+    psf = repmat(psf,:,:,npoints);
+end
+
+for ii=1:npoints
+    wpix=shift(squeeze(psf(:,:,ii)),[shift_x(ii),shift_y(ii)]);
+    
+    w(:,ii)=reshape(wpix,prod(sizevec),1);
+end

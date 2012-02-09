@@ -2,8 +2,16 @@ function [cmax,ll,lb,pcacoef, cmax_artificial, cmax_artificial_var] =computeCorr
 % [cmax,ll,lb,pcacoef, cmax_artificial, cmax_artificial_var] =computeCorrelLlLb(namefile)
 
 r=load(namefile);
-if isfield(r.res, 'data_file')
-    d=load(['~/' r.peval.data_path '/' r.peval.data_file]);
+if isfield(r,'peval')
+    if isfield(r.peval, 'data_path')
+        if isfield(r.peval,'data_file')
+            d=load(['~/' r.peval.data_path '/' r.peval.data_file]);
+        else 
+            d=load(r.peval.data_path); % there was some confusion what is path and waht is file
+        end
+    else
+        error('Can not find the location of the data.')
+    end
 else 
     d=load('dpixc'); % Data stored directlu in the directory
 end

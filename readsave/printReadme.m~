@@ -1,0 +1,7 @@
+function printReadme(range)
+
+
+dir_default = '~/project/data/qdots';
+for ii=1:length(range)
+    dirNow = ['S
+    
