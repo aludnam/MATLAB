@@ -7,8 +7,10 @@ ncomp = [10 20 30];
 itervec=1; %number of evaluation of each dataset
 
 % set here the path to the data (in this case data must be in mat format):
-peval.data_path = '';
-load(peval.data_path)
+peval.data_path = '~/project/data/qdots/....';
+peval.data_file = 'dpixc';
+
+load([peval.data_path '/' peval.data_file])
 
 % uncomment this for callibration of the data to photon counts:
 % bgOffset=700; % this is from the background images
@@ -17,7 +19,7 @@ load(peval.data_path)
 % dpixc=dpixc(:,:,1:300);
 
 % bacground estimation is here:
-peval.bg=1; 
+peval.bg=100; 
 
 [peval.nx, peval.ny, peval.nt]=size(dpixc);
 for ncompindex = 1:length(ncomp);

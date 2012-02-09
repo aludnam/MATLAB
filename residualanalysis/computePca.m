@@ -5,7 +5,7 @@ r=load(namefile);
 if isfield(r,'peval')
     if isfield(r.peval, 'data_path')
         if isfield(r.peval,'data_file')
-            d=load(['~/' r.peval.data_path '/' r.peval.data_file]);
+            d=load([r.peval.data_path '/' r.peval.data_file]);
         else 
             d=load(r.peval.data_path); % there was some confusion what is path and waht is file
         end
