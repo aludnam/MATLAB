@@ -69,7 +69,7 @@ if ii == peval.maxiter
     mfprintf(peval.fid,'\nMAximum number of iteration (%g) reached! \n', peval.maxiter)
     peval.maxiter_reached_flag = 1;
 end
-
+mfprintf(peval.fid,'\nTermination D-divergence value is (%g).\n', peval.ddiv_end)
 varargout = struct('w',w,'h',h);
 end % Main Function
 

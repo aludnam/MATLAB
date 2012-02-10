@@ -1,5 +1,6 @@
 % clear
 savethis = 1;
+clear peval
 
 ncomp = [10 20 30]; 
 
@@ -22,7 +23,7 @@ load([peval.data_path '/' peval.data_file])
 peval.bg=100; 
 
 [peval.nx, peval.ny, peval.nt]=size(dpixc);
-for ncompindex = 1:length(ncomp);
+for nc = ncomp;
 %     for iterindex=1:niter
     for iterindex=itervec
         if savethis
@@ -44,7 +45,7 @@ for ncompindex = 1:length(ncomp);
         
 %         peval.bg=p.offset;
         %         dpixc=bgsubtractbyhand(dpixc,peval);
-        peval.ncomp=ncomp(ncompindex);
+        peval.ncomp=nc;
         
         dvec=reshape(dpixc,peval.nx*peval.ny,peval.nt);
         
