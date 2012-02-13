@@ -1,5 +1,8 @@
 % clear
 savethis = 1;
+if exist('peval','var')
+    
+clear peval
 
 ncomp = [10 20 30]; 
 
@@ -7,8 +10,10 @@ ncomp = [10 20 30];
 itervec=1; %number of evaluation of each dataset
 
 % set here the path to the data (in this case data must be in mat format):
-peval.data_path = '';
-load(peval.data_path)
+peval.data_path = '~/project/data/qdots/....';
+peval.data_file = 'dpixc';
+
+load([peval.data_path '/' peval.data_file])
 
 % uncomment this for callibration of the data to photon counts:
 % bgOffset=700; % this is from the background images
@@ -17,19 +22,20 @@ load(peval.data_path)
 % dpixc=dpixc(:,:,1:300);
 
 % bacground estimation is here:
-peval.bg=1; 
-
-if sum(dpixc(:)<0)
-    fprintf('Clipping negative values in the dpixc\.nc')
-dpixc(dpixc<0)=eps; % to avoid negative values and zeros...
+peval.bg=100; 
 
 [peval.nx, peval.ny, peval.nt]=size(dpixc);
-for ncompindex = 1:length(ncomp);
+for nc = ncomp;
 %     for iterindex=1:niter
     for iterindex=itervec
         if savethis
             [peval.logfile, peval.fid] = initlogfile;
         end
+        if sum(dpixc(:)<=0)
+            mfprintf(peval.fid,'Clipping negative values in the dpixc!\n')
+            dpixc(dpixc<=0)=eps; % to avoid negative values and zeros...
+        end
+
         
         params %reads the parameters        
 %         datasource = [peval.home '/' peval.data_path '/' peval.data_dir '/' peval.data_file];
@@ -41,7 +47,7 @@ for ncompindex = 1:length(ncomp);
         
 %         peval.bg=p.offset;
         %         dpixc=bgsubtractbyhand(dpixc,peval);
-        peval.ncomp=ncomp(ncompindex);
+        peval.ncomp=nc;
         
         dvec=reshape(dpixc,peval.nx*peval.ny,peval.nt);
         
@@ -63,6 +69,7 @@ for ncompindex = 1:length(ncomp);
         end
         
         if savethis
+            res.data_file = peval.data_path; % just to keep track where the filel is
             peval = createresname(peval,iterindex);
             if ~exist('p','var')
                 p = [];

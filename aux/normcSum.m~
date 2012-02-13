@@ -1,0 +1,24 @@
+function n = normcSum(m)
+%NORMC Normalize columns of a matrix.
+%
+%  Syntax
+%
+%    normcSum(M)
+%
+%  Description
+%
+%    NORMCSUM(M) normalizes the columns of M to a sum of 1.
+%
+%  Examples
+%    
+%    m = [1 2; 3 4]
+%    n = normc(m)
+%
+%  See also NORMR
+
+[mr,mc] = size(m);
+if (mr == 1)
+  n = ones(1,mc);
+else
+  n =ones(mr,1)*sqrt(ones./sum(m.*m)).*m;
+end

@@ -1,6 +1,10 @@
 % clear
 savethis = 1;
-clear peval
+if exist('peval','var')
+    fpirntf('There is a variable called peval already. Saved in peval_bckp.')
+    peval_bckp = peval; 
+    clear peval
+end
 
 ncomp = [10 20 30]; 
 
