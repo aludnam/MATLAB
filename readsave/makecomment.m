@@ -1,9 +1,9 @@
 function makecomment(filename)
 % makecomment(filename)
 % Forces user to make commetn and stores it into the FILENAME
-fid = fopen(filename,'a');
+% If the file already exist, it will append the comment to the end of the
+% file...
 comment = input('Make some comments (line string):\n','s');
-fprintf(fid, '\nComments:\n%s',comment);
+fid = fopen(filename,'a');
+fprintf(fid, '\nComments (%s):\n%s',datestr(now),comment);
 fclose(fid);
-
-

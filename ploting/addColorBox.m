@@ -4,7 +4,7 @@ function addColorBox(topLeft,bottomRight,color,linewidth,flipCoord)
 % topLeft, bottomRight are the coorinated of the box corners. 
 % color: color of hte box. default: color = 'red'
 % linewidth: width of the line. default: linewidth=1
-% flipCoord: if st to 1 then coordinates are fliped (this is for double
+% flipCoord: if st to 1 then coordinates are fliped (this is for marix in double)
 
 if ~exist('color','var'); color = 'red'; end
 if ~exist('linewidth','var'); linewidth= 1; end

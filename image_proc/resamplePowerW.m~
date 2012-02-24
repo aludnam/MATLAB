@@ -1,0 +1,10 @@
+function wout=resamplePowerW(w,nx,ny,resampleFactor,power)
+% Resamples resutlts W of NMF (res.w), makes their power and normalizes
+% them to sum to 1;
+% wout=resamplePowerW(w,nx,ny,resampleFactor,power)
+% example: 
+% wout=resamplePowerW(res.w, peval.nx, peval.ny, 4,2);
+
+ncomp=size(w,2); 
+wr=resampleImageStack(reshape(w, nx, ny, ncomp),resampleFactor).^power;
+wout=normcSum(reshape(wr,resampleFactor^2*nx*ny,ncomp)); % normalized to sum to 1
