@@ -7,12 +7,18 @@ if nargin < 2
     p=1;
 end
 nd=ndims(in);
+if p==0
+    fprintf('Normalizing to maximum.\n')
+else 
+    fprintf('Normalizing to L%d norm.\n',p)
+end
+    
 switch nd
     case 1 %1D        
         if p==0
-            out = in/max(in);
+            out = in/max(in);           
         else
-            out = in/sum(in.^p);            
+            out = in/sum(in.^p);                
         end
     case 2 %2D
         if p==0

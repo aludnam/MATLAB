@@ -10,6 +10,7 @@ ncomp = [10 20 30];
 
 
 itervec=1; %number of evaluation of each dataset
+peval.sript_name = mfilename; 
 
 % set here the path to the data (in this case data must be in mat format):
 peval.data_path = '~/project/data/qdots/....';

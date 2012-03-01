@@ -25,9 +25,9 @@ end
 if ~isempty(titleshow)
     if length(titleshow) == 1       
         titlename = num2cell(1:d3); % default title - number of figure
-    else %specified ttile as a vector...
+    else %specified ttile as a vector...        
+        titlename = num2cell(titleshow);
         titleshow = 1;
-        titlename = num2cell(titleshow); 
     end
 end
 
