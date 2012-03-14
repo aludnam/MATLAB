@@ -1,0 +1,8 @@
+function out=whitenCol(in)
+% out=whitenCol(in); 
+% Whitens colums of the matrix in (each column has zero mean and unit
+% variance).
+% Example: 
+%           var(whitenCol(rand(20,3)),[],1)
+%           mean(whitenCol(rand(20,3)),1)
+out=bsxfun(@rdivide,bsxfun(@minus, in, mean(in,1)), std(in,[],1)); 

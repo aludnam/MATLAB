@@ -1,0 +1,15 @@
+function t=convertLabelsToTable(L,n)
+%convertLabelsToTable(L,n) Converts labeled stack of images to the table of cluster-sizes.
+%   t=convertLabelsToTable(L,n)
+%   L is a labelled image, n number of clustrers - output of the function
+%   [L,n] = bwlabelStack(reshape(wm,peval.nx,peval.ny, peval.ncomp)>0.5,
+%   4);
+sizeZ=size(L,3); 
+maxClust = max(n); 
+t=zeros(sizeZ,maxClust);
+for frame=1:sizeZ
+    for cluster = 1:maxClust
+        clustTmp=L(:,:,frame)==cluster;
+        t(frame,cluster)=sum(clustTmp(:));
+    end
+end
