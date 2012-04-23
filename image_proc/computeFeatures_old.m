@@ -1,4 +1,4 @@
-function features=computeFeatures(wall,peval)
+function [l2, bgDiffSum, nc, maxF, sumD, sumFg, sumBg,diffWall,edgedist]=computeFeatures(wall,peval)
 % l2 - L2 norm
 % bgDiffSum - continuity of the thresholded (binary) background
 % nc - number of clusters in the thresholded (binary) foreground
@@ -32,13 +32,9 @@ bgvec=wm<bgThresh;
 % feature
 sumBg =squeeze(sum(bgvec));
 d=abs(wpixf-wpix);
-features(1).val = sumBg; 
-features(1).txt = 'sumBg'; 
 
 % feature - difference between the psf convoluted image and hte original <- this does not really work...
 sumD=squeeze(sum(sum(d,1),2))/npix;
-features(2).val = sumD; 
-features(2).txt = 'sumD'; 
 
 % feature - maximum of the psf convoluted image <- this is very correlated with L2 norm
 % maxF=squeeze(max(max(normalize(wpixf,1))));

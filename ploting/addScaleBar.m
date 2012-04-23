@@ -1,6 +1,6 @@
 function addScaleBar(in,barLength,barWidth, barPosition,barColor)
 % Adds scale bar into an image. 
-% out=addScaleBar(in,barLength,barPosition,barColor)
+% out=addScaleBar(in,barLength,barWidth,barPosition,barColor)
 % in: image to which the scale bar should be added. 
 % barLength: length of the scale bar in pixels (defaults barLength=10);
 % barWidth: thickness of the scale bar in pixesl (default: barWidth = 3); 

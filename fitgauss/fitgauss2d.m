@@ -43,6 +43,7 @@ for sl = 1:nslice
     else
         x = fminsearch(@(x) ddivGauss_sigfix(x,Mslice,sigfix),[yguess,xguess]);
         sig(sl) = sigfix;
+        x(3) = sigfix; 
     end
     x_mu(sl) = x(1);
     y_mu(sl) = x(2);
