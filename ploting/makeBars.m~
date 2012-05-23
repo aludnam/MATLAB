@@ -1,0 +1,27 @@
+function a=makeBars(numbers,sx,sy,scale,showim)
+makeBars creates images (sx X sy) of horizontal bars filled by ammount corresponding to numbers. 
+
+a=makeBars(numbers,sx,sy,scale,showim)
+numbers - numbers to be represented
+sx,sy, dimensions of hte bar
+scale - if set to 1 (default) scales numbers between 0 and 1
+    
+
+if ~exist('scale','var')
+    scale = 1; 
+end
+if ~exist('showim','var')
+    showim=1;
+end
+
+sn=length(numbers);
+minn=min(numbers); 
+maxn=max(numbers); 
+numsc=(numbers-minn)/(maxn-minn);
+a=zeros(sy,sx,sn)+eps;
+for ii=1:sn
+    a(:,1:round(sx*numsc(ii)),ii)=1;
+end
+if showim
+    imstiled(a,[],'gray',[],[1,sn])
+end

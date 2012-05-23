@@ -45,7 +45,11 @@ maxF=squeeze(max(max(wpixf)));
 bgDiffSum=sum(abs(diff(bgvec)),1)'/npix;
 
 % feature - L2 norm
-l2=sum(wall.^2,1)'/npix;
+% l2=sum(wall.^2,1)'/npix;
+l2=sqrt(sum(wall.^2,1))';
+% replaced by Hoyer measure:
+% l2=((sqrt(npix)-1./sum(wall.^2,1))/(sqrt(npix)-1))';
+
 
 % feature
 [L,n] = bwlabelStack(fg, 4);
@@ -59,11 +63,13 @@ nc = n';
 diffWall = sum(abs(diff(wall,1,1)))'/npix;
 
 % feature - distance of the global maximum from the border:
-maxcol=max(wall,[],1);
-wones=bsxfun(@times,ones(size(wall)),maxcol);
-maxpix=(reshape(wones,peval.nx,peval.ny,size(wall,2))==wpix);
+ncTot=size(wall,2); 
+npix=size(wall,1);
+maxcol=max(wall,[],1); % maximum of each w_k
+wmax = ones(npix,1)*maxcol; 
+wmaxpix=reshape(wmax,peval.nx,peval.ny,ncTot)==wpix;
 for ii=1:size(wall,2)
-    [maxx,maxy]=find(maxpix(:,:,ii),1);
+    [maxx,maxy]=find(wmaxpix(:,:,ii),1);
     edgedist(ii)=min([maxx-1,peval.nx-maxx, maxy-1, peval.ny-maxy]); 
 end
 edgedist = edgedist';
