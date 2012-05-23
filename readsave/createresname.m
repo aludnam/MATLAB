@@ -12,4 +12,8 @@ else
     peval.res_dir = ['results' res_nameappendix];
 end
 
-peval.res_name = ['results_iter' num2str(app)];
+if exist('app','var')
+    peval.res_name = ['results_iter' num2str(app)];
+else
+    peval.res_name = ['results'];
+end
