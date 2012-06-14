@@ -1,0 +1,19 @@
+function [md,mA,mB]=mindistsep(A,B)
+% Computes the unique minimum distance of points from A to B. To each point
+% A it finds the closest point B. 
+% [md,mA,mB]=mindistsep(A,B)
+% md -
+Aall=A; 
+Ball=B;
+n=min(size(Aall,1), size(Ball,1));
+md=inf(n,1);
+mA=zeros(n,1);
+mB=zeros(n,1);
+for ii=1:n
+    d=dist2(A,B);
+    m=min(d,[],1);
+    md(ii) = min(m);
+    [mA(ii),mB(ii)]=find(d==md(ii));
+    A(mA(ii),:)=inf(1,2); 
+    B(mB(ii),:)=inf(1,2); 
+end

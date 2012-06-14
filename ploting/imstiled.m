@@ -51,9 +51,9 @@ end
 
 
 if handlefig; 
-    figure(handlefig);
+     figure(handlefig);
 else
-    figure(gcf)
+%      figure(gcf)
 end
 
 for ii=1:d3

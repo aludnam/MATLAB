@@ -35,8 +35,8 @@ function einzelreader(handles, h)
 
     imagefile = get(handles.im_file_edit, 'String');
     outpath = get(handles.out_dir_edit, 'String');
-    if outpath(length(outpath))~='\'
-        outpath = [outpath,'\'];
+    if outpath(length(outpath))~='/'
+        outpath = [outpath,'/'];
     end
     preview = get(handles.show_preview,'Value');
 
@@ -75,7 +75,7 @@ function einzelreader(handles, h)
         
     else %else use integrated widefield sum
         %Load wf sum & mean background mat file
-        meanbkg_mat_file = getappdata(0,'last_mbkg_save'); %strcat(dir,'analysis\',date,'\',base_name,'sum_wf_meanbkg.mat');
+        meanbkg_mat_file = getappdata(0,'last_mbkg_save'); %strcat(dir,'analysis\',date,'/',base_name,'sum_wf_meanbkg.mat');
         load(meanbkg_mat_file,'meanbkg_all','image_sum','x_size','y_size','x_offset','y_offset','field0','n_field','file_info');%,'zero_level'); %mat file from sum_wf_meanbkg.m
         
         n_end   = file_info.stop;
@@ -146,7 +146,8 @@ function einzelreader(handles, h)
     for fileloop=n_start:n_end
         if strcmp(file_info.type,'singlepage')
             index = num2str(fileloop,file_info.prec);
-            infile = [file_info.path,'\',file_info.part_name,index,file_info.ext];
+%             infile = [file_info.path,'/',file_info.part_name,index,file_info.ext];
+            infile = [file_info.path,'/',file_info.part_name,index,file_info.ext];
             i1=double(imread(infile));
         elseif strcmp(file_info.type,'multipage')
             i1=double(imread(imagefile,fileloop));
@@ -506,14 +507,14 @@ function einzelreader(handles, h)
             if fileloop == n_end
                 setappdata(0,'Save',1); %Trigger image save on last frame
                 save(temp_runtime);     %Save variables to a temporary file for function passing
-                fpalm_render_einzelreader(handles,h);
+%                 fpalm_render_einzelreader(handles,h);
             elseif fileloop == n_start+fs1-1
                 fs1=fs1+fs0;
                 save(temp_runtime);
-                fpalm_render_einzelreader(handles,h);
+%                 fpalm_render_einzelreader(handles,h);
             elseif fileloop == n_start
                 save(temp_runtime);
-                fpalm_render_einzelreader(handles,h);
+%                 fpalm_render_einzelreader(handles,h);
             end
         end 
     end 
@@ -530,9 +531,9 @@ function einzelreader(handles, h)
     
     if get(handles.oc_wf,'Value') %save widefield image if selected
         if (file_info.part_name(length(file_info.part_name)) == '_') %Avoid saving with repeated seperators                
-            wf_file = [outpath,'\',file_info.part_name,'wf.tif'];
+            wf_file = [outpath,'/',file_info.part_name,'wf.tif'];
         else
-            wf_file = [outpath,'\',file_info.part_name,'_wf.tif'];
+            wf_file = [outpath,'/',file_info.part_name,'_wf.tif'];
         end
         imwrite(uint8((image_sum/max(image_sum(:)))*255),wf_file,'Compression','none');
     end
@@ -553,8 +554,8 @@ function einzelreader(handles, h)
             if ~outpath
                 return
             end
-            if outpath(length(outpath))~='\'
-                outpath = [outpath,'\'];
+            if outpath(length(outpath))~='/'
+                outpath = [outpath,'/'];
             end
 
             if (file_info.part_name(length(file_info.part_name)) == '_')

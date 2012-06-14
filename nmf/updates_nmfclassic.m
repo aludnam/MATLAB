@@ -130,6 +130,7 @@ mfprintf(peval.fid, '['); mfprintf (peval.fid, '%g ', dovec_h); mfprintf (peval.
 end
 
 function plotprogress(w,d,peval)
-    imstiled(reshape(w, peval.nx, peval.ny, peval.ncomp),10, 'gray',[],[],1)
-    plot(d(2:end))
+    imstiled(reshape(w, peval.nx, peval.ny, peval.ncomp),0, 'gray',[],[],1)
+    plot(d(2:end))    
+    drawnow; 
 end

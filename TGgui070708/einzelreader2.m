@@ -142,7 +142,8 @@ function einzelreader2(handles, h)
     for fileloop=n_start:n_end
         if strcmp(file_info.type,'singlepage')
             index = num2str(fileloop,file_info.prec);
-            infile = [file_info.path,'\',file_info.part_name,index,file_info.ext];
+%             infile = [file_info.path,'\',file_info.part_name,index,file_info.ext];
+            infile = [file_info.path,'/',file_info.part_name,index,file_info.ext];
             i1=double(imread(infile));
         elseif strcmp(file_info.type,'multipage')
             i1=double(imread(imagefile,fileloop));

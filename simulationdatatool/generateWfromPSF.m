@@ -9,7 +9,7 @@ shift_x=y_vec-center(2);
 w=zeros(prod(sizeVec),npoints);
 if ndims(psf)<3
     % if pased only one 2D image of PSF then all points have the same PSF
-    psf = repmat(psf,:,:,npoints);
+    psf = repmat(psf,[1,1,npoints]);
 end
 
 for ii=1:npoints

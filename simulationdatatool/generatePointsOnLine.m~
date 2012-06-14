@@ -1,0 +1,46 @@
+function [x,y]=generatePointsOnLine(k,N,distrib)
+% Generates N points disributed on a line of gradient k and length 1.
+% [x,y]=generatePointsOnLine(k,N,distrib)
+% x,y - coordinates
+% k - gradient =tan(alpha)=opposite/adjecent
+% N - number of points
+% distrib -     'rand' uniform random distribution (defaults)
+%               'regular' regular points
+% Example:      
+%               [x,y]=generatePointsOnLine(0.5,100,'regular');
+%               scatter(x,y)
+% To make the line between x1 and x2 with gradient k and linear density r =
+% N_n/(x2-x1)
+% N_n=(x2-x1)*r;
+% generate 
+%               [x,y]=generatePointsOnLine(k,N_n,'regular');
+% and 
+%               x_n=x1+x*(x2-x1)*sqrt(1+k^2);
+%               y_n=k*x_n;
+
+if ~exist('distrib','var')
+    distrib='rand';
+end
+
+q=1/sqrt(1+k^2);
+switch lower(distrib)
+    case 'rand'
+        x = rand(N,1)*q;
+    case 'regular'
+        x = linspace(0,1,N)'*q;
+    case 'randMinDist'
+        x = randMinDist(N); 
+end
+y = k*x;
+end
+
+function x=randMinDist(N)
+ii=0;
+x=inf(N,1);
+while ii<N
+    x(ii,1)=rand;
+    
+    ii=ii+1;
+end
+
+end
