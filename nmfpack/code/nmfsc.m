@@ -88,7 +88,9 @@ while 1,
 	if iter>1,
 	    figure(2);
 	    plot(objhistory(2:end));
-	end
+    end
+    % added for now
+    figure(100); imstiled(reshape(W,15,15,43),[],'gray')
 	drawnow;
     end
     

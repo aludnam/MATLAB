@@ -1,0 +1,17 @@
+function mat2tiff(image,namedir, namefilebase)
+% mat2tiff(image,namedir, namefilebase)
+% Saves image (3D stack) as a series of 16-bit tiff images . 
+% 
+% Example:  mat2tiff(dpixc,'images','dpixc')
+
+s=size(image);
+mkdir(namedir)
+if ~strcmpi(class(image),'uint16')
+    image=uint16(image);
+    warning('Converting to uint16 type!')
+end
+
+for ii=1:s(3)
+    namefile = [namefilebase '_' sprintf('%0.4d',ii)];
+    imwrite(image(:,:,ii),[namedir '/' namefile '.tiff'] ,'TIFF')
+end
