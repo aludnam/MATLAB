@@ -1,8 +1,10 @@
-function [dataXY_out] = ROIdata (dataXY_in, x_lim1, x_lim2, y_lim1, y_lim2, plotOrig)
-% [dataXY_out] = ROIdata (dataXY_in, x_lim1, x_lim2, y_lim1, y_lim2,
-% plotOrig)
-% reduction of the data size
+function [dataXY_out,indexGood] = ROIdata (dataXY_in, x_lim1, x_lim2, y_lim1, y_lim2, plotOrig)
+% [dataXY_out,indexGood] = ROIdata (dataXY_in, x_lim1, x_lim2, y_lim1, y_lim2,plotOrig)
+% reduction of the data size into a box [x_lim1,xlim2,ylim1,ylim2]
+% indexGood - gives indices of the dataXY points used in dataXY. 
 % plotOrig - plot original data with selected boundary
+%
+
 
 if nargin<6
     plotOrig = 0; %not plotting by default
@@ -20,6 +22,7 @@ for ii = 1:sizeData
         if and(y_in(ii) > y_lim1, y_in(ii) <= y_lim2)
             x_out(jj) = x_in(ii);
             y_out(jj) = y_in(ii);
+            indexGood(jj)=ii; 
             jj = jj+1;
         end
     end

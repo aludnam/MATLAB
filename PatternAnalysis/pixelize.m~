@@ -26,13 +26,13 @@ pixvec = ceil ([(datain(:,1) - box(1))/sx , (datain(:,2) - box(3))/sy ]);
 
 pix = zeros(nx, ny);
 ind = sub2ind(size(pix), pixvec(:,1), pixvec(:,2));
-pix(ind) = intens; 
-for ii=1 : size(datain, 1)
-    coord = [pixvec(ii,1), pixvec(ii,2)];
-    pix(coord(1), coord(2)) = pix (coord(1), coord(2)) + intens(ii);
+pix(ind) = intens;
+for ii=1:length(ind)
+    pix(ind(ii))=intens
 end
 
-pix = flipud(pix'); % to follow the matlab notation for imagesc(pix)...
+% pix = flipud(pix'); % to follow the matlab notation for imagesc(pix)...
+pix = pix'; % to follow the matlab notation for imagesc(pix)...
 
 if ~exist ('showplot', 'var')
     showplot = 1;

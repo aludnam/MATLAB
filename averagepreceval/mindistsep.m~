@@ -1,6 +1,9 @@
 function [md,mA,mB]=mindistsep(A,B)
 % Computes the unique minimum distance of points from A to B. To each point
 % A it finds the closest point B. 
+% It is not ideal as in situation like this: o   xo x it does not performs
+% optimally. But that is life. (It works under suggestion that the
+% estimated points are close to the true ones. 
 % [md,mA,mB]=mindistsep(A,B)
 % md -
 Aall=A; 
@@ -13,6 +16,8 @@ for ii=1:n
     d=dist2(A,B);
     m=min(d,[],1);
     md(ii) = min(m);
+    md(ii)
+    find(d==md(ii))
     [mA(ii),mB(ii)]=find(d==md(ii));
     A(mA(ii),:)=inf(1,2); 
     B(mB(ii),:)=inf(1,2); 

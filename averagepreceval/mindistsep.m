@@ -13,10 +13,10 @@ md=inf(n,1);
 mA=zeros(n,1);
 mB=zeros(n,1);
 for ii=1:n
-    d=dist2(A,B);
+    d=sqrt(dist2(A,B));
     m=min(d,[],1);
     md(ii) = min(m);
-    [mA(ii),mB(ii)]=find(d==md(ii));
+    [mA(ii),mB(ii)]=find(d==md(ii),1);
     A(mA(ii),:)=inf(1,2); 
     B(mB(ii),:)=inf(1,2); 
 end
