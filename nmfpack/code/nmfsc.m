@@ -88,7 +88,7 @@ while 1,
 	if iter>1,
 	    figure(2);
 	    plot(objhistory(2:end));
-	end
+    	end    
 	drawnow;
     end
     
