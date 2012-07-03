@@ -1,6 +1,6 @@
 function pix = pixelize(datain_all, intens, box, nx, ny, namefile, showplot)
 
-% pix = pixelize(datain_all, intens, box, nx, ny, namefile)
+% pix = pixelize(datain_all, intens, box, nx, ny, namefile,showplot)
 % pixelize PALM data
 % datain_all - input data, #points-by-2 matrix, each row correspond to xy
 % coordinate of the datapoint
@@ -16,8 +16,8 @@ end
 sx = (box(2)-box(1))/nx; %size of the pixels
 sy = (box(4)-box(3))/ny;
 
-datain = ROIdata (datain_all, box(1), box(2), box(3),  box(4), showplot);
-
+[datain, indexGood] = ROIdata (datain_all, box(1), box(2), box(3),  box(4), showplot);
+intensGood=intens(indexGood);
 pixvec = ceil ([(datain(:,1) - box(1))/sx , (datain(:,2) - box(3))/sy ]);
 
 % indrem_min = find (or(pixvec(:,1) < 0, pixvec(:,2) < 0));
@@ -26,7 +26,10 @@ pixvec = ceil ([(datain(:,1) - box(1))/sx , (datain(:,2) - box(3))/sy ]);
 
 pix = zeros(nx, ny);
 ind = sub2ind(size(pix), pixvec(:,1), pixvec(:,2));
-pix(ind) = intens; 
+% pix(ind) = intens;
+for ii=1:length(ind)
+    pix(ind(ii))=pix(ind(ii))+intensGood(ii);
+end
 
 % pix = flipud(pix'); % to follow the matlab notation for imagesc(pix)...
 pix = pix'; % to follow the matlab notation for imagesc(pix)...

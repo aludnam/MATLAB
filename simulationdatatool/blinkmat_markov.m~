@@ -1,4 +1,4 @@
-function blinkmat = blinkmat_markov(N,Nt, intensity_vec, probtrans)
+function blinkmat = blinkmat_markov(N,Nt, intensity_vec, probtrans, oversampling)
 % blinkmat = blinkmat_markov(N,Nt, intensity_vec, probtrans)
 % Generates NxNt blinking matrix with maximum inteinisty (intensity_vec)
 % and probability transition probtrans

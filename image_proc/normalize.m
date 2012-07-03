@@ -3,6 +3,12 @@ function out = normalize(in,p)
 % normalizes 1d vector or 2d image or each slice of 3D image in the p-norm
 % (sum(in.^p) = 1; (p=1 by default)
 % for p==0 the image is normalized to the maximum value==1
+isdip=0;
+if strcmpi(class(in),'dip_image')
+    isdip=1;
+    in=double(in); 
+end
+
 if nargin < 2 
     p=1;
 end
@@ -36,4 +42,6 @@ switch nd
         end
         out = reshape(outr, si);
 end
-
+if isdip
+    out=dip_image(out); 
+end

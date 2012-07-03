@@ -2,7 +2,6 @@ function out = binavg(in, numim2bin)
 % Rebins image by averaging nnumim2bin bins together along z-directoion
 % out = binavg(in, numim2bin)
 
-
 di=0;
 if strcmp(class(in),'dip_image')
     di=1;
