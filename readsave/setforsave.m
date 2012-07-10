@@ -9,7 +9,10 @@ if ~exist('linewidthvalue','var')
 end
 if ~exist('h', 'var')
     h = gcf;
+elseif isempty(h)
+    h=gcf;
 end
+
 gh=get(h);
 for ii=1:length(gh.Children)
     ga{ii} = get(gh.Children(ii));

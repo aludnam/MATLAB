@@ -10,8 +10,8 @@ if strcmp(class(in),'dip_image')
 end
 tmp = in;
 
-for ii=1:numinbin
-    tmp = tmp + circshift(in,[-1*ii 0]);
+for ii=2:numinbin
+    tmp = tmp + circshift(in,[-1*(ii-1) 0]);
 end
 
 nb = floor(size(in,1)/numinbin);

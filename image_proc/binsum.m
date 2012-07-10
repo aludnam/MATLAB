@@ -1,8 +1,7 @@
 function out = binsum(in, numim2bin)
-% needs to be fixed - i think this is the same binavg.m
 % Rebins image by summing nnumim2bin bins together along z-direction
 % out = binsum(in, numim2bin)
-
+di=0;
 if strcmp(class(in),'dip_image')
     di=1;
     in=double(in);
@@ -16,3 +15,7 @@ end
 nb = floor(size(in,3)/numim2bin);
 ix=numim2bin*(1:nb)-(numim2bin-1);
 out = tmp(:,:,ix);
+
+if di
+    out=dip_image(out); 
+end
