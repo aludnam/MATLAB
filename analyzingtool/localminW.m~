@@ -1,4 +1,4 @@
-function [mwcn,wpixc, globmax,edgedist]=localminW(w,nx,ny,psf)
+function [mwcn,wpixc, globmax]=localminW(w,nx,ny,psf)
 % [mwcn,wpixc, globmax]=analyzeWconfPSF(w,nx,ny,psf)
 % Finds local maxima in the results w (nx*ny,ncomp) convoluted with psf
 % wpixc - w convolved with estimated PSF. 

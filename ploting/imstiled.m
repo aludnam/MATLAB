@@ -1,5 +1,5 @@
-function imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore)
-% imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore)
+function imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore,colorframevec)
+% imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore,colorframevec))
 % Tiles array of images
 % handlefig: figure handle, if 0 then handlefig = gcf, if empyt ([]) then
 % creates a new figure;
@@ -7,9 +7,23 @@ function imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore)
 % titleshow : shows title, if set to [] no title is shown
 % sizevec : defines size of the subplot. If set to [] then automatic.
 % steponemore : (0 default) steps into next window after plotting the last image. 
+% colorframevec: a vector indicating which tiles shoudl be framed in
+% colored frame: 0-no color, 1-red color, 2-green color, 3-blue color.
+% (default is no colored frames)
+% 
+% Example:  im=rand(50,50,6);
+%           figure; 
+%           imstiled(im,[],'gray',[1:6],[2,3],[],[1 2 3 0 0 0])
+% This will create 2x3 tiles from each frame of im, in a gray scale with
+% numbers of frames (1:6) in each tile, and making the first frame red,
+% second green, third blue adn 4:6 without colored frame. 
 
 if ~exist('steponemore','var');
     steponemore=0;
+end
+
+if ~exist('colorframevec','var');
+    colorframevec=zeros(size(imagein,3));
 end
 
 if nargin<2 handlefig=0; end
@@ -64,6 +78,19 @@ for ii=1:d3
 %         xlabel(num2str(titlename{ii}),'fontsize',5);
         text(5, 5, num2str(titlename{ii}),'color','w' ,'fontsize',10)
     end
+    if colorframevec(ii)==1
+        set(gca,'xcolor','r','linewidth',2)
+        set(gca,'ycolor','r','linewidth',2)        
+    elseif colorframevec(ii)==2
+        set(gca,'xcolor','g','linewidth',2)
+        set(gca,'ycolor','g','linewidth',2)        
+    elseif colorframevec(ii)==3
+        set(gca,'xcolor','b','linewidth',2)
+        set(gca,'ycolor','b','linewidth',2)        
+    elseif colorframevec(ii)==4
+        set(gca,'xcolor','r','linewidth',2)
+        set(gca,'ycolor','g','linewidth',2)        
+    end 
 end
 
 % enable to plot something in another window...
