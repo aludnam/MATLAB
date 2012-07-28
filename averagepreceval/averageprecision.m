@@ -1,4 +1,4 @@
-function [AP,TP,FN,FP,prec,rec,mdAll]=averageprecision(coord_est,coord_true,radiustrue,intens)
+function [AP,TP,FN,FP,prec,rec,mdAll,levh]=averageprecision(coord_est,coord_true,radiustrue,intens)
 % Evaluates average precision for set of true and estimated points. See S407_report for details. 
 % References: Everingham, M., Gool, L., Williams, C.K.I., Winn, J. & Zisserman, A. The Pascal Visual Object Classes (VOC) Challenge. International Journal of Computer Vision 88, 303-338 (2009).
 %
@@ -16,13 +16,16 @@ function [AP,TP,FN,FP,prec,rec,mdAll]=averageprecision(coord_est,coord_true,radi
 %         rec - recall 
 %         mdAll - localisation precision at the lowest confidence level
 
-levn = 100; % number of confidence levels for AP (see S407_report.pdf)
+% levn = 100; % number of confidence levels for AP (see S407_report.pdf)
+
+levh=sort(unique(sqrt(intens)));
+levn=length(levh); % number of different intensities
 
 nT=size(coord_true,1);
 nE=size(coord_est,1);
-minh=min(sqrt(intens));
-maxh=max(sqrt(intens));
-levh=minh+(maxh-minh)/(levn-1)*[0:levn-1];
+minh=min(levh);
+maxh=max(levh);
+% levh=minh+(maxh-minh)/(levn-1)*[0:levn-1];
 
 TP=zeros(levn,1);
 FP=nE*ones(levn,1);

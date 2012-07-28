@@ -1,8 +1,8 @@
-function [AP,TP,FN,FP,prec,rec,md]=averageprecision(coord_est,coord_true,radiustrue,intens)
+function [AP,TP,FN,FP,prec,rec,mdAll]=averageprecision(coord_est,coord_true,radiustrue,intens)
 % Evaluates average precision for set of true and estimated points. See S407_report for details. 
 % References: Everingham, M., Gool, L., Williams, C.K.I., Winn, J. & Zisserman, A. The Pascal Visual Object Classes (VOC) Challenge. International Journal of Computer Vision 88, 303-338 (2009).
 %
-% [AP,TP,FN,FP,prec,rec,md]=averageprecision(coord_est,coord_true,radiustrue,intens)
+% [AP,TP,FN,FP,prec,rec,mdAll]=averageprecision(coord_est,coord_true,radiustrue,intens)
 % input:  coord_est - Nx2 matrix of estimated coordinates
 %         coord_true- Nx2 matrix of true coordinates
 %         radiustrue - limit on distance between true and estimated coordinates. For smaller distance the estimated point is considered as a true positive (can be set to sigma/2, where sigma is the std of the gaussian approximation of hte PSF.)
@@ -14,23 +14,26 @@ function [AP,TP,FN,FP,prec,rec,md]=averageprecision(coord_est,coord_true,radiust
 %         FP - false poitives
 %         prec - precision
 %         rec - recall 
-%         md - localisation precision
+%         mdAll - localisation precision at the lowest confidence level
 
-levn = 100; % number of confidence levels for AP (see S407_report.pdf)
+% levn = 100; % number of confidence levels for AP (see S407_report.pdf)
+
+uniquesqint=sort(unique(sqrt(intens)));
+levn=length(uniquesqint); % number of different intensities
 
 nT=size(coord_true,1);
 nE=size(coord_est,1);
-minh=min(sqrt(intens));
-maxh=max(sqrt(intens));
-levh=minh+(maxh-minh)/(levn-1)*[0:levn-1];
+minh=min(uniquesqint);
+maxh=max(uniquesqint);
+% levh=minh+(maxh-minh)/(levn-1)*[0:levn-1];
 
 TP=zeros(levn,1);
 FP=nE*ones(levn,1);
 FN=nT*ones(levn,1);
 T = coord_true;
-E = coord_est;
+mdAll=mindistsep(T,coord_est);
 for ii=1:levn
-    index = find(sqrt(intens)>levh(ii)); % above the limit brightness   
+    index = sqrt(intens)>=uniqusqin; % above the limit brightness   
     E = coord_est(index,:);
     [md,mT,mE]=mindistsep(T,E); % mT and mE are indeces of points connected by a distance md.
     TP(ii) = sum(md<=radiustrue); %true positives
@@ -45,7 +48,7 @@ rec = TP./(TP+FN);
 
 precinterpol = zeros(11,1);
 for ii=0:10;
-    recind=rec>(.1*ii);
+    recind=rec>=(.1*ii);
     maxprec = max(prec(recind));
     if ~isempty(maxprec)
         precinterpol(ii+1)=maxprec;
