@@ -11,7 +11,9 @@ function wout=resamplePowerW(w,nx,ny,resampleFactor,pow,makeImage)
 % example: 
 % wout=resamplePowerW(res.w, peval.nx, peval.ny, 4,2,1);
 % figure; imstiled(wout)
-
+if size(pow,1)<size(pow,2) %must be a column vector
+    pow=pow';
+end
 if ~exist('makeImage','var')
     makeImage = 0; 
 end
@@ -19,6 +21,9 @@ ncomp=size(w,2);
 % wr=resampleImageStack(reshape(w, nx, ny, ncomp),resampleFactor).^pow;
 % wout=normcSum(reshape(wr,resampleFactor^2*nx*ny,ncomp)); % normalized to sum to 1
 wr=resampleImageStack(reshape(w, nx, ny, ncomp),resampleFactor);
+% gauss - filtering:
+fprintf('Filtering with gaussian to reduce peaks from noise.\n')
+wr=reshape(double(gaussf(reshape(wr,resampleFactor*nx,resampleFactor*ny,ncomp),[4 4 0])),resampleFactor*nx,resampleFactor*ny,ncomp);
 wout=normcSum(bsxfun(@power,reshape(wr,resampleFactor^2*nx*ny,ncomp),pow')); % normalized to sum to 1
 if makeImage
     wout = reshape(wout, resampleFactor*nx, resampleFactor*ny, ncomp); 
