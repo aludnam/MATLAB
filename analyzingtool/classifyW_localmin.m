@@ -1,5 +1,5 @@
 function [onesource,twosources,edgedist,nlocmax]=classifyW_localmin(w,nx,ny,psf,threshold,displayimage)
-% [onesource,twosources,edgedist,nlocmax]=classifyW_localmin(w,nx,ny,psf,displayimage)
+% [onesource,twosources,edgedist,nlocmax]=classifyW_localmin(w,nx,ny,psf,threshold,displayimage)
 % Classify the the estimated sources w (nx*ny X ncomp matrix). 
 %
 % Input: 
@@ -26,6 +26,10 @@ end
 
 if ~exist('threshold','var')
     threshold = 0.5;
+end
+
+if ~exist('displayimage','var')
+    displayimage = 0;
 end
 
 [mwcn,wpixc,globmax,edgedist]=localminW(w,nx,ny,psf);

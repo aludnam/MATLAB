@@ -1,5 +1,5 @@
 function [onesource,twosources,edgedist,nlocmax]=classifyW_localmin(w,nx,ny,psf,threshold,displayimage)
-% [onesource,twosources,edgedist,nlocmax]=classifyW_localmin(w,nx,ny,psf,displayimage)
+% [onesource,twosources,edgedist,nlocmax]=classifyW_localmin(w,nx,ny,psf,threshold,displayimage)
 % Classify the the estimated sources w (nx*ny X ncomp matrix). 
 %
 % Input: 
@@ -15,10 +15,17 @@ function [onesource,twosources,edgedist,nlocmax]=classifyW_localmin(w,nx,ny,psf,
 % twosources -> binary vector indicating 2 sources
 % edgedist  -> distance of the local maximum from the edge
 % nlocmax -> numbe of local maxima in each 
+%
+% Example: 
+% [onesource,twosources,edgedist,nlocmax]=classifyW_localmin(res.w(:,1:end-1),peval.nx,peval.ny,p,0.5,1)
 
 if isstruct(psf)    
     psf = PSFGEN('lambda', psf.lambda, 'na', psf.NA, 'pixelsize', psf.pixelsize, 'sizevec', [nx ny], 'method', 'airy', 'nphot',1, 'verbose',0);
     fprintf('Generating PSF...\n')
+end
+
+if ~exist('threshold','var')
+    threshold = 0.5;
 end
 
 if ~exist('threshold','var')
@@ -34,5 +41,5 @@ if displayimage
     framecolvec=(edgedist'<2)+(2*onesource);
     framecolvec(framecolvec==1)=0;
     framecolvec=framecolvec+twosources;
-    figure; imstiled(reshape(w,nx,ny,peval.ncomp-1),[],'gray',[1:peval.ncomp],[5,16],[],framecolvec)
+    figure; imstiled(reshape(w,nx,ny,size(w,2)),[],'gray',[1:size(w,2)],[],[],framecolvec)
 end

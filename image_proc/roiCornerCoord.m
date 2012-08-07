@@ -8,6 +8,7 @@ function [out, c1, c2] = roiCornerCoord(in, topLeft, bottomRight, showim, color,
 % showim: show the original image with roi (default showim = 1)
 % color: [string] color of the line (default color = 'blue') 
 % flipCoord: set to 1 for doubles
+% linestyle: (default linestyle='-')
 % out: cut region of interest
 % c1, c2: coordinates of the ROI corners
 
