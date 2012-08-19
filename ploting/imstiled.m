@@ -76,7 +76,9 @@ for ii=1:d3
     if titleshow
 %         title(num2str(titlename{ii}));
 %         xlabel(num2str(titlename{ii}),'fontsize',5);
-        text(5, 5, num2str(titlename{ii}),'color','w' ,'fontsize',10)
+        t1 = floor(size(imagein,1)/5);
+        t2 = floor(size(imagein,2)/5);
+        text(t1, t2, num2str(titlename{ii}),'color','w' ,'fontsize',10)
     end
     if colorframevec(ii)==1
         set(gca,'xcolor','r','linewidth',2)

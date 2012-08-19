@@ -20,7 +20,7 @@ function [onesource,twosources,edgedist,nlocmax]=classifyW_localmin(w,nx,ny,psf,
 % [onesource,twosources,edgedist,nlocmax]=classifyW_localmin(res.w(:,1:end-1),peval.nx,peval.ny,p,0.5,1)
 
 if isstruct(psf)    
-    psf = PSFGEN('lambda', psf.lambda, 'na', psf.NA, 'pixelsize', psf.pixelsize, 'sizevec', [nx ny], 'method', 'airy', 'nphot',1, 'verbose',0);
+    psf = psfgen('lambda', psf.lambda, 'na', psf.NA, 'pixelsize', psf.pixelsize, 'sizevec', [nx ny], 'method', 'airy', 'nphot',1, 'verbose',0);
     fprintf('Generating PSF...\n')
 end
 
