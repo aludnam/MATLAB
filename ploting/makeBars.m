@@ -36,11 +36,12 @@ else
 end
 if sum(numsc>1)
     warning('Problem with scaling the bars!')
+    numsc=min(numsc,1); % when the number is over one it is clipped to 1.
 end
     
 a=zeros(sy,sx,sn)+eps;
 for ii=1:sn
-    a(:,1:round(sx*numsc(ii)),ii)=1;
+    a(:,1:ceil(sx*numsc(ii)),ii)=1; 
     a(:,1,ii)=1;
     a(:,end,ii)=0;
     

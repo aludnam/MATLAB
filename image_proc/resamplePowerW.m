@@ -8,7 +8,7 @@ function wout=resamplePowerW(w,nx,ny,resampleFactor,pow,makeImage,gaussFiltering
 % gaussFiltering value of hte sigma (in non resampled iamge) used for
 % gaussFiltering of hte results. If set to 0, no gauss filters. Default
 % gaussFiltering = 1; 
-
+%
 %
 % wout=resamplePowerW(w,nx,ny,resampleFactor,pow,makeImage,gaussFiltering)
 %

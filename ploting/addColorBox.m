@@ -1,6 +1,6 @@
 function addColorBox(topLeft,bottomRight,color,linewidth,flipCoord,linestyle)
 % Adds color box to an image. 
-% addColorBox(topLeft,bottomRight,color,linewidth,flipCoord)
+% addColorBox(topLeft,bottomRight,color,linewidth,flipCoord,linestyle)
 % topLeft, bottomRight are the coorinated of the box corners. 
 % color: color of hte box. default: color = 'red'
 % linewidth: width of the line. default: linewidth=1
