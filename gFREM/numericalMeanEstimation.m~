@@ -36,7 +36,8 @@ maskdl=zeros(ln,lf,N);
 for jj=1:N  % Over 4 states
     lbgMat = repmat(lbg(:,jj)',ln,1);                           % Intensity of the Poisson
     maskdl(:,:,jj)=lbgMat>precMask;                             % Restriction to non-zero lambda (over space)
-    dlbgMat(:,:,jj)= repmat(gradient(lbg(:,jj),dx)',ln,1);      % Derivative of the intensity of the Poisson
+    %dlbgMat(:,:,jj)= repmat(gradient(lbg(:,jj),dx)',ln,1);      % Derivative of the intensity of the Poisson
+    gx=gradient(reshape(lbg(:,jj),size(x,1),size(x,2)),dx)
     r(:,:,jj)=(nmat-lbgMat)./lbgMat;                            % Linear ramp with offset and scaling
     Po(:,:,jj)=poissonpdfmulti(n,lbg(:,jj));                    % Poisson distribution
 end

@@ -7,6 +7,7 @@ end
 if ~exist('nphot','var')
     nphot=1;
 end
+% individual states of lambda l(:,alpha)=L^alpha_1*q_1+L^alpha_2*q_2
 l(:,1)=nphot*f1;
 l(:,2)=nphot*f2;
 l(:,3)=nphot*(f1+f2);
@@ -35,7 +36,9 @@ maskdl=zeros(ln,lf,N);
 for jj=1:N  % Over 4 states
     lbgMat = repmat(lbg(:,jj)',ln,1);                           % Intensity of the Poisson
     maskdl(:,:,jj)=lbgMat>precMask;                             % Restriction to non-zero lambda (over space)
-    dlbgMat(:,:,jj)= repmat(gradient(lbg(:,jj),dx)',ln,1);      % Derivative of the intensity of the Poisson
+    %dlbgMat(:,:,jj)= repmat(gradient(lbg(:,jj),dx)',ln,1);     % <-!!!WRONG!!! direction of derivative 
+    gx=gradient(reshape(lbg(:,jj),size(x,1),size(x,2)),dx);     % Derivative of the intensity of the Poisson 
+    dlbgMat(:,:,jj)=repmat(reshape(gx,1,lf),ln,1);
     r(:,:,jj)=(nmat-lbgMat)./lbgMat;                            % Linear ramp with offset and scaling
     Po(:,:,jj)=poissonpdfmulti(n,lbg(:,jj));                    % Poisson distribution
 end
