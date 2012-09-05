@@ -2,7 +2,7 @@
 % into (uniformly distributed over these states).
 dimensionality =2; % Number of dimensions (1 or 2) of the PSF.
 savethis =0;
-% p.offset = 100     ;
+p.offset = 100     ;
 
 int1_multi{1}=[2000];       % intensity of the source one
 % int1_multi{2}=[2000];      % this allows comparison of sources with different intensity
