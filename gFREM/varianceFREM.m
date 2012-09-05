@@ -21,7 +21,7 @@ l2 = .4;
 stepCoord = 0.2;
 % x1=-7:stepCoord:16;
 x1=-5:stepCoord:6;
-y1=-5:stepCoord:5;
+y1=-4:stepCoord:4;
 
 if dimensionality ==1
     % This is for 1D evaluation:
