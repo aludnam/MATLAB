@@ -15,13 +15,21 @@ int2_multi = int1_multi;    % intensity of the source two
 l1=0;
 % l2=0:.2:10;
 % l2=0:.05:1;
-l2 = .4;
+l2 = 2;
 
 % coordinates of the images (pixelised version needs to do some binnign)
-stepCoord = 0.2;
+
+oversampleFactor=5; % oversampling in order to compute PSF and derivatives
+stepCoord = 1/oversampleFactor;
 % x1=-7:stepCoord:16;
-x1=-5:stepCoord:6;
-y1=-4:stepCoord:4;
+xmin=-7; 
+xmax=8;
+ymin=-6;
+ymax=6;
+x1=xmin:xmax;
+y1=ymin:ymax;
+x1hires=xmin:stepCoord:xmax;
+y1hires=ymin:stepCoord:ymax;
 
 if dimensionality ==1
     % This is for 1D evaluation:
@@ -31,13 +39,16 @@ if dimensionality ==1
 elseif dimensionality ==2
     % This is for 2D evaluation:
     [xx,yy]=meshgrid(x1,y1);
+    [xxhires,yyhires]=meshgrid(x1hires,y1hires);
     x=cat(3,xx,yy);
+    xhires=cat(3,xxhires,yyhires);    
 end
+
 fprintf('Computaiton for %gD PSF.\n',dimensionality);
 
-p.lambda = 655; %nm
+p.lambda = 625; %nm
 p.NA = 1.2;
-p.pixelsize = 106; %nm
+p.pixelsize = 80; %nm
 p.sig1=sqrt(2)/2/pi*p.lambda/p.NA/p.pixelsize; %[Zhang 2007]
 p.sig2=p.sig1;
 
@@ -54,7 +65,7 @@ for mm=1:length(int1_multi)
     [vard(:,mm), I3d(:,:,:,mm)]=computeSeparationVariance(x,l1,l2,[p.sig1,p.sig2],int_vec_static, pixelizeversion, bg_static);    
     if length(int1_multi{mm})==1
         % Integrating out 
-        [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,l1,l2,[p.sig1,p.sig2],int_vec, pixelizeversion, p.offset);
+        [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,xhires,l1,l2,[p.sig1,p.sig2],int_vec, pixelizeversion, p.offset);
     end
 end
 
