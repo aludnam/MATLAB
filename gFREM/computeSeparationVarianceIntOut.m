@@ -1,5 +1,5 @@
-function [vardintout, Iintout]=computeSeparationVarianceIntOut(x,xhires,l1,l2,sig,int_vec, pixelizeversion, offset)
-% [vardintout, Iintout]=computeSeparationVarianceIntOut(x,l1,l2,sig,int_vec, pixelizeversion)
+function [vardintout, Iintout]=computeSeparationVarianceIntOut(x,xhires,l1,l2,sig,int_vec,offset)
+% [vardintout,Iintout]=computeSeparationVarianceIntOut(x,xhires,l1,l2,sig,int_vec,offset)
 % Computes variance (as a inverse of the Fisher Information) of two points
 % separated by a distance d=c1-c2. Integrating out the intensity. 
 

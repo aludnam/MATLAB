@@ -63,8 +63,8 @@ for mm=1:length(int1_multi)
     bg_static = p.offset*4; % This is for fair comparison. It is like recording with half integration time. Backgroudn lever is then lower. 
     [vard(:,mm), I3d(:,:,:,mm)]=computeSeparationVariance(x,xhires,l1,l2,[p.sig1,p.sig2],int_vec_static, pixelizeversion, bg_static);    
     if length(int1_multi{mm})==1
-        % Integrating out 
-        [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,xhires,l1,l2,[p.sig1,p.sig2],int_vec, pixelizeversion, p.offset);
+        % Integrating over states 
+        [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,xhires,l1,l2,[p.sig1,p.sig2],int_vec, p.offset);
     end
 end
 
