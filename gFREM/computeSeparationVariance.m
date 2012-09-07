@@ -1,4 +1,4 @@
-function [vard, I3d]=computeSeparationVariance(x,l1,l2,sig,int_vec, pixelizeversion, offset)
+function [vard, I3d]=computeSeparationVariance(x,xhires,l1,l2,sig,int_vec, pixelizeversion, offset)
 % [vard, I3d]=computeSeparationVariance(x,l1,l2,sig,int_vec, pixelizeversion, offset)
 % Computes variance (as a inverse of the Fisher Information) of two points
 % separated by a distance d=l1-l2.
@@ -6,6 +6,7 @@ function [vard, I3d]=computeSeparationVariance(x,l1,l2,sig,int_vec, pixelizevers
 if ~exist('offset','var')
     offset = 0; % background 
 end
+oversampleFactor=round((x(1,2,1)-x(1,1,1))/(xhires(1,2,1)-xhires(1,1,1)));
 
 int1_vec=int_vec(1,:);
 int2_vec=int_vec(2,:);
@@ -17,19 +18,19 @@ vard = zeros(1, ll);
 I3d = zeros(2,2, ll);
 
 if ndims(x) == 2 %1D vector
-    f1=makeGauss(x,l1,sig(1));                  % creates PSF (gauss approx -> !!! Different to simulationtools/makegauss.m !!!)
+    f1=makeGauss(xhires,l1,sig(1));                  % creates PSF (gauss approx -> !!! Different to simulationtools/makegauss.m !!!)
 else 
-    f1_2D=makeGauss2D(x,l1,sig(1));
-    f1 = reshape(f1_2D,1,numel(f1_2D));         % making 1D vector by concatenating 2D array
+    f1_2D=makeGauss2D(xhires,l1,sig(1));
+    f1 = normcSum(reshape(f1_2D,1,numel(f1_2D)));         % making 1D vector by concatenating 2D array
 end
 
 for ind_dist=1:ll                               % distance
     I=zeros(2);    
     if ndims(x)==2 %1D vector
-        f2=makeGauss(x,l2(ind_dist),sig(2));    % creates PSF (gauss approx) shifted to l2
+        f2=makeGauss(xhires,l2(ind_dist),sig(2));    % creates PSF (gauss approx) shifted to l2
     else
-        f2_2D=makeGauss2D(x,l2(ind_dist),sig(2));
-        f2 = reshape(f2_2D,1,numel(f2_2D));     % making 1D vector by concatenating 2D array
+        f2_2D=makeGauss2D(xhires,l2(ind_dist),sig(2));
+        f2 = normcSum(reshape(f2_2D,1,numel(f2_2D)));     % making 1D vector by concatenating 2D array
     end
     for ind_int1=1:lint1                        % intensity of the source 1
         int1=int1_vec(ind_int1);
@@ -38,7 +39,7 @@ for ind_dist=1:ll                               % distance
             % This is accumulating the Fisher Information matrix for
             % different intensities:
             if ~and(int1==0,int2==0)
-                I=I+fisherInformationMatrix(x,f1,f2, int1, int2,pixelizeversion, offset);            
+                I=I+fisherInformationMatrix(xhires,f1,f2, int1, int2,pixelizeversion, offset,oversampleFactor);            
             end
         end
     end

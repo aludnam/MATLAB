@@ -2,9 +2,9 @@
 % into (uniformly distributed over these states).
 dimensionality =2; % Number of dimensions (1 or 2) of the PSF.
 savethis =0;
-p.offset = 100     ;
+p.offset = 100;
 
-int1_multi{1}=[2000];       % intensity of the source one
+int1_multi{1}=[1000];       % intensity of the source one
 % int1_multi{2}=[2000];      % this allows comparison of sources with different intensity
 % int1_multi{3}=[6000];
 % int1_multi{4}=[6000];
@@ -15,19 +15,18 @@ int2_multi = int1_multi;    % intensity of the source two
 l1=0;
 % l2=0:.2:10;
 % l2=0:.05:1;
-l2 = .4;
-
+l2 = .5;
 % coordinates of the images (pixelised version needs to do some binnign)
 
-oversampleFactor=5; % oversampling in order to compute PSF and derivatives
+oversampleFactor=10; % oversampling in order to compute PSF and derivatives
 stepCoord = 1/oversampleFactor;
 % x1=-7:stepCoord:16;
-xmin=-5; 
-xmax=6;
-ymin=-4;
-ymax=4;
-x1=xmin:stepCoord:xmax;
-y1=ymin:stepCoord:ymax;
+xmin=-10; 
+xmax=15;
+ymin=-6;
+ymax=6;
+x1=xmin:xmax;
+y1=ymin:ymax;
 x1hires=xmin:stepCoord:xmax;
 y1hires=ymin:stepCoord:ymax;
 
@@ -52,7 +51,7 @@ p.pixelsize = 80; %nm
 p.sig1=sqrt(2)/2/pi*p.lambda/p.NA/p.pixelsize; %[Zhang 2007]
 p.sig2=p.sig1;
 
-pixelizeversion = 0;
+pixelizeversion = 1;
 vard=zeros(length(l2), length(int1_multi));
 
 for mm=1:length(int1_multi)      
@@ -60,9 +59,9 @@ for mm=1:length(int1_multi)
     % Not integrating out. Cheating...
     % In this case only static situation (int_vec has only one column)
     
-    int_vec_static = int_vec/2; % Intensity must be adjusted by 0.5 to reflect the double number of photons compared to the blinking situation. This must be done before adding background. Correcting the final vard by a factor of 2 would not compare the background situation correctly...
-    bg_static = p.offset/2; % This is for fair comparison. It is like recording with half integration time. Backgroudn lever is then lower. 
-    [vard(:,mm), I3d(:,:,:,mm)]=computeSeparationVariance(x,l1,l2,[p.sig1,p.sig2],int_vec_static, pixelizeversion, bg_static);    
+    int_vec_static = 2*int_vec; % Intensity must be adjusted by 0.5 to reflect the double number of photons compared to the blinking situation. This must be done before adding background. Correcting the final vard by a factor of 2 would not compare the background situation correctly...
+    bg_static = p.offset*4; % This is for fair comparison. It is like recording with half integration time. Backgroudn lever is then lower. 
+    [vard(:,mm), I3d(:,:,:,mm)]=computeSeparationVariance(x,xhires,l1,l2,[p.sig1,p.sig2],int_vec_static, pixelizeversion, bg_static);    
     if length(int1_multi{mm})==1
         % Integrating out 
         [vardintout(:,mm), Iintout(:,:,:,mm)]=computeSeparationVarianceIntOut(x,xhires,l1,l2,[p.sig1,p.sig2],int_vec, pixelizeversion, p.offset);
