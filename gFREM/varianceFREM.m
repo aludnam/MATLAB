@@ -2,7 +2,7 @@
 % into (uniformly distributed over these states).
 dimensionality =2; % Number of dimensions (1 or 2) of the PSF.
 savethis =0;
-p.offset = 100     ;
+p.offset = 10;
 
 int1_multi{1}=[2000];       % intensity of the source one
 % int1_multi{2}=[2000];      % this allows comparison of sources with different intensity
@@ -15,15 +15,15 @@ int2_multi = int1_multi;    % intensity of the source two
 l1=0;
 % l2=0:.2:10;
 % l2=0:.05:1;
-l2 = 2;
+l2 = 1;
 
 % coordinates of the images (pixelised version needs to do some binnign)
 
-oversampleFactor=5; % oversampling in order to compute PSF and derivatives
+oversampleFactor=10; % oversampling in order to compute PSF and derivatives
 stepCoord = 1/oversampleFactor;
 % x1=-7:stepCoord:16;
-xmin=-7; 
-xmax=8;
+xmin=-10; 
+xmax=15;
 ymin=-6;
 ymax=6;
 x1=xmin:xmax;
