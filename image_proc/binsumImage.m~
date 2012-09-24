@@ -1,0 +1,33 @@
+function out = binsumImage(in, bin)
+% Rebins image by summing bin(1)xbin(2) pixels together along x and y
+% dimension, respectively. Starts at upper left corner. Rebinned image will
+% have floor(size(in)./bin) pixels.
+%
+% out = binsum(in, bin)
+di=0;
+if strcmp(class(in),'dip_image')
+    di=1;
+    in=double(in);
+end
+tmp = in;
+
+npix=ceil(size(in)./bin);
+
+for xi=1:npix(1)
+    startx=xi
+    for yi=1:npix(2)
+        
+    end
+end
+
+for ii=1:numim2bin-1    
+    tmp = tmp + circshift(in,[0 0 -1*ii]);
+end
+
+nb = floor(size(in,3)/numim2bin);
+ix=numim2bin*(1:nb)-(numim2bin-1);
+out = tmp(:,:,ix);
+
+if di
+    out=dip_image(out); 
+end

@@ -84,7 +84,7 @@ elseif strcmp (p.method, 'airy') %airy pattern
     p.alpha = 2*pi * p.na/p.lambda;
     z=sqrt((X-centervec(1)).^2+(Y-centervec(2)).^2)*p.pixelsize;
     out = (real(besselj(1,p.alpha*z))./(p.alpha*z+eps)).^2;
-    out(centervec(1),centervec(2))=0.25; %limit for x-> 0....
+    out(centervec(2),centervec(1))=0.25; %limit for x-> 0....
     out=p.nphot*out/sum(out(:)); %normalization
 end
 

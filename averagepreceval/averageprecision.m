@@ -18,7 +18,7 @@ function [AP,TP,FN,FP,prec,rec,mdAll,levh]=averageprecision(coord_est,coord_true
 
 % levn = 100; % number of confidence levels for AP (see S407_report.pdf)
 
-levh=sort(unique(sqrt(intens)));
+levh=sort(unique(sqrt(double(intens))));
 levn=length(levh); % number of different intensities
 
 nT=size(coord_true,1);
