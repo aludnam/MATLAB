@@ -1,7 +1,7 @@
 function a=makeBars(numbers,sx,sy,scale,showim,maxnumber)
 % makeBars creates images (sx X sy) of horizontal bars filled by ammount corresponding to numbers.
 %
-% a=makeBars(numbers,sx,sy,scale,showim)
+% a=makeBars(numbers,sx,sy,scale,showim,maxnumber)
 % numbers - numbers to be represented
 % sx,sy, dimensions of hte bar
 % scale - if set to 1 (default) scales numbers between 0 and 1 (unless there is maxnumber), else

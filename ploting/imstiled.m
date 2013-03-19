@@ -1,4 +1,4 @@
-function imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore,colorframevec)
+function imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore,colorframevec,clim)
 % imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore,colorframevec))
 % Tiles array of images
 % handlefig: figure handle, if 0 then handlefig = gcf, if empyt ([]) then
@@ -9,6 +9,7 @@ function imstiled (imagein,handlefig,cmap,titleshow,sizevec,steponemore,colorfra
 % steponemore : (0 default) steps into next window after plotting the last image. 
 % colorframevec: a vector indicating which tiles shoudl be framed in
 % colored frame: 0-no color, 1-red color, 2-green color, 3-blue color.
+% clim: [low high] is the intensity limits of the image. clim=[] fulls the colormap (default)
 % (default is no colored frames)
 % 
 % Example:  im=rand(50,50,6);
@@ -24,6 +25,10 @@ end
 
 if ~exist('colorframevec','var');
     colorframevec=zeros(size(imagein,3));
+end
+
+if ~exist('clim','var')
+    clim = []; % image will be scaled to full colormap;
 end
 
 if nargin<2 handlefig=0; end
@@ -72,7 +77,7 @@ end
 
 for ii=1:d3
     subplot(a,b,ii)
-    ims(imagein(:,:,ii),cmap,0,1);
+    ims(imagein(:,:,ii),cmap,0,1,clim);
     if titleshow
 %         title(num2str(titlename{ii}));
 %         xlabel(num2str(titlename{ii}),'fontsize',5);

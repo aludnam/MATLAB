@@ -36,7 +36,7 @@ p.sizevec = [25 25];
 p.verbose = 1;
 p.nphot = 1;
 
-
+osf = 10; %oversampling factor for approximationg the integral of hte funciton over a pixel
 
 % reading parameters
 if (rem(length(varargin),2)==1)
@@ -70,6 +70,12 @@ else
     end;
 end
 
+p.sizevecorig=p.sizevec; 
+p.sizevec=osf*p.sizevec;
+p.pixelsizeorig=p.pixelsize;
+p.pixelsize=p.pixelsize/osf; 
+
+
 centervec = ceil(p.sizevec/2);
 [X,Y] = meshgrid(1:p.sizevec(1), 1:p.sizevec(2));
 out = zeros(p.sizevec);
@@ -87,6 +93,8 @@ elseif strcmp (p.method, 'airy') %airy pattern
     out(centervec(2),centervec(1))=0.25; %limit for x-> 0....
     out=p.nphot*out/sum(out(:)); %normalization
 end
+
+out=binsumImage(out,[osf,osf]); % this is approximationg hte integration of the continuous psf over pixel area. Correctly should be err functions...
 
 if p.verbose %printout the parameters
     fprintf('Parameters:\n')

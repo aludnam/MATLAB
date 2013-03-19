@@ -15,7 +15,9 @@ function [out, p]= psfgen(varargin)
 % verbose - print out the parameters
 %
 % output parameters: 
-% p.sigma 
+% p.sigma, p.sigmapix - standard deviation (in nm or pixels, respectively) of the gaussian approximation [Zhang et
+% al., 2007]
+% p.alpha - parameter of the Airy disk
 % default values:
 % lambda = 520; %nm
 % na = 1.2;
@@ -34,7 +36,7 @@ p.sizevec = [25 25];
 p.verbose = 1;
 p.nphot = 1;
 
-
+osf = 10; %oversampling factor for approximationg the integral of hte funciton over a pixel
 
 % reading parameters
 if (rem(length(varargin),2)==1)
@@ -68,6 +70,12 @@ else
     end;
 end
 
+p.sizevecorig=p.sizevec; 
+p.sizevec=osf*p.sizevec;
+p.pixelsizeorig=p.pixelsize;
+p.pixelsize=p.pixelsize/osf; 
+
+
 centervec = ceil(p.sizevec/2);
 [X,Y] = meshgrid(1:p.sizevec(1), 1:p.sizevec(2));
 out = zeros(p.sizevec);
@@ -82,9 +90,11 @@ elseif strcmp (p.method, 'airy') %airy pattern
     p.alpha = 2*pi * p.na/p.lambda;
     z=sqrt((X-centervec(1)).^2+(Y-centervec(2)).^2)*p.pixelsize;
     out = (real(besselj(1,p.alpha*z))./(p.alpha*z+eps)).^2;
-    out(centervec(1),centervec(2))=0.25; %limit for x-> 0....
+    out(centervec(2),centervec(1))=0.25; %limit for x-> 0....
     out=p.nphot*out/sum(out(:)); %normalization
 end
+
+out=binsumImage(out,[osf,osf]); % this is approximationg hte integration of the continuous psf over pixel area. Correctly should be err functions...
 
 if p.verbose %printout the parameters
     fprintf('Parameters:\n')
